@@ -26,6 +26,15 @@ def or_(arg, *args):
     If all expressions evaluate to False, returns the value of the last expression.
 
     usage
+    >>> or_(True, True, False)
+    True
+    >>> or_(True, False, False)  
+    True
+    >>> or_(False, False, 0)    
+    0
+    >>> or_(False, 0, False)       
+    False
+
     >>> or_(0,1,2,3,4,5)
     1
     >>> or_( "a"=="a", 5%2 )  
@@ -58,7 +67,13 @@ def and_(arg, *args):
     If an expression evaluates to False, returns the value of the Falsey expression.
     
     usage
-
+    >>> and_(True, True, False)  
+    False
+    >>> and_(True, True, 2)     
+    2
+    >>> and_(True, False, 2) 
+    False
+    
     >>> and_(0,1,2,3,4,5)
     0
 
