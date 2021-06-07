@@ -35,7 +35,7 @@ def is_prime(num: int) -> bool:
 
 
 def is_divisible(divident: Union[int, float], divisor: Union[int, float]) -> bool:
-    return dividend % divisor == 0
+    return divident % divisor == 0
 
 
 def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]], bool]:
