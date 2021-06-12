@@ -14,7 +14,7 @@ pytest-cov = "^2.12.1"
 Sphinx = "^4.0.2"
 black = "*"
 blacken-docs = "^*"
-
+pretty-timeit = "^0.1.0"
 
 
 [build-system]

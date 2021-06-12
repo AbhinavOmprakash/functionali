@@ -1,7 +1,8 @@
 """A file containing useful predicates."""
 
 from typing import List, Iterable, Callable, Any, Sequence, Union
-from seq_transform import argzip
+from function_transform import partial, flip
+
 
 def not_(
     expr: Union[bool, Callable[[Any], bool]]
@@ -65,17 +66,28 @@ def is_numeric(entity: Any) -> bool:
     return any(map(isinstance, [entity, entity, entity], [int, float, complex]))
 
 
-def contains(collection: Sequence, entity: Any) -> bool:
+def is_atom(entity: Any) -> bool:
+    """Uses Lisp's notion of an atom. Strings are considered atoms, not iterables."""
+    if isinstance(entity, str):
+        return True
+    else:
+        return not isinstance(entity, Iterable)
+
+
+def contains(collection: Iterable, entity: Any) -> bool:
     """Checks whether collection contains the given entity."""
     return entity in collection
 
 
-def is_empty(collection: Sequence) -> bool:
+def is_empty(collection: Iterable) -> bool:
     """Returns true if the collection is empty."""
     return not bool(collection)
 
-def is_nested(collection: Sequence) -> bool:
-    return any( map( isinstance, argzip(collection, list)))
+
+def is_nested(collection: Iterable) -> bool:
+    """return true if a collection is nested"""
+    return all(map(not_(is_atom), collection))
+
 
 def all_predicates(
     predicates: Iterable[Callable[[Any], bool]]

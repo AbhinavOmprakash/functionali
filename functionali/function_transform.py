@@ -29,6 +29,7 @@ def partial(fn: Callable, *args, **kwargs) -> Callable:
 
     return partial_fn
 
+
 def flip(fn: Callable, *args, **kwargs) -> Any:
     """flips the order of *args"""
     return fn(*reversed(args), **kwargs)
