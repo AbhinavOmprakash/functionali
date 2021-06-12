@@ -1,2 +1,2 @@
-# py-func
+# Functionali
 functional programming tools for python
