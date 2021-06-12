@@ -31,7 +31,6 @@ def test_not_():
         return bool(el)
 
     negated_fn = not_(fn)
-
     assert negated_fn(True) != fn(True)
     assert negated_fn(False) == fn(True)
 
@@ -53,5 +52,5 @@ def test_is_numeric():
     assert is_numeric("String") == False
 
 
-def test_all_predicates():
+def all_predicates():
     pass
