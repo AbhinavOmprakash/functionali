@@ -1,7 +1,7 @@
 """Functions that transform sequences"""
 from typing import Callable, Iterable, Generator, Any, Tuple
 from functools import reduce
-from predicates import is_atom, is_nested
+from .predicates import is_atom, is_nested
 
 
 def conj(iterable: Iterable, *args: Any) -> Iterable:
