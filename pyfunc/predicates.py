@@ -1,7 +1,7 @@
 """A file containing useful predicates."""
 
 from typing import List, Iterable, Callable, Any, Sequence, Union
-
+from seq_transform import argzip
 
 def not_(
     expr: Union[bool, Callable[[Any], bool]]
@@ -74,6 +74,8 @@ def is_empty(collection: Sequence) -> bool:
     """Returns true if the collection is empty."""
     return not bool(collection)
 
+def is_nested(collection: Sequence) -> bool:
+    return any( map( isinstance, argzip(collection, list)))
 
 def all_predicates(
     predicates: Iterable[Callable[[Any], bool]]
