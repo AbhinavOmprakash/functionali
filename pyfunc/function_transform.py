@@ -1,6 +1,6 @@
 """higher order functions that consume other functions and return a modified function."""
 
-from typing import Callable
+from typing import Callable, Any
 from inspect import signature
 
 
@@ -28,3 +28,7 @@ def partial(fn: Callable, *args, **kwargs) -> Callable:
         return fn(*args, *rem_args, **kwargs, **rem_kwargs)
 
     return partial_fn
+
+def flip(fn: Callable, *args, **kwargs) -> Any:
+    """flips the order of *args"""
+    return fn(*reversed(args), **kwargs)
