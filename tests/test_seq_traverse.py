@@ -22,7 +22,7 @@ def test_first():
 def test_ffirst():
     assert 1 == ffirst([[1], [2], [3]])
     assert 1 == ffirst(((1,), (2,), (3,)))
-    assert 1 == ffirst({(1, 2), (3, 4), (4, 5)})
+    assert 1 == ffirst({(1, 2), (3, 4), (5, 6)})
     assert None == ffirst([])
 
 
