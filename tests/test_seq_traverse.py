@@ -84,7 +84,7 @@ def test_fifth():
     assert (5, "e") == fifth({1: "a", 2: "b", 3: "c", 4:"d", 5:"e"})
     assert None == fifth([])
     # check that the last item is returned
-    # when iterable is shorter than Four
+    # when iterable is shorter than five
     assert 2 == fifth([1, 2])
     assert 3 == fifth([1, 2,3])
     assert 4 == fifth([1, 2,3,4])
