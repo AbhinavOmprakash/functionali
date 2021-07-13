@@ -1,39 +1,102 @@
 """Functions that transform sequences"""
-from typing import Callable, Iterable, Generator, Any, Tuple
 from functools import reduce
 from .predicates import is_atom, is_nested
+from collections import deque
 
+from typing import (
+    Callable,
+    Iterable,
+    Generator,
+    Any,
+    Tuple,
+    Union,
+    Dict,
+    Tuple,
+)
+
+
+def cons(arg: Any, iterable: Iterable) -> deque:
+    """ Returns a deque with arg as the first element."""
+
+    if isinstance(iterable, dict):
+        dq = deque(iterable.items())
+    else:
+        dq = deque(iterable)
+
+    dq.appendleft(arg)
+
+    return dq
 
 def conj(iterable: Iterable, *args: Any) -> Iterable:
-    """>>> conj([1,2,3,4],5)
+    """Short for conjoin, adds element to the iterable, at the appropriate end.
+    Adds to the left of a deque.
+
+    >>> conj([1,2,3,4],5)
     [1, 2, 3, 4, 5]
+    
+    >>> conj(deque([1,2]), 3,4)
+    deque([4, 3, 1, 2])
+
     >>> conj([1,2,3,4],5,6,7,8)
-
     [1, 2, 3, 4, 5, 6, 7, 8]
-    >>> conj([1,2,3,4],[5,6,7,])
 
+    >>> conj([1,2,3,4],[5,6,7])
     [1, 2, 3, 4, [5, 6, 7]]
+
     >>> conj((1,2,3,4),5,6,7)
     (1, 2, 3, 4, 5, 6, 7)
-    >>> conj((i for i in range(10)),11)
-    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11)
-    >>> conj({1:"a", 2:"b"}, {3:"c"})
 
+    >>> conj(range(10), 11)
+    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11)
+
+    >>> conj({1:"a", 2:"b"}, {3:"c"})
+    {1: 'a', 2: 'b', 3: 'c'}
 
     """
     if isinstance(iterable, list):
-        return iterable + list(args)
+        return iterable + list(args)  # since args is a tuple
+
     elif isinstance(iterable, tuple):
         return iterable + args
-    # elif isinstance(iterable, dict):
-    #     return {**iterable, **(*args)}
+
+    elif isinstance(iterable, dict):
+        # Make a copy of iterable, instead of mutating it.
+        conjed_dict = {**iterable}
+
+        for d in args:
+            conjed_dict.update(d)
+
+        return conjed_dict
+
+    elif isinstance(iterable, set):
+        return {*iterable, *args}
+
+    elif isinstance(iterable, deque):
+        dq = deque(iterable)
+        for element in args:
+            dq.appendleft(element)
+        return dq
+    
     else:
         return tuple(iterable) + args
 
 
-def argmap(functions: Iterable[Callable], *args: Any) -> Generator:
-    """Maps an argument(s) to multiple functions."""
-    pass
+def concat(iterable, *args):
+    """ Add items to the end of the iterable."""
+    
+    if isinstance(iterable, deque):
+        dq = deque(iterable)
+
+        for element in args:
+            dq.append(element)
+
+        return dq
+
+    else:
+        # Since conj Behavior for data Structures other than
+        # deque are similar to concat behaviour.
+        # call conj
+        return conj(iterable, *args)
 
 
 def argzip(sequence: Iterable[Callable], *args: Any) -> Generator:
@@ -90,7 +153,7 @@ def interleave(*seqs: Iterable) -> Tuple:
 
 
 def flatten(sequence: Iterable) -> Tuple:
-    """Similar to clojure's flatten. Returns the contents of a nested sequence as a flat sequence.
+    """Returns the contents of a nested sequence as a flat sequence.
     Flatten is recursive.
     >>> flatten([1,2,[3,[4],5],6,7])
     (1, 2, 3, 4, 5, 6, 7)"""
@@ -106,8 +169,3 @@ def flatten(sequence: Iterable) -> Tuple:
             return conj(initial_val, *elem)
 
     return reduce(inner_fn, sequence, ())
-
-
-if __name__ == "__main__":
-    a = tuple(zip([1, 2, 3], ["a", "b", "c"]))
-    print(flatten(a))
