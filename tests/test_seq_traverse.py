@@ -29,7 +29,7 @@ def test_ffirst():
 def test_last():
     assert 3 == last([1, 2, 3])
     assert 3 == last((1, 2, 3))
-    assert 3 == last(set([1, 2, 3]))
+    assert 3 == last({1, 2, 3})
     assert (3, "c") == last({1: "a", 2: "b", 3: "c"})
     assert None == last([])
 
@@ -46,7 +46,7 @@ def test_rest():
 def test_second():
     assert 2 == second([1, 2, 3])
     assert 2 == second((1, 2, 3))
-    assert 2 == second(set([1, 2, 3]))
+    assert 2 == second({1, 2, 3})
     assert (2, "b") == second({1: "a", 2: "b"})
     assert None == second([])
     # check that the last item is returned
@@ -57,7 +57,7 @@ def test_second():
 def test_third():
     assert 3 == third([1, 2, 3])
     assert 3 == third((1, 2, 3))
-    assert 3 == third(set([1, 2, 3]))
+    assert 3 == third({1, 2, 3})
     assert (3, "c") == third({1: "a", 2: "b", 3: "c"})
     assert None == third([])
     # check that the last item is returned
