@@ -1,37 +1,30 @@
 """ Functions to traverse the sequence"""
 from collections import deque
-from typing import (
-    Iterable, 
-    Any,
-    TypeVar, 
-    Iterator,
-    Tuple, 
-    Mapping,
-    Union
-)
+from typing import Iterable, Any, TypeVar, Iterator, Tuple, Mapping, Union
 
 T = TypeVar("T")
 K = TypeVar("K")
 V = TypeVar("V")
 
-def _get_iterator(iterable:Iterable) -> Iterator:
-    """Returns appropriate iterator for the given iterable. 
+
+def _get_iterator(iterable: Iterable) -> Iterator:
+    """Returns appropriate iterator for the given iterable.
     If iterable is already an iterator, it is returned as is.
     """
 
-    if isinstance(iterable, dict): 
+    if isinstance(iterable, dict):
         # since iter(dict) returns a tuple of keys.
         # I want a tuple of key-value pairs
         return iter(iterable.items())
 
     elif not isinstance(iterable, Iterator):
         return iter(iterable)
-    
-    else: # if iterable is already an iterator
+
+    else:  # if iterable is already an iterator
         return iterable
 
 
-def first(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
+def first(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     Returns the first item in an iterable.
     If iterable is a dict, returns a tuple of the First key-value pair
@@ -43,16 +36,18 @@ def first(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
     if iterable:
         return next(_get_iterator(iterable))
 
-    else: # If iterable is empty
+    else:  # If iterable is empty
         return None
 
-def ffirst(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
+
+def ffirst(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """same as first(first(iterable))
     expects a nested iterable."""
 
     return first(first(iterable))
 
-def last(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
+
+def last(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     >>> last([1,2,3,4])
     4
@@ -65,7 +60,7 @@ def last(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
 
         return dq.pop()
 
-    except IndexError: # If iterable is empty, dq is empty
+    except IndexError:  # If iterable is empty, dq is empty
         return None
 
 
@@ -79,20 +74,20 @@ def rest(iterable: Iterable) -> Iterator:
 
     >>> tuple(rest({1:"a", 2:"b", 3:"c"}))
     ((2,"b"), (3, "c"))
-    
+
     >>> tuple(rest([]))
     ()
     """
     try:
         it = _get_iterator(iterable)
         next(it)  # discard value
-        return it  
+        return it
 
-    except StopIteration: # If iterable is empty
+    except StopIteration:  # If iterable is empty
         return iter([])
-    
 
-def second(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
+
+def second(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     >>> second([1,2,3,4,5])
     2
@@ -103,7 +98,7 @@ def second(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
         return first(rest(iterable))
 
 
-def third(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
+def third(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     >>> third([1,2,3,4,5])
     3
@@ -114,7 +109,7 @@ def third(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
         return first(rest(rest(iterable)))
 
 
-def fourth(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
+def fourth(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     >>> fourth([1,2,3,4,5])
     4
@@ -125,7 +120,7 @@ def fourth(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
         return first(rest(rest(rest(iterable))))
 
 
-def fifth(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
+def fifth(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     >>> fifth([1,2,3,4,5])
     5
@@ -136,12 +131,14 @@ def fifth(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[T, Tuple[K,V]]:
         return first(rest(rest(rest(rest(iterable)))))
 
 
-def butlast(iterable: Union[Iterable[T], Mapping[K,V]]) -> Union[Tuple[T], Tuple[K,V]]:
+def butlast(
+    iterable: Union[Iterable[T], Mapping[K, V]]
+) -> Union[Tuple[T], Tuple[K, V]]:
     """returns an iterable of all but the last element
     in the iterable
-    
+
     """
-    # TODO Check efficiency of the operation 
+    # TODO Check efficiency of the operation
     # since it's iterating through it twice.
     t = tuple(_get_iterator(iterable))[:-1]
     if t:
