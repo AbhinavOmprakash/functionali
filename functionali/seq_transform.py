@@ -177,13 +177,13 @@ def flatten(sequence: Iterable) -> Tuple:
 def take_while(predicate:Callable, iterable:Iterable) -> Tuple:
     """
     >>> take_while(is_even, [2,4,6,7,8,9,10])
-    [2,4,6]
+    (2,4,6)
 
     >>> def is_even_dict(d):
             #checks if the key of dict d is even
             return d[0]%2==0
     >>> take_while(is_even_dict, {2:"a", 4:"b",5:"c"})
-        [(2, "a"), (4, "b")]
+        ((2, "a"), (4, "b"))
     """
 
     if isinstance(iterable, dict):
