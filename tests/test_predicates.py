@@ -79,5 +79,22 @@ def test_is_numeric():
     assert is_numeric(complex("1+2j")) == True
     assert is_numeric("String") == False
 
+
+def test_is_atom():
+    assert is_atom("plain string")==True
+    assert is_atom(1)==True
+    assert is_atom(1.2)==True
+    
+    assert is_atom([1,2])==False
+    assert is_atom({1:"a"})==False
+
+
+def test_contains():
+    assert contains(1, [1,2])==True
+    assert contains(100, [1,2])==False
+    assert contains(1,{1:"a"})== True
+    assert contains(2,{1:"a"})== False
+
 def all_predicates():
     pass
+
