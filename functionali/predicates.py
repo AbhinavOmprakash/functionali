@@ -90,7 +90,7 @@ def is_atom(entity: Any) -> bool:
     else:
         return not isinstance(entity, Iterable)
 
-def contains(collection: Iterable, entity: Any) -> bool:
+def contains(entity: Any, collection: Iterable) -> bool:
     """Checks whether collection contains the given entity."""
     return entity in collection
 
