@@ -108,9 +108,19 @@ def test_is_nested():
 
 def test_all_predicates():
     is_even_and_prime = all_predicates(is_even, is_prime)
-
+    
+    assert is_even_and_prime(1) == False
     assert is_even_and_prime(2) == True
     assert is_even_and_prime(4) == False
-    assert is_even_and_prime(1) == False
+    
     
 
+def test_some_predicates():
+    is_even_or_prime = some_predicates(is_even, is_prime)
+    
+    assert is_even_or_prime(1) == False
+    assert is_even_or_prime(2) == True
+    assert is_even_or_prime(3) == True
+    assert is_even_or_prime(4) == True
+    
+    
