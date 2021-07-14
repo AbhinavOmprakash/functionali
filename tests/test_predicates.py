@@ -106,6 +106,11 @@ def test_is_nested():
     assert is_nested([[]])==True
     assert is_nested([(),()])==True
 
-def all_predicates():
-    pass
+def test_all_predicates():
+    is_even_and_prime = all_predicates(is_even, is_prime)
+
+    assert is_even_and_prime(2) == True
+    assert is_even_and_prime(4) == False
+    assert is_even_and_prime(1) == False
+    
 
