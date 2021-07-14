@@ -100,9 +100,9 @@ def concat(iterable, *args):
     """ Add items to the end of the iterable.
     
     >>> concat([1,2,3,4],5)
-        [1, 2, 3, 4, 5]
+    [1, 2, 3, 4, 5]
     >>> concat(deque([1,2]), 3,4)
-        deque([1, 2, 3, 4])
+    deque([1, 2, 3, 4])
     
     """
     
