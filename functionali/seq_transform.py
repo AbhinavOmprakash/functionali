@@ -1,6 +1,6 @@
 """Functions that transform sequences"""
 from functools import reduce
-from .predicates import is_atom, is_nested
+from .predicates import is_atom, is_nested, not_
 from collections import deque
 
 from typing import (
@@ -12,6 +12,7 @@ from typing import (
     Union,
     Dict,
     Tuple,
+    List,
 )
 
 
@@ -54,6 +55,7 @@ def conj(iterable: Iterable, *args: Any) -> Iterable:
 
     """
     if isinstance(iterable, list):
+        
         return iterable + list(args)  # since args is a tuple
 
     elif isinstance(iterable, tuple):
@@ -144,8 +146,9 @@ def unzip(sequence: Iterable) -> Tuple[Any]:
 
 def interleave(*seqs: Iterable) -> Tuple:
     """Similar to clojure's interleave. returns a flat sequence with the contents of iterables interleaved.
-    >>> (interleave([1,2,3],["a","b","c"])
+    >>> interleave([1,2,3],["a","b","c"])
     (1, 'a', 2, 'b', 3, 'c')
+
     >>> interleave([1,2,3],["int","int","int"], ["a","b","c"],["str","str","str" ])
     (1, 'int', 'a', 'str', 2, 'int', 'b', 'str', 3, 'int', 'c', 'str')
     """
@@ -169,3 +172,65 @@ def flatten(sequence: Iterable) -> Tuple:
             return conj(initial_val, *elem)
 
     return reduce(inner_fn, sequence, ())
+
+
+def take_while(predicate:Callable, iterable:Iterable) -> Tuple:
+    """
+    >>> take_while(is_even, [2,4,6,7,8,9,10])
+    [2,4,6]
+
+    >>> def is_even_dict(d):
+            #checks if the key of dict d is even
+            return d[0]%2==0
+    >>> take_while(is_even_dict, {2:"a", 4:"b",5:"c"})
+        [(2, "a"), (4, "b")]
+    """
+
+    if isinstance(iterable, dict):
+        it = iter(iterable.items())
+    else:
+        it = iter(iterable)
+
+    accumulator = []
+    elem = next(it)
+    while predicate(elem):
+        accumulator.append(elem)
+        elem = next(it)
+    
+    return tuple(accumulator)
+
+
+def drop_while(predicate:Callable, iterable:Iterable) -> Tuple:
+    """
+    >>> drop_while(is_even, [2,4,6,7,8,9,10])
+    (7,8,9, 10)
+
+    >>> def is_even_dict(d):
+            #checks if the key of dict d is even
+            return d[0]%2==0
+    >>> drop_while(is_even_dict, {2:"a", 4:"b",5:"c"})
+        ((5, "c"),)
+    """
+
+    if isinstance(iterable, dict):
+        it = iter(iterable.items())
+    else:
+        it = iter(iterable)
+    
+    elem = next(it)
+    while predicate(elem):
+        # discard values
+        elem = next(it) 
+    
+    # Since elem is the first element
+    # that fails the predicate.
+    # and the iterator has already moved ahead.
+    # we need to include elem
+    return (elem,) + tuple(it)
+
+
+def split_with(predicate:Callable, iterable:Iterable) -> Tuple[Tuple]:
+    # consider implementing with reduce
+    # since we are iterating through iterable twice.
+    return (take_while(predicate, iterable), drop_while(predicate, iterable))
+
