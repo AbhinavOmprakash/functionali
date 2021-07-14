@@ -17,7 +17,20 @@ from typing import (
 
 
 def cons(arg: Any, iterable: Iterable) -> deque:
-    """ Returns a deque with arg as the first element."""
+    """ Returns a deque with arg as the first element.
+    
+    Adds to the left of a deque.
+
+    >>> cons(5, [1,2,3,4])
+    deque([5, 1, 2, 3, 4])
+    
+    >>> cons(3, deque([1,2]))
+    deque([3, 1, 2])
+    
+    >>> cons((3, "c"), {1:"a", 2: "b"})
+    deque([(3, "c"), (1, "a"), (2, "b")])
+    
+    """
 
     if isinstance(iterable, dict):
         dq = deque(iterable.items())
@@ -84,7 +97,14 @@ def conj(iterable: Iterable, *args: Any) -> Iterable:
 
 
 def concat(iterable, *args):
-    """ Add items to the end of the iterable."""
+    """ Add items to the end of the iterable.
+    
+    >>> concat([1,2,3,4],5)
+    [1, 2, 3, 4, 5]
+    >>> concat(deque([1,2]), 3,4)
+    deque([1, 2, 3, 4])
+    
+    """
     
     if isinstance(iterable, deque):
         dq = deque(iterable)
