@@ -113,7 +113,7 @@ def all_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
 
 
 def some_predicates(
-    predicates: Iterable[Callable[[Any], bool]]
+    *predicates: Callable[[Any], bool]
 ) -> Callable[[Any], bool]:
     """Takes a set of predicates and returns a function that takes an entity
     and checks if it satisfies some of the predicates.
