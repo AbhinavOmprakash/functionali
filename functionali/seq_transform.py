@@ -17,19 +17,19 @@ from typing import (
 
 
 def cons(arg: Any, iterable: Iterable) -> deque:
-    """ Returns a deque with arg as the first element.
-    
+    """Returns a deque with arg as the first element.
+
     Adds to the left of a deque.
 
     >>> cons(5, [1,2,3,4])
     deque([5, 1, 2, 3, 4])
-    
+
     >>> cons(3, deque([1,2]))
     deque([3, 1, 2])
-    
+
     >>> cons((3, "c"), {1:"a", 2: "b"})
     deque([(3, "c"), (1, "a"), (2, "b")])
-    
+
     """
 
     if isinstance(iterable, dict):
@@ -41,13 +41,14 @@ def cons(arg: Any, iterable: Iterable) -> deque:
 
     return dq
 
+
 def conj(iterable: Iterable, *args: Any) -> Iterable:
     """Short for conjoin, adds element to the iterable, at the appropriate end.
     Adds to the left of a deque.
 
     >>> conj([1,2,3,4],5)
     [1, 2, 3, 4, 5]
-    
+
     >>> conj(deque([1,2]), 3,4)
     deque([4, 3, 1, 2])
 
@@ -68,7 +69,7 @@ def conj(iterable: Iterable, *args: Any) -> Iterable:
 
     """
     if isinstance(iterable, list):
-        
+
         return iterable + list(args)  # since args is a tuple
 
     elif isinstance(iterable, tuple):
@@ -91,21 +92,21 @@ def conj(iterable: Iterable, *args: Any) -> Iterable:
         for element in args:
             dq.appendleft(element)
         return dq
-    
+
     else:
         return tuple(iterable) + args
 
 
 def concat(iterable, *args):
-    """ Add items to the end of the iterable.
-    
+    """Add items to the end of the iterable.
+
     >>> concat([1,2,3,4],5)
     [1, 2, 3, 4, 5]
     >>> concat(deque([1,2]), 3,4)
     deque([1, 2, 3, 4])
-    
+
     """
-    
+
     if isinstance(iterable, deque):
         dq = deque(iterable)
 
@@ -194,7 +195,7 @@ def flatten(sequence: Iterable) -> Tuple:
     return reduce(inner_fn, sequence, ())
 
 
-def take_while(predicate:Callable, iterable:Iterable) -> Tuple:
+def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
     """
     >>> take_while(is_even, [2,4,6,7,8,9,10])
     (2,4,6)
@@ -216,11 +217,11 @@ def take_while(predicate:Callable, iterable:Iterable) -> Tuple:
     while predicate(elem):
         accumulator.append(elem)
         elem = next(it)
-    
+
     return tuple(accumulator)
 
 
-def drop_while(predicate:Callable, iterable:Iterable) -> Tuple:
+def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
     """
     >>> drop_while(is_even, [2,4,6,7,8,9,10])
     (7,8,9, 10)
@@ -236,12 +237,12 @@ def drop_while(predicate:Callable, iterable:Iterable) -> Tuple:
         it = iter(iterable.items())
     else:
         it = iter(iterable)
-    
+
     elem = next(it)
     while predicate(elem):
         # discard values
-        elem = next(it) 
-    
+        elem = next(it)
+
     # Since elem is the first element
     # that fails the predicate.
     # and the iterator has already moved ahead.
@@ -249,15 +250,17 @@ def drop_while(predicate:Callable, iterable:Iterable) -> Tuple:
     return (elem,) + tuple(it)
 
 
-def split_with(predicate:Callable, iterable:Iterable) -> Tuple[Tuple]:
+def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple]:
     # consider implementing with reduce
     # since we are iterating through iterable twice.
     return (take_while(predicate, iterable), drop_while(predicate, iterable))
 
 
-def insert(element:Any, iterable:Iterable, *, key:Callable=lambda x:x)->Iterable:
-    """Inserts `element` right before the first element 
-    in the iterable that is greater than `element` 
+def insert(
+    element: Any, iterable: Iterable, *, key: Callable = lambda x: x
+) -> Iterable:
+    """Inserts `element` right before the first element
+    in the iterable that is greater than `element`
 
     >>> insert(3, [1,2,4,2])
     (1,2,3,4,2)
@@ -265,16 +268,16 @@ def insert(element:Any, iterable:Iterable, *, key:Callable=lambda x:x)->Iterable
     >>> insert((2, "b"), {1:"a", 3:"c"})
     ((1, "a"), (2, "b"), (3, "c"))
 
-    Using the key Parameter 
+    Using the key Parameter
     >>> Person = namedtuple("Person", ("name", "age"))
 
     >>> person1 = Person("John", 18)
     >>> person2 = Person("Abe", 50)
     >>> person3 = Person("Cassy", 25)
-    
+
     >>> insert(person3, (person1, person2), key=lambda p:p.age)
         (person1, person3, person2)
-    
+
     >>> insert(person3, (person1, person2), key=lambda p:p.name)
         (person3, person1, person2)
 
@@ -285,11 +288,10 @@ def insert(element:Any, iterable:Iterable, *, key:Callable=lambda x:x)->Iterable
         it = iter(iterable)
 
     accumulator = []
-    elem=next(it)
+    elem = next(it)
 
     while key(elem) <= key(element):
         accumulator.append(elem)
-        elem=next(it)
+        elem = next(it)
 
     return tuple(accumulator) + (element, elem) + tuple(it)
-

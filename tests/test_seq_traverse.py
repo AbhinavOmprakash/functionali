@@ -8,9 +8,8 @@ from functionali import (
     last,
     butlast,
     rest,
-    take, 
-    drop, 
-
+    take,
+    drop,
 )
 
 
@@ -67,29 +66,30 @@ def test_third():
     # when iterable is shorter than Three
     assert 2 == third([1, 2])
 
+
 def test_fourth():
     assert 4 == fourth([1, 2, 3, 4])
-    assert 4 == fourth((1, 2, 3,4))
-    assert 4 == fourth({1, 2, 3,4})
-    assert (4, "d") == fourth({1: "a", 2: "b", 3: "c", 4:"d"})
+    assert 4 == fourth((1, 2, 3, 4))
+    assert 4 == fourth({1, 2, 3, 4})
+    assert (4, "d") == fourth({1: "a", 2: "b", 3: "c", 4: "d"})
     assert None == fourth([])
     # check that the last item is returned
     # when iterable is shorter than Four
     assert 2 == fourth([1, 2])
-    assert 3 == fourth([1, 2,3])
+    assert 3 == fourth([1, 2, 3])
 
 
 def test_fifth():
     assert 5 == fifth([1, 2, 3, 4, 5])
-    assert 5 == fifth((1, 2, 3,4,5))
-    assert 5 == fifth({1, 2, 3,4,5})
-    assert (5, "e") == fifth({1: "a", 2: "b", 3: "c", 4:"d", 5:"e"})
+    assert 5 == fifth((1, 2, 3, 4, 5))
+    assert 5 == fifth({1, 2, 3, 4, 5})
+    assert (5, "e") == fifth({1: "a", 2: "b", 3: "c", 4: "d", 5: "e"})
     assert None == fifth([])
     # check that the last item is returned
     # when iterable is shorter than five
     assert 2 == fifth([1, 2])
-    assert 3 == fifth([1, 2,3])
-    assert 4 == fifth([1, 2,3,4])
+    assert 3 == fifth([1, 2, 3])
+    assert 4 == fifth([1, 2, 3, 4])
 
 
 def test_butlast():
@@ -101,13 +101,12 @@ def test_butlast():
 
 
 def test_take():
-    assert (1, 2, 3) == take(3, [1,2,3,4,5])
-    assert () ==take(3, [])
+    assert (1, 2, 3) == take(3, [1, 2, 3, 4, 5])
+    assert () == take(3, [])
     assert ((1, "a"), (2, "b")) == take(2, {1: "a", 2: "b", 3: "c"})
 
 
 def test_drop():
-    assert (4,5) == drop(3, [1,2,3,4,5])
-    assert () ==drop(3, [])
+    assert (4, 5) == drop(3, [1, 2, 3, 4, 5])
+    assert () == drop(3, [])
     assert ((3, "c"),) == drop(2, {1: "a", 2: "b", 3: "c"})
-

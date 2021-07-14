@@ -17,6 +17,7 @@ from functionali import (
 
 import pytest
 
+
 def test_not_():
     assert not_(False) == True
     assert not_(True) == False
@@ -57,18 +58,19 @@ def test_is_prime():
 
 
 def test_is_divisible():
-    assert is_divisible(4,2) == True
-    assert is_divisible(4,3) == False
+    assert is_divisible(4, 2) == True
+    assert is_divisible(4, 3) == False
 
     with pytest.raises(ZeroDivisionError):
-        is_divisible(4,0) 
+        is_divisible(4, 0)
+
 
 def test_is_divisible_by():
     is_divisible_by_five = is_divisible_by(5)
-    assert is_divisible_by_five(10)==True
-    assert is_divisible_by_five(7)==False
+    assert is_divisible_by_five(10) == True
+    assert is_divisible_by_five(7) == False
 
-    is_divisible_by_zero=is_divisible_by(0)
+    is_divisible_by_zero = is_divisible_by(0)
     with pytest.raises(ZeroDivisionError):
         is_divisible_by_zero(10)
 
@@ -81,46 +83,44 @@ def test_is_numeric():
 
 
 def test_is_atom():
-    assert is_atom("plain string")==True
-    assert is_atom(1)==True
-    assert is_atom(1.2)==True
-    
-    assert is_atom([1,2])==False
-    assert is_atom({1:"a"})==False
+    assert is_atom("plain string") == True
+    assert is_atom(1) == True
+    assert is_atom(1.2) == True
+
+    assert is_atom([1, 2]) == False
+    assert is_atom({1: "a"}) == False
 
 
 def test_contains():
-    assert contains(1, [1,2])==True
-    assert contains(100, [1,2])==False
-    assert contains(1,{1:"a"})== True
-    assert contains(2,{1:"a"})== False
+    assert contains(1, [1, 2]) == True
+    assert contains(100, [1, 2]) == False
+    assert contains(1, {1: "a"}) == True
+    assert contains(2, {1: "a"}) == False
 
-    
-def test_is_empty():    
-    assert is_empty([]) ==True
-    assert is_empty([1]) ==False
+
+def test_is_empty():
+    assert is_empty([]) == True
+    assert is_empty([1]) == False
 
 
 def test_is_nested():
-    assert is_nested([])==False
-    assert is_nested([[]])==True
-    assert is_nested([(),()])==True
+    assert is_nested([]) == False
+    assert is_nested([[]]) == True
+    assert is_nested([(), ()]) == True
+
 
 def test_all_predicates():
     is_even_and_prime = all_predicates(is_even, is_prime)
-    
+
     assert is_even_and_prime(1) == False
     assert is_even_and_prime(2) == True
     assert is_even_and_prime(4) == False
-    
-    
+
 
 def test_some_predicates():
     is_even_or_prime = some_predicates(is_even, is_prime)
-    
+
     assert is_even_or_prime(1) == False
     assert is_even_or_prime(2) == True
     assert is_even_or_prime(3) == True
     assert is_even_or_prime(4) == True
-    
-    

@@ -148,30 +148,30 @@ def butlast(
         return None
 
 
-def take(n:int, iterable:Iterable)-> Tuple:
-    """ Returns the first n number of elements in iterable.
+def take(n: int, iterable: Iterable) -> Tuple:
+    """Returns the first n number of elements in iterable.
     Returns an empty tuple if iterable is empty
     >>> take(3, [1,2,3,4,5])
     (1, 2, 3)
     >>> take(2, {1: "a", 2: "b", 3: "c"})
     ((1, "a"), (2, "b"))
     """
-    it=_get_iterator(iterable)
+    it = _get_iterator(iterable)
 
-    accumulator=[]
-    i=1
-    while i<=n:
+    accumulator = []
+    i = 1
+    while i <= n:
         try:
             accumulator.append(next(it))
-            i+=1
+            i += 1
         except StopIteration:
             break
 
-    return tuple(accumulator)    
+    return tuple(accumulator)
 
-     
-def drop(n:int, iterable:Iterable)-> Tuple:
-    """ Returns All the Elements after the first 
+
+def drop(n: int, iterable: Iterable) -> Tuple:
+    """Returns All the Elements after the first
     n number of elements in iterable.
     Returns an empty tuple if iterable is empty
 
@@ -180,16 +180,15 @@ def drop(n:int, iterable:Iterable)-> Tuple:
     >>> drop(2, {1: "a", 2: "b", 3: "c"})
     ((3, "c"),)
     """
-    
-    it=_get_iterator(iterable)
-    
-    i=1
-    while i<=n:
+
+    it = _get_iterator(iterable)
+
+    i = 1
+    while i <= n:
         try:
-            next(it) # discard values
-            i+=1
+            next(it)  # discard values
+            i += 1
         except StopIteration:
             break
 
-    return tuple(it)         
-    
+    return tuple(it)

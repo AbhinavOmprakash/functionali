@@ -33,17 +33,17 @@ def is_odd(num: int) -> bool:
 
 def is_prime(num: int) -> bool:
 
-    if is_even(num) and num != 2: 
+    if is_even(num) and num != 2:
         # You don't need to compute the whole Sieve if num is even.
         return False
 
     primes = [True for i in range(num + 1)]
     p = 2
-    primes[0]= False
-    primes[1]= False
+    primes[0] = False
+    primes[1] = False
 
-    while (p * p <= num):
-        if (primes[p] == True):
+    while p * p <= num:
+        if primes[p] == True:
             # Update all multiples of p
             for i in range(p * 2, num + 1, p):
                 primes[i] = False
@@ -90,6 +90,7 @@ def is_atom(entity: Any) -> bool:
     else:
         return not isinstance(entity, Iterable)
 
+
 def contains(entity: Any, collection: Iterable) -> bool:
     """Checks whether collection contains the given entity."""
     return entity in collection
@@ -112,9 +113,7 @@ def all_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
     return lambda entity: all((p(entity) for p in predicates))
 
 
-def some_predicates(
-    *predicates: Callable[[Any], bool]
-) -> Callable[[Any], bool]:
+def some_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
     """Takes a set of predicates and returns a function that takes an entity
     and checks if it satisfies some of the predicates.
     """
