@@ -234,3 +234,42 @@ def split_with(predicate:Callable, iterable:Iterable) -> Tuple[Tuple]:
     # since we are iterating through iterable twice.
     return (take_while(predicate, iterable), drop_while(predicate, iterable))
 
+
+def insert(element:Any, iterable:Iterable, *, key:Callable=lambda x:x)->Iterable:
+    """Inserts `element` right before the first element 
+    in the iterable that is greater than `element` 
+
+    >>> insert(3, [1,2,4,2])
+    (1,2,3,4,2)
+
+    >>> insert((2, "b"), {1:"a", 3:"c"})
+    ((1, "a"), (2, "b"), (3, "c"))
+
+    Using the key Parameter 
+    >>> Person = namedtuple("Person", ("name", "age"))
+
+    >>> person1 = Person("John", 18)
+    >>> person2 = Person("Abe", 50)
+    >>> person3 = Person("Cassy", 25)
+    
+    >>> insert(person3, (person1, person2), key=lambda p:p.age)
+        (person1, person3, person2)
+    
+    >>> insert(person3, (person1, person2), key=lambda p:p.name)
+        (person3, person1, person2)
+
+    """
+    if isinstance(iterable, dict):
+        it = iter(iterable.items())
+    else:
+        it = iter(iterable)
+
+    accumulator = []
+    elem=next(it)
+
+    while key(elem) <= key(element):
+        accumulator.append(elem)
+        elem=next(it)
+
+    return tuple(accumulator) + (element, elem) + tuple(it)
+
