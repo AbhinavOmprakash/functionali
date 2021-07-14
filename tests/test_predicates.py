@@ -15,6 +15,7 @@ from functionali import (
     some_predicates,
 )
 
+import pytest
 
 def test_not_():
     assert not_(False) == True
@@ -61,6 +62,13 @@ def test_is_numeric():
     assert is_numeric(complex("1+2j")) == True
     assert is_numeric("String") == False
 
+
+def test_is_divisible():
+    assert is_divisible(4,2) == True
+    assert is_divisible(4,3) == False
+
+    with pytest.raises(ZeroDivisionError):
+        assert is_divisible(4,0) == False
 
 def all_predicates():
     pass
