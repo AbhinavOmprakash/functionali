@@ -30,6 +30,7 @@ def test_conj():
     assert (1, 2, 3, 4, 5, 6, 7) == conj((1, 2, 3, 4), 5, 6, 7)
     assert (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11) == conj(range(10), 11)
     assert {1: "a", 2: "b", 3: "c"} == conj({1: "a", 2: "b"}, {3: "c"})
+    assert {1, 2, 3} == conj({1, 2}, 3)
     assert deque([3, 1, 2]) == conj(deque([1, 2]), 3)
     assert deque([4, 3, 1, 2]) == conj(deque([1, 2]), 3, 4)
 
