@@ -9,10 +9,11 @@ from functionali import (
     take_while,
     drop_while,
     split_with,
-
+    insert,
 )
 
-from collections import deque
+from collections import deque, namedtuple
+
 
 def test_cons():
     assert deque([3,1,2]) == cons(3, [1,2])
@@ -34,6 +35,7 @@ def test_conj():
 
 
 def test_concat():
+    assert [1, 2, 3, 4, 5] == concat([1,2,3,4],5)
     # The difference between concat And conj is seen 
     # only with a deque, it makes sense only test a deque.
     assert deque([1,2,3]) == concat(deque([1,2]),3)
@@ -94,3 +96,17 @@ def test_split_with():
 
     assert ((2,4,6), (7,8,9, 10)) == split_with(is_even,[2,4,6,7,8,9,10])
     assert ((),(1,2,4,6,7,8,9,10)) == split_with(is_even,[1,2,4,6,7,8,9,10])
+
+
+def test_insert():
+    assert (1,2,3,4) == insert(3, [1,2,4])
+    assert (1,2,3,4,2) == insert(3, [1,2,4,2])
+    assert ((1, "a"), (2, "b"), (3, "c")) == insert((2, "b"), {1:"a", 3:"c"})
+
+    # for the key parameter
+    Person = namedtuple("Person", ("name", "age"))
+    person1 = Person("John", 18)
+    person2 = Person("Abe", 50)
+    person3 = Person("Cassy", 25)
+    assert (person1, person3, person2) == insert(person3, (person1, person2), key=lambda p:p.age)
+    assert (person3, person1, person2) == insert(person3, (person1, person2), key=lambda p:p.name)
