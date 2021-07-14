@@ -99,7 +99,12 @@ def test_contains():
 def test_is_empty():    
     assert is_empty([]) ==True
     assert is_empty([1]) ==False
-    
+
+
+def test_is_nested():
+    assert is_nested([])==False
+    assert is_nested([[]])==True
+    assert is_nested([(),()])==True
 
 def all_predicates():
     pass
