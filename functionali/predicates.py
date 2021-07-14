@@ -32,7 +32,25 @@ def is_odd(num: int) -> bool:
 
 
 def is_prime(num: int) -> bool:
-    pass
+
+    if is_even(num): 
+        # You don't need to compute the whole Sieve if num is even.
+        return False
+
+    primes = [True for i in range(num + 1)]
+    p = 2
+    prime[0]= False
+    prime[1]= False
+
+    while (p * p <= num):
+        if (primes[p] == True):
+            # Update all multiples of p
+            for i in range(p * 2, num + 1, p):
+                prime[i] = False
+
+        p += 1
+
+    return prime[num]
 
 
 def is_divisible(divident: Union[int, float], divisor: Union[int, float]) -> bool:
@@ -51,7 +69,6 @@ def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]],
     This is particularly useful to use with a filter.
     >>> list(filter(is_divisible_by(5), [1,2,3,4,5,6,7,8,9,10]))
     [5, 10]
-    You can still use a lambda, but I think this is more readable.
 
     Advanced example.
     Suppose you want to filter out numbers that are divisible by 2 or 3
@@ -73,7 +90,6 @@ def is_atom(entity: Any) -> bool:
     else:
         return not isinstance(entity, Iterable)
 
-
 def contains(collection: Iterable, entity: Any) -> bool:
     """Checks whether collection contains the given entity."""
     return entity in collection
@@ -86,7 +102,7 @@ def is_empty(collection: Iterable) -> bool:
 
 def is_nested(collection: Iterable) -> bool:
     """return true if a collection is nested"""
-    return all(map(not_(is_atom), collection))
+    return any(map(not_(is_atom), collection))
 
 
 def all_predicates(
