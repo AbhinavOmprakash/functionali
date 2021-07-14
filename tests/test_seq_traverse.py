@@ -8,6 +8,9 @@ from functionali import (
     last,
     butlast,
     rest,
+    take, 
+    drop, 
+
 )
 
 
@@ -95,3 +98,16 @@ def test_butlast():
     assert (1, 2) == butlast({1, 2, 3})
     assert ((1, "a"), (2, "b")) == butlast({1: "a", 2: "b", 3: "c"})
     assert None == butlast([])
+
+
+def test_take():
+    assert (1, 2, 3) == take(3, [1,2,3,4,5])
+    assert () ==take(3, [])
+    assert ((1, "a"), (2, "b")) == take(2, {1: "a", 2: "b", 3: "c"})
+
+
+def test_drop():
+    assert (4,5) == drop(3, [1,2,3,4,5])
+    assert () ==drop(3, [])
+    assert ((3, "c"),) == drop(2, {1: "a", 2: "b", 3: "c"})
+

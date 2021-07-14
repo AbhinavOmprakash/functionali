@@ -33,24 +33,24 @@ def is_odd(num: int) -> bool:
 
 def is_prime(num: int) -> bool:
 
-    if is_even(num): 
+    if is_even(num) and num != 2: 
         # You don't need to compute the whole Sieve if num is even.
         return False
 
     primes = [True for i in range(num + 1)]
     p = 2
-    prime[0]= False
-    prime[1]= False
+    primes[0]= False
+    primes[1]= False
 
     while (p * p <= num):
         if (primes[p] == True):
             # Update all multiples of p
             for i in range(p * 2, num + 1, p):
-                prime[i] = False
+                primes[i] = False
 
         p += 1
 
-    return prime[num]
+    return primes[num]
 
 
 def is_divisible(divident: Union[int, float], divisor: Union[int, float]) -> bool:

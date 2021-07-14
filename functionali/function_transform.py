@@ -2,6 +2,7 @@
 
 from typing import Callable, Any
 from inspect import signature
+from functools import partial
 
 
 def curry(fn: Callable) -> Callable:
@@ -20,16 +21,27 @@ def curry(fn: Callable) -> Callable:
     return lambda arg: curried(arg, fn, num_args)
 
 
-def partial(fn: Callable, *args, **kwargs) -> Callable:
-    """Takes a function and fewer than normal arguments, and returns a function
-    That will consume the remaining arguments and call the function"""
-
-    def partial_fn(*rem_args, **rem_kwargs):
-        return fn(*args, *rem_args, **kwargs, **rem_kwargs)
-
-    return partial_fn
+def flip(fn: Callable) -> Callable:
+    """returns a function that takes takes in a flipped order of args.
+    Usage:
+    >>> flipped_fn = flip(fn)
+    >>> # call flipped_fn with flipped args
+    >>> flipped_fn(<flipped_args>)
 
 
-def flip(fn: Callable, *args, **kwargs) -> Any:
-    """flips the order of *args"""
-    return fn(*reversed(args), **kwargs)
+    >>> f = lambda a,b : a-b
+    >>> f(1,3)
+    -2
+    >>> f(3,1)
+    2
+    >>> flipped_f = flip(f)
+    >>> flipped_f(3,1)
+    -2
+    >>> flipped_f(1,3)
+    2
+    """
+
+    def flipped(*args, **kwargs):
+        return fn(*reversed(args), **kwargs)
+
+    return flipped

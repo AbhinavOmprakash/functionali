@@ -56,13 +56,6 @@ def test_is_prime():
     assert is_prime(150) == False
 
 
-def test_is_numeric():
-    assert is_numeric(1) == True
-    assert is_numeric(1.253) == True
-    assert is_numeric(complex("1+2j")) == True
-    assert is_numeric("String") == False
-
-
 def test_is_divisible():
     assert is_divisible(4,2) == True
     assert is_divisible(4,3) == False
@@ -78,6 +71,13 @@ def test_is_divisible_by():
     is_divisible_by_zero=is_divisible_by(0)
     with pytest.raises(ZeroDivisionError):
         is_divisible_by_zero(10)
+
+
+def test_is_numeric():
+    assert is_numeric(1) == True
+    assert is_numeric(1.253) == True
+    assert is_numeric(complex("1+2j")) == True
+    assert is_numeric("String") == False
 
 def all_predicates():
     pass

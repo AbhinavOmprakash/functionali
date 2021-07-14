@@ -1,23 +1,23 @@
 """Expressions to substitute for Python statements"""
 from typing import Any
 
+# TODO Consider deleting this function
+# def if_(bool_expr: bool, then_expr: Any, else_expr: Any = None):
+#     """Created primarily to be used in lambda functions.
 
-def if_(bool_expr: bool, then_expr: Any, else_expr: Any = None):
-    """Created primarily to be used in lambda functions.
+#     for e.g.
+#     >>> f = lambda a,b : if_(a==b, "equality", "discrimination!")
+#     >>> f(1,3)
+#     'discrimination!'
+#     >>> f(2,2)
+#     'equality'
 
-    for e.g.
-    >>> f = lambda a,b : if_(a==b, "equality", "discrimination!")
-    >>> f(1,3)
-    'discrimination!'
-    >>> f(2,2)
-    'equality'
+#     """
 
-    """
-
-    if bool_expr:
-        return then_expr
-    else:
-        return else_expr
+#     if bool_expr:
+#         return then_expr
+#     else:
+#         return else_expr
 
 
 def or_(arg, *args):

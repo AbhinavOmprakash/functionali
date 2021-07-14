@@ -1,9 +1,9 @@
-from functionali import if_, or_, and_
+from functionali import or_, and_ #, if_
 
-
-def test_if_():
-    assert if_(True, 1, 2) == 1
-    assert if_(False, 1, 2) == 2
+# TODO Consider deleting
+# def test_if_():
+#     assert if_(True, 1, 2) == 1
+#     assert if_(False, 1, 2) == 2
 
 
 def test_or_():
