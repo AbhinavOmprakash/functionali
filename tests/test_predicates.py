@@ -95,6 +95,12 @@ def test_contains():
     assert contains(1,{1:"a"})== True
     assert contains(2,{1:"a"})== False
 
+    
+def test_is_empty():    
+    assert is_empty([]) ==True
+    assert is_empty([1]) ==False
+    
+
 def all_predicates():
     pass
 
