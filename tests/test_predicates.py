@@ -68,7 +68,16 @@ def test_is_divisible():
     assert is_divisible(4,3) == False
 
     with pytest.raises(ZeroDivisionError):
-        assert is_divisible(4,0) == False
+        is_divisible(4,0) 
+
+def test_is_divisible_by():
+    is_divisible_by_five = is_divisible_by(5)
+    assert is_divisible_by_five(10)==True
+    assert is_divisible_by_five(7)==False
+
+    is_divisible_by_zero=is_divisible_by(0)
+    with pytest.raises(ZeroDivisionError):
+        is_divisible_by_zero(10)
 
 def all_predicates():
     pass
