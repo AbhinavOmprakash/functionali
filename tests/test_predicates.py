@@ -45,6 +45,16 @@ def test_is_odd():
     assert is_odd(2) == False
 
 
+def test_is_prime():
+    assert is_prime(0) == False
+    assert is_prime(1) == False
+    assert is_prime(2) == True
+    assert is_prime(3) == True
+    assert is_prime(4) == False
+    assert is_prime(101) == True
+    assert is_prime(150) == False
+
+
 def test_is_numeric():
     assert is_numeric(1) == True
     assert is_numeric(1.253) == True
