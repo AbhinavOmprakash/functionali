@@ -105,9 +105,7 @@ def is_nested(collection: Iterable) -> bool:
     return any(map(not_(is_atom), collection))
 
 
-def all_predicates(
-    predicates: Iterable[Callable[[Any], bool]]
-) -> Callable[[Any], bool]:
+def all_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
     """Takes a set of predicates and returns a function that takes an entity
     and checks if it satisfies all the predicates.
     """
