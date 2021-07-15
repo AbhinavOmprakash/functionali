@@ -1,7 +1,7 @@
 """A file containing useful predicates."""
 
 from typing import List, Iterable, Callable, Any, Sequence, Union
-from .function_transform import partial, flip
+from .higher_order_functions import partial, flip
 
 
 def not_(

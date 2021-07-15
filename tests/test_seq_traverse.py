@@ -1,4 +1,5 @@
 from functionali import (
+    iter_, 
     first,
     ffirst,
     second,
@@ -14,6 +15,20 @@ from functionali import (
     drop_while,
     split_with,
 )
+
+from typing import Iterator
+
+def test_iter_():
+    # two tests that the behavior of iter_ differs from iter
+    # When it comes to dictionaries
+    d = {1: "a", 2: "b"}
+    assert isinstance(iter_(d), Iterator) == True
+    assert tuple(iter_({1: "a", 2: "b", 3: "c"})) == ((1, "a"),(2, "b"), (3, "c"))
+    assert tuple(iter_({1: "a", 2: "b", 3: "c"})) != tuple(iter({1: "a", 2: "b", 3: "c"}))
+
+    # test that iter_ return Iterator as it is
+    it = iter([1,2,3])
+    assert it is iter_(it)
 
 
 def test_first():

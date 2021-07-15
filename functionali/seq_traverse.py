@@ -1,6 +1,6 @@
 """ Functions to traverse the sequence"""
 from collections import deque
-from typing import Iterable, Any, TypeVar, Iterator, Tuple, Mapping, Union
+from typing import Iterable, Any, TypeVar, Iterator, Tuple, Mapping, Union, Callable
 
 T = TypeVar("T")
 K = TypeVar("K")
@@ -12,6 +12,10 @@ def iter_(iterable: Iterable) -> Iterator:
     If iterable is already an iterator, it is returned as is.
     This is mainly created because python's `iter` 
     returns an iterable of keys instead of keys and values.
+
+    >>> tuple(iter_({1: "a", 2: "b", 3: "c"}))
+    ((1, "a"),(2, "b"), (3, "c"))
+
     """
 
     if isinstance(iterable, dict):
@@ -30,6 +34,7 @@ def first(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     Returns the first item in an iterable.
     If iterable is a dict, returns a tuple of the First key-value pair
+
     >>> first([1,2,3,4,5])
     1
     >>> first({1:"a", 2:"b"})
@@ -43,14 +48,20 @@ def first(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
 
 
 def ffirst(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
-    """same as first(first(iterable))
-    expects a nested iterable."""
+    """same as `first(first(iterable))`
+    expects a nested iterable.
+
+    >>> ffirst([[1,2], [3,4], [5,6]])
+    1
+    """
 
     return first(first(iterable))
 
 
 def last(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
+    returns the last element in the iterable.
+
     >>> last([1,2,3,4])
     4
     >>> last({1: 'a', 2: 'b', 3: 'c'})
@@ -138,7 +149,9 @@ def butlast(
 ) -> Union[Tuple[T], Tuple[K, V]]:
     """returns an iterable of all but the last element
     in the iterable
-
+    
+    >>> butlast([1, 2, 3])
+    (1, 2)
     """
     # TODO Check efficiency of the operation
     # since it's iterating through it twice.
@@ -152,6 +165,7 @@ def butlast(
 def take(n: int, iterable: Iterable) -> Tuple:
     """Returns the first n number of elements in iterable.
     Returns an empty tuple if iterable is empty
+
     >>> take(3, [1,2,3,4,5])
     (1, 2, 3)
     >>> take(2, {1: "a", 2: "b", 3: "c"})
@@ -207,10 +221,7 @@ def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
         ((2, "a"), (4, "b"))
     """
 
-    if isinstance(iterable, dict):
-        it = iter(iterable.items())
-    else:
-        it = iter(iterable)
+    it = iter_(iterable)
 
     accumulator = []
     elem = next(it)
@@ -234,10 +245,7 @@ def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
         ((5, "c"),)
     """
 
-    if isinstance(iterable, dict):
-        it = iter(iterable.items())
-    else:
-        it = iter(iterable)
+    it = iter_(iterable)
 
     elem = next(it)
     while predicate(elem):
@@ -251,7 +259,13 @@ def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
     return (elem,) + tuple(it)
 
 
+
 def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple]:
+    """Equivalent to `(take_while(predicate, iterable), drop_while(predicate, iterable))` 
+    
+    >>> split_with(is_even, [2, 4, 6, 7, 8, 9, 10])
+    ((2, 4, 6), (7, 8, 9, 10))
+    """
     # consider implementing with reduce
     # since we are iterating through iterable twice.
     return (take_while(predicate, iterable), drop_while(predicate, iterable))
