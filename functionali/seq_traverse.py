@@ -7,10 +7,11 @@ K = TypeVar("K")
 V = TypeVar("V")
 
 
-def _get_iterator(iterable: Iterable) -> Iterator:
+def iter_(iterable: Iterable) -> Iterator:
     """Returns appropriate iterator for the given iterable.
     If iterable is already an iterator, it is returned as is.
-    for internal use
+    This is mainly created because python's `iter` 
+    returns an iterable of keys instead of keys and values.
     """
 
     if isinstance(iterable, dict):
@@ -35,7 +36,7 @@ def first(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     (1, "a")
     """
     if iterable:
-        return next(_get_iterator(iterable))
+        return next(iter_(iterable))
 
     else:  # If iterable is empty
         return None
@@ -57,7 +58,7 @@ def last(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
     """
     try:
         # using a deque is an efficient way to get the last element
-        dq = deque(_get_iterator(iterable), maxlen=1)
+        dq = deque(iter_(iterable), maxlen=1)
 
         return dq.pop()
 
@@ -80,7 +81,7 @@ def rest(iterable: Iterable) -> Iterator:
     ()
     """
     try:
-        it = _get_iterator(iterable)
+        it = iter_(iterable)
         next(it)  # discard value
         return it
 
@@ -141,7 +142,7 @@ def butlast(
     """
     # TODO Check efficiency of the operation
     # since it's iterating through it twice.
-    t = tuple(_get_iterator(iterable))[:-1]
+    t = tuple(iter_(iterable))[:-1]
     if t:
         return t
     else:
@@ -156,7 +157,7 @@ def take(n: int, iterable: Iterable) -> Tuple:
     >>> take(2, {1: "a", 2: "b", 3: "c"})
     ((1, "a"), (2, "b"))
     """
-    it = _get_iterator(iterable)
+    it = iter_(iterable)
 
     accumulator = []
     i = 1
@@ -181,7 +182,7 @@ def drop(n: int, iterable: Iterable) -> Tuple:
     ((3, "c"),)
     """
 
-    it = _get_iterator(iterable)
+    it = iter_(iterable)
 
     i = 1
     while i <= n:
@@ -192,3 +193,65 @@ def drop(n: int, iterable: Iterable) -> Tuple:
             break
 
     return tuple(it)
+
+def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
+    """
+
+    >>> take_while(is_even, [2,4,6,7,8,9,10])
+    (2,4,6)
+
+    >>> def is_even_dict(d):
+            #checks if the key of dict d is even
+            return d[0]%2==0
+    >>> take_while(is_even_dict, {2:"a", 4:"b",5:"c"})
+        ((2, "a"), (4, "b"))
+    """
+
+    if isinstance(iterable, dict):
+        it = iter(iterable.items())
+    else:
+        it = iter(iterable)
+
+    accumulator = []
+    elem = next(it)
+    while predicate(elem):
+        accumulator.append(elem)
+        elem = next(it)
+
+    return tuple(accumulator)
+
+
+def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
+    """
+
+    >>> drop_while(is_even, [2,4,6,7,8,9,10])
+    (7,8,9, 10)
+
+    >>> def is_even_dict(d):
+            #checks if the key of dict d is even
+            return d[0]%2==0
+    >>> drop_while(is_even_dict, {2:"a", 4:"b",5:"c"})
+        ((5, "c"),)
+    """
+
+    if isinstance(iterable, dict):
+        it = iter(iterable.items())
+    else:
+        it = iter(iterable)
+
+    elem = next(it)
+    while predicate(elem):
+        # discard values
+        elem = next(it)
+
+    # Since elem is the first element
+    # that fails the predicate.
+    # and the iterator has already moved ahead.
+    # we need to include elem
+    return (elem,) + tuple(it)
+
+
+def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple]:
+    # consider implementing with reduce
+    # since we are iterating through iterable twice.
+    return (take_while(predicate, iterable), drop_while(predicate, iterable))

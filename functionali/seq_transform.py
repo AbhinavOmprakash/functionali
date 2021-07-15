@@ -127,9 +127,9 @@ def argzip(sequence: Iterable[Callable], *args: Any) -> Generator:
     Similar to zip, but instead of zipping iterables,
     It zips an argument(s) with all the values of the iterable.
     for example.
+
     >>> list(argzip([1,2,3,4], "number"))
     [(1, 'number'), (2, 'number'), (3, 'number'), (4, 'number')]
-
     >>> list(argzip([1,2,3,4], "number", "int"))
     [(1, 'number', 'int'), (2, 'number', 'int'), (3, 'number', 'int'), (4, 'number', 'int')]
     """
@@ -138,12 +138,14 @@ def argzip(sequence: Iterable[Callable], *args: Any) -> Generator:
 
 def unzip(sequence: Iterable) -> Tuple[Any]:
     """Opposite of zip. Unzip is shallow.
+
     >>> unzip([[1,'a'], [2,'b'], [3,'c']])
     ((1, 2, 3), ('a', 'b', 'c'))
     >>> unzip([ [1,'a','A'], [2, 'b','B'], [3,'c','C'] ])
     ((1, 2, 3), ('a', 'b', 'c'), ('A', 'B', 'C'))
 
     shallow nature of unzip.
+
     >>> unzip([ [[1,'num'],['a','str']], [[2,'num'],['b','str']] ])
     (([1, 'num'], [2, 'num']), (['a', 'str'], ['b', 'str']))
     """
@@ -167,9 +169,9 @@ def unzip(sequence: Iterable) -> Tuple[Any]:
 
 def interleave(*seqs: Iterable) -> Tuple:
     """Similar to clojure's interleave. returns a flat sequence with the contents of iterables interleaved.
+
     >>> interleave([1,2,3],["a","b","c"])
     (1, 'a', 2, 'b', 3, 'c')
-
     >>> interleave([1,2,3],["int","int","int"], ["a","b","c"],["str","str","str" ])
     (1, 'int', 'a', 'str', 2, 'int', 'b', 'str', 3, 'int', 'c', 'str')
     """
@@ -179,6 +181,7 @@ def interleave(*seqs: Iterable) -> Tuple:
 def flatten(sequence: Iterable) -> Tuple:
     """Returns the contents of a nested sequence as a flat sequence.
     Flatten is recursive.
+
     >>> flatten([1,2,[3,[4],5],6,7])
     (1, 2, 3, 4, 5, 6, 7)"""
 
@@ -195,65 +198,6 @@ def flatten(sequence: Iterable) -> Tuple:
     return reduce(inner_fn, sequence, ())
 
 
-def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
-    """
-    >>> take_while(is_even, [2,4,6,7,8,9,10])
-    (2,4,6)
-
-    >>> def is_even_dict(d):
-            #checks if the key of dict d is even
-            return d[0]%2==0
-    >>> take_while(is_even_dict, {2:"a", 4:"b",5:"c"})
-        ((2, "a"), (4, "b"))
-    """
-
-    if isinstance(iterable, dict):
-        it = iter(iterable.items())
-    else:
-        it = iter(iterable)
-
-    accumulator = []
-    elem = next(it)
-    while predicate(elem):
-        accumulator.append(elem)
-        elem = next(it)
-
-    return tuple(accumulator)
-
-
-def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
-    """
-    >>> drop_while(is_even, [2,4,6,7,8,9,10])
-    (7,8,9, 10)
-
-    >>> def is_even_dict(d):
-            #checks if the key of dict d is even
-            return d[0]%2==0
-    >>> drop_while(is_even_dict, {2:"a", 4:"b",5:"c"})
-        ((5, "c"),)
-    """
-
-    if isinstance(iterable, dict):
-        it = iter(iterable.items())
-    else:
-        it = iter(iterable)
-
-    elem = next(it)
-    while predicate(elem):
-        # discard values
-        elem = next(it)
-
-    # Since elem is the first element
-    # that fails the predicate.
-    # and the iterator has already moved ahead.
-    # we need to include elem
-    return (elem,) + tuple(it)
-
-
-def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple]:
-    # consider implementing with reduce
-    # since we are iterating through iterable twice.
-    return (take_while(predicate, iterable), drop_while(predicate, iterable))
 
 
 def insert(
@@ -274,10 +218,8 @@ def insert(
     >>> person1 = Person("John", 18)
     >>> person2 = Person("Abe", 50)
     >>> person3 = Person("Cassy", 25)
-
     >>> insert(person3, (person1, person2), key=lambda p:p.age)
         (person1, person3, person2)
-
     >>> insert(person3, (person1, person2), key=lambda p:p.name)
         (person3, person1, person2)
 

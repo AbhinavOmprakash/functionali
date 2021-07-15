@@ -10,6 +10,9 @@ from functionali import (
     rest,
     take,
     drop,
+    take_while,
+    drop_while,
+    split_with,
 )
 
 
@@ -110,3 +113,41 @@ def test_drop():
     assert (4, 5) == drop(3, [1, 2, 3, 4, 5])
     assert () == drop(3, [])
     assert ((3, "c"),) == drop(2, {1: "a", 2: "b", 3: "c"})
+
+
+
+def test_take_while():
+    def is_even(n):
+        return n % 2 == 0
+
+    def is_even_dict(d):
+        # checks if the key of dict d is even
+        return d[0] % 2 == 0
+
+    assert (2, 4, 6) == take_while(is_even, [2, 4, 6, 7, 8, 9, 10])
+    assert () == take_while(is_even, [1, 2, 4, 6, 7, 8, 9, 10])
+    assert ((2, "a"), (4, "b")) == take_while(is_even_dict, {2: "a", 4: "b", 5: "c"})
+
+
+def test_drop_while():
+    def is_even(n):
+        return n % 2 == 0
+
+    def is_even_dict(d):
+        # checks if the key of dict d is even
+        return d[0] % 2 == 0
+
+    assert (7, 8, 9, 10) == drop_while(is_even, [2, 4, 6, 7, 8, 9, 10])
+    assert (1, 2, 4, 6, 7, 8, 9, 10) == drop_while(is_even, [1, 2, 4, 6, 7, 8, 9, 10])
+    assert ((5, "c"),) == drop_while(is_even_dict, {2: "a", 4: "b", 5: "c"})
+
+
+def test_split_with():
+    def is_even(n):
+        return n % 2 == 0
+
+    assert ((2, 4, 6), (7, 8, 9, 10)) == split_with(is_even, [2, 4, 6, 7, 8, 9, 10])
+    assert ((), (1, 2, 4, 6, 7, 8, 9, 10)) == split_with(
+        is_even, [1, 2, 4, 6, 7, 8, 9, 10]
+    )
+
