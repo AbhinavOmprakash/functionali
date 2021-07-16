@@ -9,7 +9,7 @@ def not_(
 ) -> Union[bool, Callable[[Any], bool]]:
     """Takes in a predicate or a Boolean expression and
     returns a negated version of the predicate or expression.
-    
+
     >>> not_(True)
     >>> False
 
@@ -20,7 +20,7 @@ def not_(
     >>> True
     >>> negated_fn(1)
     >>> False
-    
+
     """
 
     if not isinstance(expr, Callable):
@@ -69,7 +69,7 @@ def is_prime(num: int) -> bool:
 
 
 def is_divisible(divident: Union[int, float], divisor: Union[int, float]) -> bool:
-    """ Returns true if dividend is divisible by divisor """
+    """Returns true if dividend is divisible by divisor"""
     return divident % divisor == 0
 
 
@@ -98,20 +98,19 @@ def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]],
 
 
 def is_numeric(entity: Any) -> bool:
-    """ Return True if ``entity`` Is an ``int``,  ``float``, or a ``complex``.
-    """
+    """Return True if ``entity`` Is an ``int``,  ``float``, or a ``complex``."""
     return any(map(isinstance, [entity, entity, entity], [int, float, complex]))
 
 
 def is_atom(entity: Any) -> bool:
     """Everything that is NOT an iterable( except strings ) Are considered atoms.
 
-    >>> is_atom("plain string") 
+    >>> is_atom("plain string")
         True
     >>> is_atom(1)
         True
     >>> is_atom([1, 2])
-        False        
+        False
     """
     if isinstance(entity, str):
         return True

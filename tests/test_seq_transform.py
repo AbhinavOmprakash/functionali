@@ -86,6 +86,7 @@ def test_interleave():
 def test_flatten():
     assert (1, 2, 3, 4, 5, 6, 7) == flatten([1, 2, [3, [4], 5], 6, 7])
 
+
 def test_insert():
     assert (1, 2, 3, 4) == insert(3, [1, 2, 4])
     assert (1, 2, 3, 4, 2) == insert(3, [1, 2, 4, 2])

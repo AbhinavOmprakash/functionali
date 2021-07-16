@@ -1,5 +1,5 @@
 from functionali import (
-    iter_, 
+    iter_,
     first,
     ffirst,
     second,
@@ -18,16 +18,19 @@ from functionali import (
 
 from typing import Iterator
 
+
 def test_iter_():
     # two tests that the behavior of iter_ differs from iter
     # When it comes to dictionaries
     d = {1: "a", 2: "b"}
     assert isinstance(iter_(d), Iterator) == True
-    assert tuple(iter_({1: "a", 2: "b", 3: "c"})) == ((1, "a"),(2, "b"), (3, "c"))
-    assert tuple(iter_({1: "a", 2: "b", 3: "c"})) != tuple(iter({1: "a", 2: "b", 3: "c"}))
+    assert tuple(iter_({1: "a", 2: "b", 3: "c"})) == ((1, "a"), (2, "b"), (3, "c"))
+    assert tuple(iter_({1: "a", 2: "b", 3: "c"})) != tuple(
+        iter({1: "a", 2: "b", 3: "c"})
+    )
 
     # test that iter_ return Iterator as it is
-    it = iter([1,2,3])
+    it = iter([1, 2, 3])
     assert it is iter_(it)
 
 
@@ -130,7 +133,6 @@ def test_drop():
     assert ((3, "c"),) == drop(2, {1: "a", 2: "b", 3: "c"})
 
 
-
 def test_take_while():
     def is_even(n):
         return n % 2 == 0
@@ -165,4 +167,3 @@ def test_split_with():
     assert ((), (1, 2, 4, 6, 7, 8, 9, 10)) == split_with(
         is_even, [1, 2, 4, 6, 7, 8, 9, 10]
     )
-

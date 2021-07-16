@@ -198,8 +198,6 @@ def flatten(sequence: Iterable) -> Tuple:
     return reduce(inner_fn, sequence, ())
 
 
-
-
 def insert(
     element: Any, iterable: Iterable, *, key: Callable = lambda x: x
 ) -> Iterable:

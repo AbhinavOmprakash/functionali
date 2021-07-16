@@ -6,7 +6,7 @@ from typing import Iterable, Any, TypeVar, Iterator, Tuple, Mapping, Union, Call
 def iter_(iterable: Iterable) -> Iterator:
     """Returns appropriate iterator for the given iterable.
     If iterable is already an iterator, it is returned as is.
-    This is mainly created because python's `iter` 
+    This is mainly created because python's `iter`
     returns an iterable of keys instead of keys and values.
 
     >>> tuple(iter_({1: "a", 2: "b", 3: "c"}))
@@ -145,7 +145,7 @@ def butlast(
 ) -> Union[Tuple[T], Tuple[K, V]]:
     """returns an iterable of all but the last element
     in the iterable
-    
+
     >>> butlast([1, 2, 3])
     (1, 2)
     """
@@ -204,6 +204,7 @@ def drop(n: int, iterable: Iterable) -> Tuple:
 
     return tuple(it)
 
+
 def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
     """
 
@@ -255,10 +256,9 @@ def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
     return (elem,) + tuple(it)
 
 
+def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple, Tuple]:
+    """Equivalent to `(take_while(predicate, iterable), drop_while(predicate, iterable))`
 
-def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple,Tuple]:
-    """Equivalent to `(take_while(predicate, iterable), drop_while(predicate, iterable))` 
-    
     >>> split_with(is_even, [2, 4, 6, 7, 8, 9, 10])
     ((2, 4, 6), (7, 8, 9, 10))
     """
