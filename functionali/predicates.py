@@ -8,7 +8,20 @@ def not_(
     expr: Union[bool, Callable[[Any], bool]]
 ) -> Union[bool, Callable[[Any], bool]]:
     """Takes in a predicate or a Boolean expression and
-    returns a negated version of the predicate or expression."""
+    returns a negated version of the predicate or expression.
+    
+    >>> not_(True)
+    >>> False
+
+    >>> def fn(el): # returns the Boolean of el
+        return bool(el)
+    >>> negated_fn = not_(fn)
+    >>> fn(1)
+    >>> True
+    >>> negated_fn(1)
+    >>> False
+    
+    """
 
     if not isinstance(expr, Callable):
         # Wrapped around bool to handle cases like not_(1).
@@ -24,15 +37,17 @@ def not_(
 
 
 def is_even(num: int) -> bool:
+    """Returns true when num is even"""
     return num % 2 == 0
 
 
 def is_odd(num: int) -> bool:
+    """Returns true when num is odd"""
     return num % 2 != 0
 
 
 def is_prime(num: int) -> bool:
-
+    """Returns true when num is prime"""
     if is_even(num) and num != 2:
         # You don't need to compute the whole Sieve if num is even.
         return False
@@ -54,12 +69,15 @@ def is_prime(num: int) -> bool:
 
 
 def is_divisible(divident: Union[int, float], divisor: Union[int, float]) -> bool:
+    """ Returns true if dividend is divisible by divisor """
     return divident % divisor == 0
 
 
 def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]], bool]:
-    """returns a closure that expects a number.
+    """Takes a ``divisor`` And returns a function (closure) That expects a dividend.
+    returns true if it passes the divisibility test.
     for e.g.
+
     >>> f = is_divisible_by(5)
     >>> f(10)
     True
@@ -70,7 +88,7 @@ def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]],
     >>> list(filter(is_divisible_by(5), [1,2,3,4,5,6,7,8,9,10]))
     [5, 10]
 
-    Advanced example.
+
     Suppose you want to filter out numbers that are divisible by 2 or 3
     >>> list(filter(some_predicates([is_divisible_by(2), is_divisible_by(3)]),
                     [1,2,3,4,5,6,7,8,9,10]))
@@ -80,11 +98,21 @@ def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]],
 
 
 def is_numeric(entity: Any) -> bool:
+    """ Return True if ``entity`` Is an ``int``,  ``float``, or a ``complex``.
+    """
     return any(map(isinstance, [entity, entity, entity], [int, float, complex]))
 
 
 def is_atom(entity: Any) -> bool:
-    """Uses Lisp's notion of an atom. Strings are considered atoms, not iterables."""
+    """Everything that is NOT an iterable( except strings ) Are considered atoms.
+
+    >>> is_atom("plain string") 
+        True
+    >>> is_atom(1)
+        True
+    >>> is_atom([1, 2])
+        False        
+    """
     if isinstance(entity, str):
         return True
     else:

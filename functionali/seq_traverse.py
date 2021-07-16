@@ -2,10 +2,6 @@
 from collections import deque
 from typing import Iterable, Any, TypeVar, Iterator, Tuple, Mapping, Union, Callable
 
-T = TypeVar("T")
-K = TypeVar("K")
-V = TypeVar("V")
-
 
 def iter_(iterable: Iterable) -> Iterator:
     """Returns appropriate iterator for the given iterable.
@@ -30,7 +26,7 @@ def iter_(iterable: Iterable) -> Iterator:
         return iterable
 
 
-def first(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
+def first(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """
     Returns the first item in an iterable.
     If iterable is a dict, returns a tuple of the First key-value pair
@@ -47,7 +43,7 @@ def first(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
         return None
 
 
-def ffirst(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
+def ffirst(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """same as `first(first(iterable))`
     expects a nested iterable.
 
@@ -58,7 +54,7 @@ def ffirst(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]
     return first(first(iterable))
 
 
-def last(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
+def last(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """
     returns the last element in the iterable.
 
@@ -100,7 +96,7 @@ def rest(iterable: Iterable) -> Iterator:
         return iter([])
 
 
-def second(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
+def second(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """
     >>> second([1,2,3,4,5])
     2
@@ -111,7 +107,7 @@ def second(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]
         return first(rest(iterable))
 
 
-def third(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
+def third(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """
     >>> third([1,2,3,4,5])
     3
@@ -122,7 +118,7 @@ def third(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
         return first(rest(rest(iterable)))
 
 
-def fourth(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
+def fourth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """
     >>> fourth([1,2,3,4,5])
     4
@@ -133,7 +129,7 @@ def fourth(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]
         return first(rest(rest(rest(iterable))))
 
 
-def fifth(iterable: Union[Iterable[T], Mapping[K, V]]) -> Union[T, Tuple[K, V]]:
+def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """
     >>> fifth([1,2,3,4,5])
     5
