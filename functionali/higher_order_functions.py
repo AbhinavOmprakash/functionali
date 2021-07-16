@@ -4,7 +4,6 @@ from functools import partial, reduce
 from .seq_traverse import reversed_
 
 
-
 def flip(fn: Callable) -> Callable:
     """returns a function that takes takes in a flipped order of args.
     Usage:
@@ -26,8 +25,9 @@ def flip(fn: Callable) -> Callable:
 
     return flipped
 
-def foldr(fn: Callable, iterable:Iterable, initial:Any=None)->Any:
-    """ Fold right. Stack safe implementation """
+
+def foldr(fn: Callable, iterable: Iterable, initial: Any = None) -> Any:
+    """Fold right. Stack safe implementation"""
     # Implement with reduce, for this we reverse the iterable
     # and then we flip fn since the Function signature for fn is fn(element, accumulator)
     # This is the standard function signature of any function passed to Foldright
@@ -36,9 +36,9 @@ def foldr(fn: Callable, iterable:Iterable, initial:Any=None)->Any:
     reversed_it = reversed_(iterable)
 
     if initial is None:
-        initial=next(reversed_it)
+        initial = next(reversed_it)
 
-    return reduce(flip(fn),reversed_it, initial)
+    return reduce(flip(fn), reversed_it, initial)
 
 
 def curry(fn: Callable) -> Callable:
@@ -62,5 +62,3 @@ def curry(fn: Callable) -> Callable:
             return lambda arg: curried(arg, f, num_args - 1)
 
     return lambda arg: curried(arg, fn, num_args)
-
-

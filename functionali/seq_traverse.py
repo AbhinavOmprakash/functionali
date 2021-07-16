@@ -162,8 +162,10 @@ def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
         return first(rest(rest(rest(rest(iterable)))))
 
 
-def butlast(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Tuple[Any], Tuple[Tuple[Any, Any]]]:
-    
+def butlast(
+    iterable: Union[Iterable, Mapping[Any, Any]]
+) -> Union[Tuple[Any], Tuple[Tuple[Any, Any]]]:
+
     """returns an iterable of all but the last element
     in the iterable
 

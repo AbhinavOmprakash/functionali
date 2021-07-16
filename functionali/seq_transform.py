@@ -200,9 +200,7 @@ def flatten(sequence: Iterable) -> Tuple:
     return reduce(inner_fn, sequence, ())
 
 
-def insert(
-    element: Any, iterable: Iterable, *, key: Callable = lambda x: x
-) -> Tuple:
+def insert(element: Any, iterable: Iterable, *, key: Callable = lambda x: x) -> Tuple:
     """Inserts ``element`` right before the first element
     in the iterable that is greater than ``element``
 
@@ -224,7 +222,7 @@ def insert(
         (person3, person1, person2)
 
     """
-    #TODO refactor. 
+    # TODO refactor.
     if not iterable:
         return (element,)
 
