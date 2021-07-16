@@ -256,7 +256,7 @@ def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
 
 
 
-def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple]:
+def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple,Tuple]:
     """Equivalent to `(take_while(predicate, iterable), drop_while(predicate, iterable))` 
     
     >>> split_with(is_even, [2, 4, 6, 7, 8, 9, 10])
