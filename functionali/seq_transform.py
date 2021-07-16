@@ -1,7 +1,9 @@
 """Functions that transform sequences"""
 from functools import reduce
-from .predicates import is_atom, is_nested, not_
 from collections import deque
+from .predicates import is_atom, is_nested, not_
+
+from .seq_traverse import iter_
 
 from typing import (
     Callable,
@@ -200,9 +202,9 @@ def flatten(sequence: Iterable) -> Tuple:
 
 def insert(
     element: Any, iterable: Iterable, *, key: Callable = lambda x: x
-) -> Iterable:
-    """Inserts `element` right before the first element
-    in the iterable that is greater than `element`
+) -> Tuple:
+    """Inserts ``element`` right before the first element
+    in the iterable that is greater than ``element``
 
     >>> insert(3, [1,2,4,2])
     (1,2,3,4,2)
@@ -211,8 +213,8 @@ def insert(
     ((1, "a"), (2, "b"), (3, "c"))
 
     Using the key Parameter
-    >>> Person = namedtuple("Person", ("name", "age"))
 
+    >>> Person = namedtuple("Person", ("name", "age"))
     >>> person1 = Person("John", 18)
     >>> person2 = Person("Abe", 50)
     >>> person3 = Person("Cassy", 25)
@@ -222,16 +224,19 @@ def insert(
         (person3, person1, person2)
 
     """
-    if isinstance(iterable, dict):
-        it = iter(iterable.items())
-    else:
-        it = iter(iterable)
+    #TODO refactor. 
+    if not iterable:
+        return (element,)
 
+    it = iter_(iterable)
     accumulator = []
     elem = next(it)
 
     while key(elem) <= key(element):
         accumulator.append(elem)
-        elem = next(it)
+        try:
+            elem = next(it)
+        except StopIteration:
+            return tuple(accumulator) + (element,)
 
     return tuple(accumulator) + (element, elem) + tuple(it)

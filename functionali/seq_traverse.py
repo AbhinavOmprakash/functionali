@@ -6,8 +6,8 @@ from typing import Iterable, Any, TypeVar, Iterator, Tuple, Mapping, Union, Call
 def iter_(iterable: Iterable) -> Iterator:
     """Returns appropriate iterator for the given iterable.
     If iterable is already an iterator, it is returned as is.
-    This is mainly created because python's `iter`
-    returns an iterable of keys instead of keys and values.
+    This is mainly created because python's ``iter``
+    returns an iterable of keys instead of keys and values for ``dict``.
 
     >>> tuple(iter_({1: "a", 2: "b", 3: "c"}))
     ((1, "a"),(2, "b"), (3, "c"))
@@ -21,6 +21,28 @@ def iter_(iterable: Iterable) -> Iterator:
 
     elif not isinstance(iterable, Iterator):
         return iter(iterable)
+
+    else:  # if iterable is already an iterator
+        return iterable
+
+
+def reversed_(iterable: Iterable) -> Iterator:
+    """Returns appropriate reversed iterator for the given iterable.
+    If iterable is already an iterator, it is returned as is.
+    This is mainly created because python's ``reversed``
+    returns an iterable of keys instead of keys and values for ``dict``.
+
+    >>> tuple(reversed_({1: "a", 2: "b", 3: "c"}))
+    ((3, 'c'), (2, 'b'), (1, 'a'))
+
+    """
+    if isinstance(iterable, dict):
+        # since iter(dict) returns a tuple of keys.
+        # I want a tuple of key-value pairs
+        return reversed(iterable.items())
+
+    elif not isinstance(iterable, Iterator):
+        return reversed(iterable)
 
     else:  # if iterable is already an iterator
         return iterable
@@ -44,7 +66,7 @@ def first(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
 
 
 def ffirst(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """same as `first(first(iterable))`
+    """same as ``first(first(iterable))``
     expects a nested iterable.
 
     >>> ffirst([[1,2], [3,4], [5,6]])
@@ -140,9 +162,8 @@ def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
         return first(rest(rest(rest(rest(iterable)))))
 
 
-def butlast(
-    iterable: Union[Iterable[T], Mapping[K, V]]
-) -> Union[Tuple[T], Tuple[K, V]]:
+def butlast(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Tuple[Any], Tuple[Tuple[Any, Any]]]:
+    
     """returns an iterable of all but the last element
     in the iterable
 
@@ -257,7 +278,7 @@ def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
 
 
 def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple, Tuple]:
-    """Equivalent to `(take_while(predicate, iterable), drop_while(predicate, iterable))`
+    """Equivalent to ``(take_while(predicate, iterable), drop_while(predicate, iterable))``
 
     >>> split_with(is_even, [2, 4, 6, 7, 8, 9, 10])
     ((2, 4, 6), (7, 8, 9, 10))

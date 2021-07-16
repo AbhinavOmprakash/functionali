@@ -85,13 +85,13 @@ def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]],
     False
 
     This is particularly useful to use with a filter.
+
     >>> list(filter(is_divisible_by(5), [1,2,3,4,5,6,7,8,9,10]))
     [5, 10]
 
-
     Suppose you want to filter out numbers that are divisible by 2 or 3
-    >>> list(filter(some_predicates([is_divisible_by(2), is_divisible_by(3)]),
-                    [1,2,3,4,5,6,7,8,9,10]))
+
+    >>> list(filter(some_predicates([is_divisible_by(2), is_divisible_by(3)]), range(1, 10)))
     [2, 3, 4, 6, 8, 9, 10]
     """
     return lambda dividend: dividend % divisor == 0

@@ -88,8 +88,10 @@ def test_flatten():
 
 
 def test_insert():
+    assert insert(2,[]) == (2,)
     assert (1, 2, 3, 4) == insert(3, [1, 2, 4])
     assert (1, 2, 3, 4, 2) == insert(3, [1, 2, 4, 2])
+    assert (1,2,3,4) == insert(4, [1,2,3])
     assert ((1, "a"), (2, "b"), (3, "c")) == insert((2, "b"), {1: "a", 3: "c"})
 
     # for the key parameter
