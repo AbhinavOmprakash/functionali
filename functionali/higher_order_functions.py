@@ -4,7 +4,14 @@ from functools import partial
 
 
 def curry(fn: Callable) -> Callable:
-    """Returns a curried version of the function."""
+    """Returns a curried version of the function.
+    
+    >>> def fn(arg1, arg2, arg3):  # test function
+        return [arg1, arg2, arg3]
+    >>> curried_fn = curry(fn)
+    >>> curried_fn(1)(2)(3)
+        [1, 2, 3]
+    """
     num_args = len(signature(fn).parameters)
 
     def curried(arg, fn, num_args):
@@ -22,6 +29,7 @@ def curry(fn: Callable) -> Callable:
 def flip(fn: Callable) -> Callable:
     """returns a function that takes takes in a flipped order of args.
     Usage:
+
     >>> flipped_fn = flip(fn)
     >>> # call flipped_fn with flipped args
     >>> flipped_fn(<flipped_args>)
@@ -43,3 +51,10 @@ def flip(fn: Callable) -> Callable:
         return fn(*reversed(args), **kwargs)
 
     return flipped
+
+if __name__=="__main__":
+    from timeit import timeit
+    print(timeit("[i for i in range(100)]"))
+    print(timeit("list(i for i in range(100))"))
+    print(timeit("tuple([i+1 for i in range(100)])"))
+    print(timeit("tuple(map(lambda x:x+1, range(100)))"))
