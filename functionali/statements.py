@@ -46,6 +46,8 @@ def or_(arg, *args):
     >>> or_([], [1,2,3,4,5,6,7])
     [1, 2, 3, 4, 5, 6, 7]
 
+
+    Added in version: 0.1.0
     """
     if arg or not args:
         return arg
@@ -81,6 +83,8 @@ def and_(arg, *args):
     [1, 2, 3, 4, 5, 6, 7]
     >>> and_([], [1,2,3,4,5,6,7])
     []
+
+    Added in version: 0.1.0
     """
 
     if not arg or not args:

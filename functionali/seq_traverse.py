@@ -12,6 +12,7 @@ def iter_(iterable: Iterable) -> Iterator:
     >>> tuple(iter_({1: "a", 2: "b", 3: "c"}))
     ((1, "a"),(2, "b"), (3, "c"))
 
+    Added in version: 0.1.0
     """
 
     if isinstance(iterable, dict):
@@ -35,6 +36,7 @@ def reversed_(iterable: Iterable) -> Iterator:
     >>> tuple(reversed_({1: "a", 2: "b", 3: "c"}))
     ((3, 'c'), (2, 'b'), (1, 'a'))
 
+    Added in version: 0.1.0
     """
     if isinstance(iterable, dict):
         # since iter(dict) returns a tuple of keys.
@@ -57,7 +59,10 @@ def first(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
     1
     >>> first({1:"a", 2:"b"})
     (1, "a")
+
+    Added in version: 0.1.0
     """
+
     if iterable:
         return next(iter_(iterable))
 
@@ -71,6 +76,8 @@ def ffirst(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any
 
     >>> ffirst([[1,2], [3,4], [5,6]])
     1
+
+    Added in version: 0.1.0
     """
 
     return first(first(iterable))
@@ -84,6 +91,8 @@ def last(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, 
     4
     >>> last({1: 'a', 2: 'b', 3: 'c'})
     (3, "c")
+
+    Added in version: 0.1.0
     """
     try:
         # using a deque is an efficient way to get the last element
@@ -108,6 +117,8 @@ def rest(iterable: Iterable) -> Iterator:
 
     >>> tuple(rest([]))
     ()
+
+    Added in version: 0.1.0
     """
     try:
         it = iter_(iterable)
@@ -122,6 +133,8 @@ def second(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any
     """
     >>> second([1,2,3,4,5])
     2
+
+    Added in version: 0.1.0
     """
     if len(iterable) < 2:
         return last(iterable)
@@ -133,6 +146,8 @@ def third(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
     """
     >>> third([1,2,3,4,5])
     3
+
+    Added in version: 0.1.0
     """
     if len(iterable) < 3:
         return last(iterable)
@@ -144,6 +159,8 @@ def fourth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any
     """
     >>> fourth([1,2,3,4,5])
     4
+
+    Added in version: 0.1.0
     """
     if len(iterable) < 4:
         return last(iterable)
@@ -155,6 +172,8 @@ def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
     """
     >>> fifth([1,2,3,4,5])
     5
+
+    Added in version: 0.1.0
     """
     if len(iterable) < 5:
         return last(iterable)
@@ -171,6 +190,8 @@ def butlast(
 
     >>> butlast([1, 2, 3])
     (1, 2)
+
+    Added in version: 0.1.0
     """
     # TODO Check efficiency of the operation
     # since it's iterating through it twice.
@@ -189,6 +210,8 @@ def take(n: int, iterable: Iterable) -> Tuple:
     (1, 2, 3)
     >>> take(2, {1: "a", 2: "b", 3: "c"})
     ((1, "a"), (2, "b"))
+
+    Added in version: 0.1.0
     """
     it = iter_(iterable)
 
@@ -213,6 +236,8 @@ def drop(n: int, iterable: Iterable) -> Tuple:
     (4,5)
     >>> drop(2, {1: "a", 2: "b", 3: "c"})
     ((3, "c"),)
+
+    Added in version: 0.1.0
     """
 
     it = iter_(iterable)
@@ -239,6 +264,8 @@ def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
             return d[0]%2==0
     >>> take_while(is_even_dict, {2:"a", 4:"b",5:"c"})
         ((2, "a"), (4, "b"))
+
+    Added in version: 0.1.0
     """
 
     it = iter_(iterable)
@@ -263,6 +290,8 @@ def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
             return d[0]%2==0
     >>> drop_while(is_even_dict, {2:"a", 4:"b",5:"c"})
         ((5, "c"),)
+
+    Added in version: 0.1.0
     """
 
     it = iter_(iterable)
@@ -284,6 +313,8 @@ def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple, Tuple]:
 
     >>> split_with(is_even, [2, 4, 6, 7, 8, 9, 10])
     ((2, 4, 6), (7, 8, 9, 10))
+
+    Added in version: 0.1.0
     """
     # consider implementing with reduce
     # since we are iterating through iterable twice.

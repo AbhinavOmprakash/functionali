@@ -21,6 +21,7 @@ def not_(
     >>> negated_fn(1)
     >>> False
 
+    Added in version: 0.1.0
     """
 
     if not isinstance(expr, Callable):
@@ -37,17 +38,23 @@ def not_(
 
 
 def is_even(num: int) -> bool:
-    """Returns true when num is even"""
+    """Returns true when num is even.
+    Added in version: 0.1.0
+    """
     return num % 2 == 0
 
 
 def is_odd(num: int) -> bool:
-    """Returns true when num is odd"""
+    """Returns true when num is odd
+    Added in version: 0.1.0
+    """
     return num % 2 != 0
 
 
 def is_prime(num: int) -> bool:
-    """Returns true when num is prime"""
+    """Returns true when num is prime
+    Added in version: 0.1.0
+    """
     if is_even(num) and num != 2:
         # You don't need to compute the whole Sieve if num is even.
         return False
@@ -69,7 +76,9 @@ def is_prime(num: int) -> bool:
 
 
 def is_divisible(divident: Union[int, float], divisor: Union[int, float]) -> bool:
-    """Returns true if dividend is divisible by divisor"""
+    """Returns true if dividend is divisible by divisor
+    Added in version: 0.1.0
+    """
     return divident % divisor == 0
 
 
@@ -93,12 +102,16 @@ def is_divisible_by(divisor: Union[int, float]) -> Callable[[Union[int, float]],
 
     >>> list(filter(some_predicates([is_divisible_by(2), is_divisible_by(3)]), range(1, 10)))
     [2, 3, 4, 6, 8, 9, 10]
+
+    Added in version: 0.1.0
     """
     return lambda dividend: dividend % divisor == 0
 
 
 def is_numeric(entity: Any) -> bool:
-    """Return True if ``entity`` Is an ``int``,  ``float``, or a ``complex``."""
+    """Return True if ``entity`` Is an ``int``,  ``float``, or a ``complex``.
+    Added in version: 0.1.0
+    """
     return any(map(isinstance, [entity, entity, entity], [int, float, complex]))
 
 
@@ -111,6 +124,8 @@ def is_atom(entity: Any) -> bool:
         True
     >>> is_atom([1, 2])
         False
+
+    Added in version: 0.1.0
     """
     if isinstance(entity, str):
         return True
@@ -119,23 +134,32 @@ def is_atom(entity: Any) -> bool:
 
 
 def contains(entity: Any, collection: Iterable) -> bool:
-    """Checks whether collection contains the given entity."""
+    """Checks whether collection contains the given entity.
+    Added in version: 0.1.0
+    """
     return entity in collection
 
 
 def is_empty(collection: Iterable) -> bool:
-    """Returns true if the collection is empty."""
+    """Returns true if the collection is empty.
+    Added in version: 0.1.0
+    """
     return not bool(collection)
 
 
 def is_nested(collection: Iterable) -> bool:
-    """return true if a collection is nested"""
+    """return true if a collection is nested
+
+    Added in version: 0.1.0
+    """
     return any(map(not_(is_atom), collection))
 
 
 def all_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
     """Takes a set of predicates and returns a function that takes an entity
     and checks if it satisfies all the predicates.
+
+    Added in version: 0.1.0
     """
     return lambda entity: all((p(entity) for p in predicates))
 
@@ -143,6 +167,8 @@ def all_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
 def some_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
     """Takes a set of predicates and returns a function that takes an entity
     and checks if it satisfies some of the predicates.
+
+    Added in version: 0.1.0
     """
 
     return lambda entity: any((p(entity) for p in predicates))

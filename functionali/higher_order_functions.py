@@ -18,6 +18,8 @@ def flip(fn: Callable) -> Callable:
     -2
     >>> flipped_f(1,3)
     2
+
+    Added in version: 0.1.0
     """
 
     def flipped(*args, **kwargs):
@@ -27,7 +29,10 @@ def flip(fn: Callable) -> Callable:
 
 
 def foldr(fn: Callable, iterable: Iterable, initial: Any = None) -> Any:
-    """Fold right. Stack safe implementation"""
+    """Fold right. Stack safe implementation
+
+    Added in version: 0.1.0
+    """
     # Implement with reduce, for this we reverse the iterable
     # and then we flip fn since the Function signature for fn is fn(element, accumulator)
     # This is the standard function signature of any function passed to Foldright
@@ -49,6 +54,8 @@ def curry(fn: Callable) -> Callable:
     >>> curried_fn = curry(fn)
     >>> curried_fn(1)(2)(3)
         [1, 2, 3]
+
+    Added in version: 0.1.0
     """
     num_args = len(signature(fn).parameters)
 

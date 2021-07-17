@@ -32,6 +32,7 @@ def cons(arg: Any, iterable: Iterable) -> deque:
     >>> cons((3, "c"), {1:"a", 2: "b"})
     deque([(3, "c"), (1, "a"), (2, "b")])
 
+    Added in version: 0.1.0
     """
 
     if isinstance(iterable, dict):
@@ -69,6 +70,7 @@ def conj(iterable: Iterable, *args: Any) -> Iterable:
     >>> conj({1:"a", 2:"b"}, {3:"c"})
     {1: 'a', 2: 'b', 3: 'c'}
 
+    Added in version: 0.1.0
     """
     if isinstance(iterable, list):
 
@@ -107,6 +109,7 @@ def concat(iterable, *args):
     >>> concat(deque([1,2]), 3,4)
     deque([1, 2, 3, 4])
 
+    Added in version: 0.1.0
     """
 
     if isinstance(iterable, deque):
@@ -134,6 +137,8 @@ def argzip(sequence: Iterable[Callable], *args: Any) -> Generator:
     [(1, 'number'), (2, 'number'), (3, 'number'), (4, 'number')]
     >>> list(argzip([1,2,3,4], "number", "int"))
     [(1, 'number', 'int'), (2, 'number', 'int'), (3, 'number', 'int'), (4, 'number', 'int')]
+
+    Added in version: 0.1.0
     """
     return ((a, *args) for a in sequence)
 
@@ -150,6 +155,8 @@ def unzip(sequence: Iterable) -> Tuple[Any]:
 
     >>> unzip([ [[1,'num'],['a','str']], [[2,'num'],['b','str']] ])
     (([1, 'num'], [2, 'num']), (['a', 'str'], ['b', 'str']))
+
+    Added in version: 0.1.0
     """
 
     # TODO find better name for split?
@@ -176,6 +183,8 @@ def interleave(*seqs: Iterable) -> Tuple:
     (1, 'a', 2, 'b', 3, 'c')
     >>> interleave([1,2,3],["int","int","int"], ["a","b","c"],["str","str","str" ])
     (1, 'int', 'a', 'str', 2, 'int', 'b', 'str', 3, 'int', 'c', 'str')
+
+    Added in version: 0.1.0
     """
     return flatten(zip(*seqs))
 
@@ -185,7 +194,10 @@ def flatten(sequence: Iterable) -> Tuple:
     Flatten is recursive.
 
     >>> flatten([1,2,[3,[4],5],6,7])
-    (1, 2, 3, 4, 5, 6, 7)"""
+    (1, 2, 3, 4, 5, 6, 7)
+
+    Added in version: 0.1.0
+    """
 
     # TODO find better name
     def inner_fn(initial_val, elem):
@@ -220,6 +232,8 @@ def insert(element: Any, iterable: Iterable, *, key: Callable = lambda x: x) -> 
         (person1, person3, person2)
     >>> insert(person3, (person1, person2), key=lambda p:p.name)
         (person3, person1, person2)
+
+    Added in version: 0.1.0
 
     """
     # TODO refactor.
