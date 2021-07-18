@@ -5,7 +5,7 @@ from .seq_traverse import reversed_
 
 
 def flip(fn: Callable) -> Callable:
-    """returns a function that takes takes in a flipped order of args.
+    """returns a function that takes in a flipped order of args.
     Usage:
 
     >>> f = lambda a,b : a-b
