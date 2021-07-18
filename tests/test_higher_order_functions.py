@@ -1,8 +1,12 @@
 from functionali import (
     curry,
+    foldr,
     flip,
 )
 
+def test_foldr():
+    minus = lambda e, acc: acc - e
+    assert foldr(minus, [1,2,3,10]) == 4
 
 def test_curry():
     def fn(arg1, arg2, arg3):  # test function
