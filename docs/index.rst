@@ -21,13 +21,10 @@ But don't worry about these if you are just getting started.
 
 .. toctree::
    :maxdepth: 2
-   
+
    seq-traverse
-   
    seq-transform
-   
    predicates
-   
    higher-order-functions
 
 

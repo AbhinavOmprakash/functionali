@@ -6,6 +6,7 @@ authors = ["Abhinav Omprakash"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+sphinx-rtd-theme = "^0.5.2"
 
 
 [tool.poetry.dev-dependencies]
