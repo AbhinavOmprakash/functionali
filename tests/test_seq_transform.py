@@ -1,12 +1,15 @@
+
 from functionali import (
     cons,
     conj,
     concat,
     argzip,
+    argmap,
     unzip,
     interleave,
     flatten,
     insert,
+
 )
 
 from collections import deque, namedtuple
@@ -43,6 +46,18 @@ def test_concat():
     assert deque([1, 2, 3]) == concat(deque([1, 2]), 3)
     assert deque([1, 2, 3, 4]) == concat(deque([1, 2]), 3, 4)
     assert deque([4, 3, 1, 2]) != concat(deque([1, 2]), 3, 4)
+
+
+def test_argmap():
+    inc = lambda x:x+1
+    dec = lambda x:x-1
+    
+    assert list(argmap([inc, dec],[1])) == [2,0]
+
+    add= lambda a,b: a+b
+    sub = lambda a,b:  a-b
+
+    assert list(argmap([add, sub], [2, 1]))== [3, 1]
 
 
 def test_argzip():

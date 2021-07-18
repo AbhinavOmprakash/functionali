@@ -1,7 +1,7 @@
 """Functions that transform sequences"""
 from functools import reduce
 from collections import deque
-from .predicates import is_atom, is_nested, not_
+from .predicates import is_atom, is_nested, complement
 
 from .seq_traverse import iter_
 
@@ -126,6 +126,24 @@ def concat(iterable, *args):
         # call conj
         return conj(iterable, *args)
 
+def argmap(functions: Iterable[Callable], args:Iterable) -> Generator:
+    """Maps the same argument(s) to multiple functions.
+    
+    >>> inc = lambda x:x+1
+    >>> dec = lambda x:x-1
+    >>> list(argmap([inc, dec],[1]))
+        [2,0]
+
+    you can even map multiple arguments
+
+    >>> add = lambda a,b: a+b
+    >>> sub = lambda a,b:  a-b
+    >>> list(argmap([add, sub], [2, 1])) # two arguments
+        [3, 1]
+
+    Added in version: 0.1.0
+    """
+    return (f(*args) for f in functions)
 
 def argzip(sequence: Iterable[Callable], *args: Any) -> Generator:
     """
