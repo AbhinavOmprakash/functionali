@@ -3,6 +3,9 @@ functional programming tools for python. We try to put the fun in functional pro
 
 [![codecov](https://codecov.io/gh/AbhinavOmprakash/functionali/branch/main/graph/badge.svg?token=75LLE4F7EY)](https://codecov.io/gh/AbhinavOmprakash/functionali)
 
+[![Documentation Status](https://readthedocs.org/projects/functionali/badge/?version=latest)](https://functionali.readthedocs.io/en/latest/?badge=latest)
+      
+
 Functional programming is a fundamentally different way of solving problems, and once It clicks, it's pure joy after that. This library is my effort to bring that joy to the python community.
 A lot of ideas in this library have been taken from Clojure and Haskell, so the credit goes to those languages. 
 If you find your favorite function missing, or find ways to improve this project, I'd love to hear it.
