@@ -1,5 +1,5 @@
 from functionali import (
-    not_,
+    complement,
     is_even,
     is_odd,
     is_prime,
@@ -18,21 +18,21 @@ from functionali import (
 import pytest
 
 
-def test_not_():
-    assert not_(False) == True
-    assert not_(True) == False
+def test_complement_():
+    assert complement(False) == True
+    assert complement(True) == False
 
-    assert not_(0) == True
-    assert not_(1) == False
+    assert complement(0) == True
+    assert complement(1) == False
 
-    assert not_([]) == True
-    assert not_([1, 2, 3]) == False
+    assert complement([]) == True
+    assert complement([1, 2, 3]) == False
 
     # test negated functions.
     def fn(el):
         return bool(el)
 
-    negated_fn = not_(fn)
+    negated_fn = complement(fn)
     assert negated_fn(True) != fn(True)
     assert negated_fn(False) == fn(True)
 

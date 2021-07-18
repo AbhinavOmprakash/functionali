@@ -4,7 +4,7 @@ from typing import List, Iterable, Callable, Any, Sequence, Union
 from .higher_order_functions import partial, flip
 
 
-def not_(
+def complement(
     expr: Union[bool, Callable[[Any], bool]]
 ) -> Union[bool, Callable[[Any], bool]]:
     """Takes in a predicate or a Boolean expression and
@@ -152,7 +152,7 @@ def is_nested(collection: Iterable) -> bool:
 
     Added in version: 0.1.0
     """
-    return any(map(not_(is_atom), collection))
+    return any(map(complement(is_atom), collection))
 
 
 def all_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:
