@@ -130,7 +130,7 @@ def rest(iterable: Iterable) -> Iterator:
 
 
 def second(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """
+    """ Returns the second item in iterable, or the last item if length is less than 2
     >>> second([1,2,3,4,5])
     2
 
@@ -143,7 +143,7 @@ def second(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any
 
 
 def third(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """
+    """ Returns the third item in iterable, or the last item if length is less than 3 
     >>> third([1,2,3,4,5])
     3
 
@@ -156,7 +156,7 @@ def third(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
 
 
 def fourth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """
+    """ Returns the fourth item in iterable, or the last item if length is less than 4
     >>> fourth([1,2,3,4,5])
     4
 
@@ -169,7 +169,7 @@ def fourth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any
 
 
 def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """
+    """ Returns the fifth item in iterable, or the last item if length is less than 5
     >>> fifth([1,2,3,4,5])
     5
 
@@ -184,7 +184,6 @@ def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
 def butlast(
     iterable: Union[Iterable, Mapping[Any, Any]]
 ) -> Union[Tuple[Any], Tuple[Tuple[Any, Any]]]:
-
     """returns an iterable of all but the last element
     in the iterable
 
