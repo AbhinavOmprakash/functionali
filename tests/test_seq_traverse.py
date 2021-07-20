@@ -35,11 +35,12 @@ def test_iter_():
 def test_reversed_():
     d = {1: "a", 2: "b"}
     assert isinstance(reversed_(d), Iterator) == True
-    assert tuple(reversed_({1: "a", 2: "b", 3: "c"})) == ((3, "c"), (2, "b"),(1, "a") )
+    assert tuple(reversed_({1: "a", 2: "b", 3: "c"})) == ((3, "c"), (2, "b"), (1, "a"))
 
     # test that reversed_ return Iterator as it is
     it = reversed_([1, 2, 3])
     assert it is reversed_(it)
+
 
 def test_first():
     assert 1 == first([1, 2, 3])

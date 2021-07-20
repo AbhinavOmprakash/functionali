@@ -173,7 +173,7 @@ def fourth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any
 
 def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
     """Returns the fifth item in iterable, or the last item if length is less than 5
-    
+
     >>> fifth([1,2,3,4,5])
     5
 
