@@ -1,4 +1,4 @@
-"""Expressions to substitute for Python statements"""
+"""experimental ideas and functions"""
 from typing import Any
 
 # TODO Consider deleting this function
@@ -21,8 +21,7 @@ from typing import Any
 
 
 def or_(arg, *args):
-    """Lisp style ``or``. Evaluates expressions from left to right
-    and returns the value of the first truthy expression.
+    """Lisp style ``or``, returns the value of the first truthy expression,
     If all expressions evaluate to False, returns the value of the last expression.
 
     usage
@@ -61,9 +60,8 @@ def or_(arg, *args):
 
 
 def and_(arg, *args):
-    """Lisp style ``and``. Evaluates expressions from left to right
-    and returns the value of the last truthy expression.
-    If an expression evaluates to False, returns the value of the Falsey expression.
+    """Lisp style ``and``, returns the value of the last truthy expression,
+    If an expression evaluates to False, returns the value of the first Falsey expression.
 
     usage
 
