@@ -22,7 +22,7 @@ These functions can be divided into four major categories-
 #. predicates. For example ``is_even``, ``is_prime``, ``is_nested``.
 
 
-Besides this, the library provides a rather obscure "statement-like-expression" functions. 
+Besides this, the library provides a few "experimental" functions.
 But don't worry about these if you are just getting started.
 
 
@@ -33,6 +33,7 @@ But don't worry about these if you are just getting started.
    seq-transform
    predicates
    higher-order-functions
+   experimental
 
 
 
