@@ -1,4 +1,4 @@
-from functionali import or_, and_  # , if_
+from functionali.experimental import or_, and_  # , if_
 
 # TODO Consider deleting
 # def test_if_():
