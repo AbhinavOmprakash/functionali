@@ -1,5 +1,6 @@
 from functionali import (
     iter_,
+    reversed_,
     first,
     ffirst,
     second,
@@ -20,19 +21,25 @@ from typing import Iterator
 
 
 def test_iter_():
-    # two tests that the behavior of iter_ differs from iter
+    # tests that the behavior of iter_ differs from iter
     # When it comes to dictionaries
     d = {1: "a", 2: "b"}
     assert isinstance(iter_(d), Iterator) == True
     assert tuple(iter_({1: "a", 2: "b", 3: "c"})) == ((1, "a"), (2, "b"), (3, "c"))
-    assert tuple(iter_({1: "a", 2: "b", 3: "c"})) != tuple(
-        iter({1: "a", 2: "b", 3: "c"})
-    )
 
     # test that iter_ return Iterator as it is
-    it = iter([1, 2, 3])
+    it = iter_([1, 2, 3])
     assert it is iter_(it)
 
+
+def test_reversed_():
+    d = {1: "a", 2: "b"}
+    assert isinstance(reversed_(d), Iterator) == True
+    assert tuple(reversed_({1: "a", 2: "b", 3: "c"})) == ((3, "c"), (2, "b"),(1, "a") )
+
+    # test that reversed_ return Iterator as it is
+    it = reversed_([1, 2, 3])
+    assert it is reversed_(it)
 
 def test_first():
     assert 1 == first([1, 2, 3])
