@@ -254,9 +254,12 @@ def drop(n: int, iterable: Iterable) -> Tuple:
 
 def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
     """
+    Constructs a iterable list by taking elements from ``iterable`` while ``predicate`` is true,
+    Stop taking after the first element falsifies the predicate.
+
 
     >>> take_while(is_even, [2,4,6,7,8,9,10])
-    (2,4,6)
+    (2,4,6) # Notice that it does not include 8 and 10
 
     >>> def is_even_dict(d):
             #checks if the key of dict d is even
@@ -280,6 +283,8 @@ def take_while(predicate: Callable, iterable: Iterable) -> Tuple:
 
 def drop_while(predicate: Callable, iterable: Iterable) -> Tuple:
     """
+    Drops elements from ``iterable`` while ``predicate`` is true, 
+    And returns a tuple of the remaining elements in ``iterable``.
 
     >>> drop_while(is_even, [2,4,6,7,8,9,10])
     (7,8,9, 10)

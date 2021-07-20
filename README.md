@@ -2,7 +2,6 @@
 functional programming tools for python. We try to put the fun in functional programming 😉
 
 [![codecov](https://codecov.io/gh/AbhinavOmprakash/functionali/branch/main/graph/badge.svg?token=75LLE4F7EY)](https://codecov.io/gh/AbhinavOmprakash/functionali)
-
 [![Documentation Status](https://readthedocs.org/projects/functionali/badge/?version=latest)](https://functionali.readthedocs.io/en/latest/?badge=latest)
       
 
