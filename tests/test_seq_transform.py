@@ -1,4 +1,3 @@
-
 from functionali import (
     cons,
     conj,
@@ -9,14 +8,13 @@ from functionali import (
     interleave,
     flatten,
     insert,
-
 )
 
 from collections import deque, namedtuple
 
 
 def test_cons():
-    assert cons(3,[])== deque([3])
+    assert cons(3, []) == deque([3])
     assert deque([3, 1, 2]) == cons(3, [1, 2])
     assert deque([(3, "c"), (1, "a"), (2, "b")]) == cons((3, "c"), {1: "a", 2: "b"})
     assert deque([3, 1, 2]) == cons(3, {1, 2})
@@ -24,7 +22,7 @@ def test_cons():
 
 
 def test_conj():
-    assert conj([], 1)==[1]
+    assert conj([], 1) == [1]
     assert [1, 2, 3, 4, 5] == conj([1, 2, 3, 4], 5)
     assert [1, 2, 3, 4, [5]] == conj([1, 2, 3, 4], [5])
     assert [1, 2, 3, 4, 5, 6, 7, 8] == conj([1, 2, 3, 4], 5, 6, 7, 8)
@@ -38,9 +36,9 @@ def test_conj():
 
 
 def test_concat():
-    assert concat((), 1)==(1,)
+    assert concat((), 1) == (1,)
     assert [1, 2, 3, 4, 5] == concat([1, 2, 3, 4], 5)
-    
+
     # The difference between concat And conj is seen
     # only with a deque, it makes sense only test a deque.
     assert deque([1, 2, 3]) == concat(deque([1, 2]), 3)
@@ -49,15 +47,15 @@ def test_concat():
 
 
 def test_argmap():
-    inc = lambda x:x+1
-    dec = lambda x:x-1
-    
-    assert list(argmap([inc, dec],[1])) == [2,0]
+    inc = lambda x: x + 1
+    dec = lambda x: x - 1
 
-    add= lambda a,b: a+b
-    sub = lambda a,b:  a-b
+    assert list(argmap([inc, dec], [1])) == [2, 0]
 
-    assert list(argmap([add, sub], [2, 1]))== [3, 1]
+    add = lambda a, b: a + b
+    sub = lambda a, b: a - b
+
+    assert list(argmap([add, sub], [2, 1])) == [3, 1]
 
 
 def test_argzip():

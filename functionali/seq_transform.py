@@ -126,9 +126,10 @@ def concat(iterable, *args):
         # call conj
         return conj(iterable, *args)
 
-def argmap(functions: Iterable[Callable], args:Iterable) -> Generator:
+
+def argmap(functions: Iterable[Callable], args: Iterable) -> Generator:
     """Maps the same argument(s) to multiple functions.
-    
+
     >>> inc = lambda x:x+1
     >>> dec = lambda x:x-1
     >>> list(argmap([inc, dec],[1]))
@@ -144,6 +145,7 @@ def argmap(functions: Iterable[Callable], args:Iterable) -> Generator:
     Added in version: 0.1.0
     """
     return (f(*args) for f in functions)
+
 
 def argzip(sequence: Iterable[Callable], *args: Any) -> Generator:
     """
