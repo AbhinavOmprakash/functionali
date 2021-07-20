@@ -1,6 +1,7 @@
 
 Welcome to Functionali's documentation!
 =======================================
+Putting the fun in functional programming 😉
 
 .. image:: https://codecov.io/gh/AbhinavOmprakash/functionali/branch/main/graph/badge.svg?token=75LLE4F7EY
    :target: https://codecov.io/gh/AbhinavOmprakash/functionali
@@ -9,7 +10,7 @@ Welcome to Functionali's documentation!
    :target: https://functionali.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
       
-Functional programming is a fundamentally different way of solving problems, and once It clicks, it's pure joy after that. This library is my effort to bring that joy to the python community.
+Functional programming is a fundamentally different way of solving problems, and once It clicks, it's pure joy after that.
 A lot of ideas in this library have been taken from Clojure and Haskell, so the credit goes to those languages. 
 If you find your favorite function missing, or find ways to improve this project, I'd love to hear it.
 

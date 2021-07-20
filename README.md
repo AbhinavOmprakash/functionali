@@ -1,15 +1,74 @@
 # Functionali
-functional programming tools for python. We try to put the fun in functional programming 😉
+functional programming tools for python. Putting the fun in functional programming 😉
 
 [![codecov](https://codecov.io/gh/AbhinavOmprakash/functionali/branch/main/graph/badge.svg?token=75LLE4F7EY)](https://codecov.io/gh/AbhinavOmprakash/functionali)
 [![Documentation Status](https://readthedocs.org/projects/functionali/badge/?version=latest)](https://functionali.readthedocs.io/en/latest/?badge=latest)
       
 
-Functional programming is a fundamentally different way of solving problems, and once It clicks, it's pure joy after that. This library is my effort to bring that joy to the python community.
+Functional programming is a fundamentally different way of solving problems, and once It clicks, it's pure joy after that. 
 A lot of ideas in this library have been taken from Clojure and Haskell, so the credit goes to those languages. 
 If you find your favorite function missing, or find ways to improve this project, I'd love to hear it.
 
-## a few examples to whet your appetite
+## functional programming is powerful
+ 
+One of my favorite Functional implementations of an algorithm is insertion sort, here's how simple it 
+```pycon
+>>> from functionali import foldr, insert
+>>> def insertion_sort(iterable):
+...     return foldr(insert, iterable, [])
+
+>>> insertion_sort([3,2,1])
+(1, 2, 3)
+
+# even works with dictionaries
+>>> insertion_sort({3:"c", 1: "a", 2: "b"})  
+((1, 'a'), (2, 'b'), (3, 'c'))
+
+# and strings
+>>> insertion_sort("cbdasdf")
+('a', 'b', 'c', 'd', 'd', 'f', 's')
+>>> "".join(insertion_sort("cbdasdf"))
+'abcddfs' # better?
+``` 
+
+## functional programs are flexible
+
+Let's say you wanted to find a number that was divisible by The following numbers
+`1,2,3,4,5,6,7,8,9,10` 
+One way to solve it is a bunch of nested `if` Statements and we all know how brittle those can be.
+
+Let's see the functional way.
+```pycon
+>>> from functionali import is_divisible_by, all_predicates
+>>> my_filter = all_predicates(*map(is_divisible_by,[1,2,3,4,5,6,7,8,9,10]))
+>>> list(filter(my_filter,range(1,10000)))
+[2520, 5040, 7560]
+```
+
+Now let's say the boss decides that He wants the numbers that are not 
+Divisible by all these numbers
+```pycon
+>>> from functionali import complement
+>>> list(filter(complement(my_filter),range(1,10000)))
+[... 2515, 2516, 2517, 2518, 2519, 2521, 2522, 2523, 2524...] # Snipped for brevity 
+# note that 2520 is not present
+```
+The boss comes in again and he says that he Doesn't want numbers that are divisible by ALL these numbers but instead, ANY of these numbers `[1,2,3,4,5,6,7,8,9,10]`
+```pycon
+>>> from functionali import some_predicates
+>>> my_filter = some_predicates(*map(is_divisible_by,[1,2,3,4,5,6,7,8,9,10]))
+>>> list(filter(complement(my_filter),range(1,10000)))
+[]
+```
+The new boss realizes that all numbers are divisible by one and he tells you to Remove 1
+
+```pycon
+>>> my_filter = some_predicates(*map(is_divisible_by,[2,3,4,5,6,7,8,9,10]))   
+>>> list(filter(complement(my_filter),range(1,10000)))
+[1, 11, 13, 17, 19, 23, 29, 31...] # ,Snipped for brevity
+```
+
+## A few more examples
 
 Functionali provides functions to traverse sequences(Including dictionaries), Some of the most useful ones are `first`, `rest`, `last`,`butlast`, `take`, `drop`
 ```Python
