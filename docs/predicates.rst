@@ -5,6 +5,12 @@ Predicates
 
 .. autosummary:: 
 
+    equals
+    is_
+    less_than
+    greater_than
+    less_than_eq
+    greater_than_eq
     complement
     is_even
     is_odd
@@ -17,6 +23,13 @@ Predicates
     is_nested
     all_predicates
     some_predicates    
+
+.. autofunction:: equals
+.. autofunction:: is_
+.. autofunction:: less_than
+.. autofunction:: greater_than
+.. autofunction:: less_than_eq
+.. autofunction:: greater_than_eq
 
 .. autofunction:: complement
 

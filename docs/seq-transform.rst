@@ -13,6 +13,9 @@ Sequence transforming functions
     interleave
     flatten
     insert
+    remove
+
+.. autofunction:: remove
 
 .. autofunction:: cons
 
