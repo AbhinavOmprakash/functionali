@@ -1,6 +1,7 @@
 from functionali import (
     equals,
     is_,
+    less_than,
     complement,
     is_even,
     is_odd,
@@ -36,6 +37,17 @@ def test_is_():
 
     assert is_({1:"a"})({1:"a"}) == False
     assert is_({1},{1},{1}) == False
+
+
+def test_less_than():
+    assert less_than(2)(1) == True
+    assert less_than(1, 2) == True
+    assert less_than(1,2,3,4,5,6) == True
+
+    assert less_than(1)(1) == False
+    assert less_than(1,2,3,0) == False
+
+# def test_less
 
 def test_complement_():
     assert complement(False) == True

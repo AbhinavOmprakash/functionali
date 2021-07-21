@@ -8,7 +8,6 @@ def equals(a,b=None, *args):
 
     Added in version: 0.1.0
     """
-
     if not b:
         return lambda x: a==x
     elif not args:
@@ -19,7 +18,6 @@ def equals(a,b=None, *args):
             for arg in args:
                 if a != arg:
                     return False
-
             else:
                 return True
         else:
@@ -45,7 +43,45 @@ def is_(a, b=None, *args):
         else:
             return False
 
+def less_than(a,b=None, *args):
+    """
 
+    Added in version: 0.1.0
+    """
+    if not b:
+        return lambda x: x<a
+    elif not args:
+        return a<b
+    else:
+        # TODO ugly. refactor
+        if a<b:
+            for arg in args:
+                if a > arg:
+                    return False
+            else:
+                return True
+        else:
+            return False
+
+def less_than_eq(a,b=None, *args):
+    """
+
+    Added in version: 0.1.0
+    """
+    if not b:
+        return lambda x: x <=a
+    elif not args:
+        return a<=b
+    else:
+        # TODO ugly. refactor
+        if a<=b:
+            for arg in args:
+                if a > arg:
+                    return False
+            else:
+                return True
+        else:
+            return False
 
 def complement(
     expr: Union[bool, Callable[[Any], bool]]
