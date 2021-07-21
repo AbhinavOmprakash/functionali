@@ -4,6 +4,7 @@ from functionali import (
     less_than,
     less_than_eq,
     greater_than,
+    greater_than_eq,
     complement,
     is_even,
     is_odd,
@@ -65,13 +66,23 @@ def test_less_than_eq():
 
 def test_greater_than():
     assert greater_than(1)(2) == True
-    assert greater_than(1)(1) == False
     assert greater_than(2, 1) == True
     assert greater_than(4,3,2,1) == True
 
     assert greater_than(1)(1) == False
     assert greater_than(4,3,2,4) == False
     assert greater_than(4,4,3,2) == False
+
+def test_greater_than_eq():
+    assert greater_than_eq(1)(2) == True
+    assert greater_than_eq(1)(1) == True
+    assert  greater_than_eq(2, 1) == True
+    assert greater_than_eq(4,3,2,1) == True
+
+    assert greater_than_eq(1)(1) == True
+    assert greater_than_eq(4,3,2,4) == True
+    assert greater_than_eq(4,4,3,2) == True
+
 
 def test_complement_():
     assert complement(False) == True
