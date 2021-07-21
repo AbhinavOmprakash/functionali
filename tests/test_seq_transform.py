@@ -8,6 +8,7 @@ from functionali import (
     interleave,
     flatten,
     insert,
+    remove,
 )
 
 from collections import deque, namedtuple
@@ -122,3 +123,8 @@ def test_insert():
     assert (person3, person1, person2) == insert(
         person3, (person1, person2), key=lambda p: p.name
     )
+
+
+def test_remove():
+    is_pos = lambda x: x >=0
+    assert list(remove(is_pos, range(-5,5))) == [-5,-4,-3,-2,-1]
