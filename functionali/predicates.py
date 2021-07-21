@@ -56,7 +56,7 @@ def less_than(a,b=None, *args):
         # TODO ugly. refactor
         if a<b:
             for arg in args:
-                if a > arg:
+                if a >= arg:
                     return False
             else:
                 return True
@@ -82,6 +82,28 @@ def less_than_eq(a,b=None, *args):
                 return True
         else:
             return False
+
+def greater_than(a,b=None, *args):
+    """
+
+    Added in version: 0.1.0
+    """
+    if not b:
+        return lambda x: x>a
+    elif not args:
+        return a>b
+    else:
+        # TODO ugly. refactor
+        if a>b:
+            for arg in args:
+                if a <= arg:
+                    return False
+            else:
+                return True
+        else:
+            return False
+
+
 
 def complement(
     expr: Union[bool, Callable[[Any], bool]]
