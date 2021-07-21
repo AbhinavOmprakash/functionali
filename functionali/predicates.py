@@ -3,18 +3,19 @@
 from typing import List, Iterable, Callable, Any, Sequence, Union
 from .higher_order_functions import partial, flip
 
-def equals(a,b=None, *args):
+
+def equals(a, b=None, *args):
     """
 
     Added in version: 0.1.0
     """
     if not b:
-        return lambda x: a==x
+        return lambda x: a == x
     elif not args:
-        return a==b
+        return a == b
     else:
         # TODO ugly. refactor
-        if a==b:
+        if a == b:
             for arg in args:
                 if a != arg:
                     return False
@@ -22,6 +23,7 @@ def equals(a,b=None, *args):
                 return True
         else:
             return False
+
 
 def is_(a, b=None, *args):
     """
@@ -43,18 +45,19 @@ def is_(a, b=None, *args):
         else:
             return False
 
-def less_than(a,b=None, *args):
+
+def less_than(a, b=None, *args):
     """
 
     Added in version: 0.1.0
     """
     if not b:
-        return lambda x: x<a
+        return lambda x: x < a
     elif not args:
-        return a<b
+        return a < b
     else:
         # TODO ugly. refactor
-        if a<b:
+        if a < b:
             for arg in args:
                 if a >= arg:
                     return False
@@ -63,18 +66,19 @@ def less_than(a,b=None, *args):
         else:
             return False
 
-def less_than_eq(a,b=None, *args):
+
+def less_than_eq(a, b=None, *args):
     """
 
     Added in version: 0.1.0
     """
     if not b:
-        return lambda x: x <=a
+        return lambda x: x <= a
     elif not args:
-        return a<=b
+        return a <= b
     else:
         # TODO ugly. refactor
-        if a<=b:
+        if a <= b:
             for arg in args:
                 if a > arg:
                     return False
@@ -83,18 +87,19 @@ def less_than_eq(a,b=None, *args):
         else:
             return False
 
-def greater_than(a,b=None, *args):
+
+def greater_than(a, b=None, *args):
     """
 
     Added in version: 0.1.0
     """
     if not b:
-        return lambda x: x>a
+        return lambda x: x > a
     elif not args:
-        return a>b
+        return a > b
     else:
         # TODO ugly. refactor
-        if a>b:
+        if a > b:
             for arg in args:
                 if a <= arg:
                     return False
@@ -103,18 +108,19 @@ def greater_than(a,b=None, *args):
         else:
             return False
 
-def greater_than_eq(a,b=None, *args):
+
+def greater_than_eq(a, b=None, *args):
     """
 
     Added in version: 0.1.0
     """
     if not b:
-        return lambda x: x >=a
+        return lambda x: x >= a
     elif not args:
-        return a>=b
+        return a >= b
     else:
         # TODO ugly. refactor
-        if a>=b:
+        if a >= b:
             for arg in args:
                 if a < arg:
                     return False

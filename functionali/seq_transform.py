@@ -274,7 +274,7 @@ def insert(element: Any, iterable: Iterable, *, key: Callable = lambda x: x) -> 
     return tuple(accumulator) + (element, elem) + tuple(it)
 
 
-def remove(predicate:Callable, iterable:Iterable) -> Iterable:
+def remove(predicate: Callable, iterable: Iterable) -> Iterable:
     """
 
     Added in version: 0.1.0
