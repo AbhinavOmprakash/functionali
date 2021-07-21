@@ -3,6 +3,28 @@
 from typing import List, Iterable, Callable, Any, Sequence, Union
 from .higher_order_functions import partial, flip
 
+def equals(a,b=None, *args):
+    """
+
+    Added in version: 0.1.0
+    """
+
+    if not b:
+        return lambda x: x==a
+    elif not args:
+        return a==b
+    else:
+        # TODO ugly. refactor
+        if a==b:
+            for arg in args:
+                if a != arg:
+                    return False
+
+            else:
+                return True
+        else:
+            return False
+
 
 def complement(
     expr: Union[bool, Callable[[Any], bool]]

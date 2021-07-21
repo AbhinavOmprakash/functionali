@@ -1,4 +1,5 @@
 from functionali import (
+    equals,
     complement,
     is_even,
     is_odd,
@@ -16,6 +17,17 @@ from functionali import (
 )
 
 import pytest
+
+def test_equals():
+    assert equals(1)(1) == True
+    assert equals(1,1) == True
+    assert equals(1,1,1,1,1,1,1) == True
+    
+    assert equals(1)(2) == False
+    assert equals(1,2) == False
+    assert equals(1,1,1,1,1,1,2) == False
+    assert equals(1,2,1,1,1) == False
+
 
 
 def test_complement_():
