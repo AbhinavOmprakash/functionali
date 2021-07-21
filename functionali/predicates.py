@@ -10,7 +10,7 @@ def equals(a,b=None, *args):
     """
 
     if not b:
-        return lambda x: x==a
+        return lambda x: a==x
     elif not args:
         return a==b
     else:
@@ -24,6 +24,27 @@ def equals(a,b=None, *args):
                 return True
         else:
             return False
+
+def is_(a, b=None, *args):
+    """
+
+    Added in version: 0.1.0
+    """
+    if not b:
+        return lambda x: a is x
+    elif not args:
+        return a is b
+    else:
+        # TODO ugly. refactor
+        if a is b:
+            for arg in args:
+                if not a is arg:
+                    return False
+            else:
+                return True
+        else:
+            return False
+
 
 
 def complement(

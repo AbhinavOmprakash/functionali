@@ -1,5 +1,6 @@
 from functionali import (
     equals,
+    is_,
     complement,
     is_even,
     is_odd,
@@ -28,7 +29,13 @@ def test_equals():
     assert equals(1,1,1,1,1,1,2) == False
     assert equals(1,2,1,1,1) == False
 
+def test_is_():
+    assert is_(1)(1) == True
+    assert is_(1,1) == True
+    assert is_(1,1,1,1,1,1,1) == True
 
+    assert is_({1:"a"})({1:"a"}) == False
+    assert is_({1},{1},{1}) == False
 
 def test_complement_():
     assert complement(False) == True
