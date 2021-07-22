@@ -40,6 +40,7 @@ def test_is_():
     assert is_(1, 1) == True
     assert is_(1, 1, 1, 1, 1, 1, 1) == True
 
+    assert is_(1, 1, 2) == False
     assert is_({1: "a"})({1: "a"}) == False
     assert is_({1}, {1}, {1}) == False
 
@@ -61,8 +62,9 @@ def test_less_than_eq():
     assert less_than_eq(1)(1) == True
     assert less_than_eq(1, 2) == True
     assert less_than_eq(1, 2, 3, 4, 5, 6) == True
-
     assert less_than_eq(1)(1) == True
+
+    assert less_than_eq(1)(2) == False
     assert less_than_eq(1, 2, 3, 0) == False
     assert less_than_eq(1, 1, 2, 3) == True
 
@@ -82,10 +84,12 @@ def test_greater_than_eq():
     assert greater_than_eq(1)(1) == True
     assert greater_than_eq(2, 1) == True
     assert greater_than_eq(4, 3, 2, 1) == True
-
     assert greater_than_eq(1)(1) == True
     assert greater_than_eq(4, 3, 2, 4) == True
     assert greater_than_eq(4, 4, 3, 2) == True
+
+    assert greater_than_eq(4, 6) == False
+    assert greater_than_eq(4, 4, 3, 5) == False
 
 
 def test_complement_():
