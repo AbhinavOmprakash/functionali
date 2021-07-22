@@ -6,7 +6,8 @@ from .higher_order_functions import partial, flip
 
 def equals(a, b=None, *args):
     """
-
+    if only ``a`` is passed, a function is returned that returns True when the``arg`` passed to it is equal
+    to ``a``; else returns True when ``a``,``b`` and ``*args`` are equal.
     Added in version: 0.1.0
     """
     if not b:
@@ -27,6 +28,8 @@ def equals(a, b=None, *args):
 
 def is_(a, b=None, *args):
     """
+    if only ``a`` is passed, a function is returned that returns True when the ``arg`` passed is the same object
+    as ``a``; else returns True when ``a``,``b`` and ``*args`` are.
 
     Added in version: 0.1.0
     """
@@ -48,6 +51,8 @@ def is_(a, b=None, *args):
 
 def less_than(a, b=None, *args):
     """
+    if only ``a`` is passed, a function is returned that returns True when the ``arg`` passed to is less than ``a``;
+    else returns True when ``a`` is less than``b`` and ``*args``.
 
     Added in version: 0.1.0
     """
@@ -69,6 +74,8 @@ def less_than(a, b=None, *args):
 
 def less_than_eq(a, b=None, *args):
     """
+    if only ``a`` is passed, a function is returned that returns True when the ``arg`` less than or equal to ``a``;
+    else returns True when ``a`` is less than or equal to ``b`` and ``*args``.
 
     Added in version: 0.1.0
     """
@@ -90,6 +97,8 @@ def less_than_eq(a, b=None, *args):
 
 def greater_than(a, b=None, *args):
     """
+    if only ``a`` is passed, a function is returned that returns True when the ``arg`` passed to is greater than ``a``;
+    else returns True when ``a`` is greater than``b`` and ``*args``.
 
     Added in version: 0.1.0
     """
@@ -111,6 +120,8 @@ def greater_than(a, b=None, *args):
 
 def greater_than_eq(a, b=None, *args):
     """
+    if only ``a`` is passed, a function is returned that returns True when the ``arg`` greater than or equal to ``a``;
+    else returns True when ``a`` is greater than or equal to ``b`` and ``*args``.
 
     Added in version: 0.1.0
     """
