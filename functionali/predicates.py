@@ -6,7 +6,7 @@ from .higher_order_functions import partial, flip
 
 def equals(a, b=None, *args):
     """
-    if only ``a`` is passed, a function is returned that returns True when the``arg`` passed to it is equal
+    if only ``a`` is passed, a function is returned that returns True when the ``arg`` passed to it is equal
     to ``a``; else returns True when ``a``,``b`` and ``*args`` are equal.
 
     with one argument
