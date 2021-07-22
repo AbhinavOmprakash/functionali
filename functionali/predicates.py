@@ -54,7 +54,7 @@ def is_(a, b=None, *args):
     >>> is_d1 = is_(d1)
     >>> is_d1(d2)
     >>> False
-    >>> d1 == d2 
+    >>> d1 == d2
     >>> True
 
     with two or more arguments
@@ -134,7 +134,7 @@ def less_than_eq(a, b=None, *args):
     if only ``a`` is passed, a function is returned that returns True when the ``arg`` less than or equal to ``a``;
     else returns True when ``a`` is less than or equal to ``b`` and ``*args``.
 
-    with one argument 
+    with one argument
 
     >>> less_than_or_eq_to_one = less_than_eq(1)
     >>> less_than_or_eq_to_one(2)
@@ -182,9 +182,9 @@ def greater_than(a, b=None, *args):
     with one argument
 
     >>> greater_than_one = greater_than(1)
-    >>> greater_than_one(2) 
+    >>> greater_than_one(2)
     True
-    >>> greater_than_one(0) 
+    >>> greater_than_one(0)
     False
 
     with two or more arguments
@@ -224,12 +224,12 @@ def greater_than_eq(a, b=None, *args):
     if only ``a`` is passed, a function is returned that returns True when the ``arg`` greater than or equal to ``a``;
     else returns True when ``a`` is greater than or equal to ``b`` and ``*args``.
 
-    with one argument 
+    with one argument
 
     >>> greater_than_eq_one = greater_than_eq(1)
-    >>> greater_than_eq_one(2) 
+    >>> greater_than_eq_one(2)
     True
-    >>> greater_than_eq_one(1) 
+    >>> greater_than_eq_one(1)
     True
 
     with two or more arguments
@@ -340,7 +340,7 @@ def is_prime(num: int) -> bool:
 
 def is_divisible(divident: Union[int, float], divisor: Union[int, float]) -> bool:
     """Returns true if dividend is divisible by divisor.
-    
+
     Added in version: 0.1.0
     """
     return divident % divisor == 0
