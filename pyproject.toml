@@ -1,8 +1,16 @@
 [tool.poetry]
 name = "pyfunc"
 version = "0.1.0"
-description = ""
+description = "Functional programming tools for python. Putting the fun in functional programming 😉"
 authors = ["Abhinav Omprakash"]
+license="BSD-3-Clause"
+readme="README.md"
+homepage="https://functionali.readthedocs.io/en/latest/"
+repository="https://github.com/AbhinavOmprakash/functionali"
+keywords=["Timer", "timeit"]
+include=[
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"

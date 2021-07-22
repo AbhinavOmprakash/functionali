@@ -9,6 +9,17 @@ Functional programming is a fundamentally different way of solving problems, and
 A lot of ideas in this library have been taken from Clojure and Haskell, so the credit goes to those languages. 
 If you find your favorite function missing, or find ways to improve this project, I'd love to hear it.
 
+
+
+[Documentation](https://functionali.readthedocs.io/en/latest/)
+
+[wiki](https://functionali.readthedocs.io/en/latest/)
+
+## Installation
+```bash 
+pip install functionli 
+```
+
 ## functional programming is powerful
  
 One of my favorite Functional implementations of an algorithm is insertion sort, here's how simple it 
@@ -60,7 +71,7 @@ The boss comes in again and he says that he Doesn't want numbers that are divisi
 >>> list(filter(complement(my_filter),range(1,10000)))
 []
 ```
-The new boss realizes that all numbers are divisible by one and he tells you to Remove 1
+The boss realizes that all numbers are divisible by 1 and he tells you to Remove 1
 
 ```pycon
 >>> my_filter = some_predicates(*map(is_divisible_by,[2,3,4,5,6,7,8,9,10]))   
