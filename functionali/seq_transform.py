@@ -274,9 +274,15 @@ def insert(element: Any, iterable: Iterable, *, key: Callable = lambda x: x) -> 
     return tuple(accumulator) + (element, elem) + tuple(it)
 
 
-def remove(predicate: Callable, iterable: Iterable) -> Iterable:
+def remove(predicate: Callable, iterable: Iterable) -> Tuple:
     """
+    Opposite of filter; Constructs an iterable of elements that falsify the predicate.
+    
+    >>> remove(lambda x: x==1, [1,1,9,1,1]
+    [9]
+    >>> remove(lambda x: x%2==0, range(10)) 
+    [1,3,5,7,9] # filter would return [2,4,6,8]
 
     Added in version: 0.1.0
     """
-    return filter(complement(predicate), iterable)
+    return tuple(complement(predicate), iterable)
