@@ -63,10 +63,11 @@ def test_less_than_eq():
     assert less_than_eq(1, 2) == True
     assert less_than_eq(1, 2, 3, 4, 5, 6) == True
     assert less_than_eq(1)(1) == True
+    assert less_than_eq(1, 1, 2, 3) == True
 
     assert less_than_eq(1)(2) == False
     assert less_than_eq(1, 2, 3, 0) == False
-    assert less_than_eq(1, 1, 2, 3) == True
+    assert less_than_eq(4, 1, 2) == False
 
 
 def test_greater_than():
@@ -89,6 +90,7 @@ def test_greater_than_eq():
     assert greater_than_eq(4, 4, 3, 2) == True
 
     assert greater_than_eq(4, 6) == False
+    assert greater_than_eq(4, 6, 3, 4) == False
     assert greater_than_eq(4, 4, 3, 5) == False
 
 
