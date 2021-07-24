@@ -22,11 +22,6 @@ These functions can be divided into four major categories-
 #. Sequence transforming functions. For example ``cons``, ``concat``, ``flatten``.
 #. predicates. For example ``is_even``, ``is_prime``, ``is_nested``.
 
-
-Besides this, the library provides a few "experimental" functions.
-But don't worry about these if you are just getting started.
-
-
 .. toctree::
    :maxdepth: 2
 
@@ -34,7 +29,6 @@ But don't worry about these if you are just getting started.
    seq-transform
    predicates
    higher-order-functions
-   experimental
 
 
 
