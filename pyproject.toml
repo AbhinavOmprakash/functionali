@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pyfunc"
+name = "functionali"
 version = "0.1.0"
 description = "Functional programming tools for python. Putting the fun in functional programming 😉"
 authors = ["Abhinav Omprakash"]
@@ -7,14 +7,13 @@ license="BSD-3-Clause"
 readme="README.md"
 homepage="https://functionali.readthedocs.io/en/latest/"
 repository="https://github.com/AbhinavOmprakash/functionali"
-keywords=["Timer", "timeit"]
+keywords=["functional programming", "fp", "functools"]
 include=[
     "LICENSE",
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-sphinx-rtd-theme = "^0.5.2"
+python = "^3.6"
 
 
 [tool.poetry.dev-dependencies]
@@ -24,7 +23,7 @@ Sphinx = "^4.0.2"
 black = "*"
 blacken-docs = "^*"
 pretty-timeit = "^0.1.0"
-
+sphinx-rtd-theme = "^0.5.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -31,7 +31,7 @@ Here's an example.
 ```pycon
 >>> d = {1:"a"}
 >>> first(d)
-((1, "a"))
+((1, "a"),)
 ```
 
 while this is convenient for traversing dicts, it makes certain functions like `contains` rather awkward, since you as the user, would 
