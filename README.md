@@ -24,7 +24,7 @@ pip install functionli
 - Polymorphic functions that operate on all sequences. Including dictionaries.
 - A bunch of commonly used predicates that enhance readability, especially when used with filters.
 
-## A note on functionali deals with dictionaries.
+## A note on how functionali deals with dictionaries.
 As of now, all sequence traversing like `first` and `rest` functions treat dictionaries as a nested tuple of keys and values. 
 Here's an example. 
 
@@ -37,6 +37,8 @@ Here's an example.
 while this is convenient for traversing dicts, it makes certain functions like `contains` rather awkward, since you as the user, would 
 have to explicity convert the tuple back to a dict before passing it in. 
 (This might change in future)
+
+
 
 ## functional programming is powerful
  
