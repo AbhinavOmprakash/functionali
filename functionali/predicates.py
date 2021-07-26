@@ -3,7 +3,6 @@
 from typing import List, Iterable, Callable, Any, Sequence, Union
 from .higher_order_functions import partial, flip
 
-
 def equals(a, b=None, *args):
     """
     if only ``a`` is passed, a function is returned that returns True when the ``arg`` passed to it is equal
@@ -400,6 +399,7 @@ def is_atom(entity: Any) -> bool:
 
 def contains(entity: Any, collection: Iterable) -> bool:
     """Checks whether collection contains the given entity.
+    Note, won't automatically convert a tuple of keys and values to a ``dict``.
 
     Added in version: 0.1.0
     """
