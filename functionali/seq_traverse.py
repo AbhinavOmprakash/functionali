@@ -1,6 +1,17 @@
 """ Functions to traverse the sequence"""
 from collections import deque
-from typing import Iterable, Any, TypeVar, Iterator, Tuple, Mapping, Union, Callable
+from typing import (
+    Iterable,
+    Any,
+    TypeVar,
+    Iterator,
+    Tuple,
+    Mapping,
+    Union,
+    Callable,
+    Iterator,
+)
+import sys
 
 
 def iter_(iterable: Iterable) -> Iterator:
@@ -41,7 +52,12 @@ def reversed_(iterable: Iterable) -> Iterator:
     if isinstance(iterable, dict):
         # since iter(dict) returns a tuple of keys.
         # I want a tuple of key-value pairs
-        return reversed(iterable.items())
+        if (
+            sys.version_info[1] < 8
+        ):  # since reversed for dicts was available only in 3.8
+            return reversed([(k, v) for k, v in iterable.items()])
+        else:
+            return reversed(iterable.items())
 
     elif not isinstance(iterable, Iterator):
         return reversed(iterable)
@@ -50,9 +66,9 @@ def reversed_(iterable: Iterable) -> Iterator:
         return iterable
 
 
-def first(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
+def first(iterable: Iterable[Any]) -> Union[Any, None]:
     """
-    Returns the first item in an iterable.
+    Returns the first item in an iterable or ``None`` if iterable is empty.
     If iterable is a dict, returns a tuple of the First key-value pair
 
     >>> first([1,2,3,4,5])
@@ -62,17 +78,17 @@ def first(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any,
 
     Added in version: 0.1.0
     """
-
-    if iterable:
+    try:
         return next(iter_(iterable))
-
-    else:  # If iterable is empty
+    except TypeError:  # Nonetype object is not iterable
+        return None
+    except StopIteration:
         return None
 
 
-def ffirst(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
+def ffirst(iterable: Iterable[Any]) -> Union[Any, None]:
     """same as ``first(first(iterable))``
-    expects a nested iterable.
+    expects a nested iterable, returns None if iterable is empty
 
     >>> ffirst([[1,2], [3,4], [5,6]])
     1
@@ -83,7 +99,7 @@ def ffirst(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any
     return first(first(iterable))
 
 
-def last(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
+def last(iterable: Iterable[Any]) -> Union[Any, None]:
     """
     returns the last element in the iterable.
 
@@ -129,65 +145,67 @@ def rest(iterable: Iterable) -> Iterator:
         return iter([])
 
 
-def second(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """Returns the second item in iterable, or the last item if length is less than 2
+def second(iterable: Iterable[Any]) -> Union[Any, None]:
+    """Returns the second item in iterable, or ``None`` if length is less than 2
 
     >>> second([1,2,3,4,5])
     2
 
     Added in version: 0.1.0
     """
-    if len(iterable) < 2:
-        return last(iterable)
+    result = first(rest(iterable))
+    if not result:  # if result is an empty iterable
+        return None
     else:
-        return first(rest(iterable))
+        return result
 
 
-def third(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """Returns the third item in iterable, or the last item if length is less than 3
+def third(iterable: Iterable[Any]) -> Union[Any, None]:
+    """Returns the third item in iterable, or ``None`` if length is less than 3
 
     >>> third([1,2,3,4,5])
     3
 
     Added in version: 0.1.0
     """
-    if len(iterable) < 3:
-        return last(iterable)
+    result = first(rest(rest(iterable)))
+    if not result:  # if result is an empty iterable
+        return None
     else:
-        return first(rest(rest(iterable)))
+        return result
 
 
-def fourth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """Returns the fourth item in iterable, or the last item if length is less than 4
+def fourth(iterable: Iterable[Any]) -> Union[Any, None]:
+    """Returns the fourth item in iterable, or ``None`` if length is less than 4
 
     >>> fourth([1,2,3,4,5])
     4
 
     Added in version: 0.1.0
     """
-    if len(iterable) < 4:
-        return last(iterable)
+    result = first(rest(rest(rest(iterable))))
+    if not result:  # if result is an empty iterable
+        return None
     else:
-        return first(rest(rest(rest(iterable))))
+        return result
 
 
-def fifth(iterable: Union[Iterable, Mapping[Any, Any]]) -> Union[Any, Tuple[Any, Any]]:
-    """Returns the fifth item in iterable, or the last item if length is less than 5
+def fifth(iterable: Iterable[Any]) -> Union[Any, None]:
+    """Returns the fifth item in iterable, or ``None`` if length is less than 5
 
     >>> fifth([1,2,3,4,5])
     5
 
     Added in version: 0.1.0
     """
-    if len(iterable) < 5:
-        return last(iterable)
+    result = first(rest(rest(rest(rest(iterable)))))
+    if not result:  # if result is an empty iterable
+        return None
     else:
-        return first(rest(rest(rest(rest(iterable)))))
+        return result
 
 
-def butlast(
-    iterable: Union[Iterable, Mapping[Any, Any]]
-) -> Union[Tuple[Any], Tuple[Tuple[Any, Any]]]:
+def butlast(iterable: Iterable[Any]) -> Union[Tuple[Any], None]:
     """returns an iterable of all but the last element
     in the iterable
 
