@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "functionali"
-version = "0.1.0"
+version = "0.1.1"
 description = "Functional programming tools for python. Putting the fun in functional programming 😉"
 authors = ["Abhinav Omprakash"]
 license="BSD-3-Clause"
