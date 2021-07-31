@@ -1,7 +1,9 @@
 """A file containing useful predicates."""
 
-from typing import List, Iterable, Callable, Any, Sequence, Union
+from typing import List, Iterable, Callable, Any, Sequence, Union, Tuple
 from .higher_order_functions import partial, flip
+from functools import reduce
+from operator import lt, le, ge, gt
 
 
 def equals(a, b=None, *args):
@@ -118,15 +120,16 @@ def less_than(a, b=None, *args):
     elif not args:
         return a < b
     else:
-        # TODO ugly. refactor
-        if a < b:
-            for arg in args:
-                if a >= arg:
-                    return False
+
+        def f(boolean, el, args):
+            if not boolean:
+                return False
+            elif not args:
+                return boolean
             else:
-                return True
-        else:
-            return False
+                return f(lt(el, args[0]), args[0], args[1:])
+
+        return f(lt(a, b), b, args)
 
 
 def less_than_eq(a, b=None, *args):
@@ -164,14 +167,15 @@ def less_than_eq(a, b=None, *args):
         return a <= b
     else:
         # TODO ugly. refactor
-        if a <= b:
-            for arg in args:
-                if a > arg:
-                    return False
+        def f(boolean, el, args):
+            if not boolean:
+                return False
+            elif not args:
+                return boolean
             else:
-                return True
-        else:
-            return False
+                return f(le(el, args[0]), args[0], args[1:])
+
+        return f(le(a, b), b, args)
 
 
 def greater_than(a, b=None, *args):
@@ -209,14 +213,15 @@ def greater_than(a, b=None, *args):
         return a > b
     else:
         # TODO ugly. refactor
-        if a > b:
-            for arg in args:
-                if a <= arg:
-                    return False
+        def f(boolean, el, args):
+            if not boolean:
+                return False
+            elif not args:
+                return boolean
             else:
-                return True
-        else:
-            return False
+                return f(gt(el, args[0]), args[0], args[1:])
+
+        return f(gt(a, b), b, args)
 
 
 def greater_than_eq(a, b=None, *args):
@@ -254,14 +259,15 @@ def greater_than_eq(a, b=None, *args):
         return a >= b
     else:
         # TODO ugly. refactor
-        if a >= b:
-            for arg in args:
-                if a < arg:
-                    return False
+        def f(boolean, el, args):
+            if not boolean:
+                return False
+            elif not args:
+                return boolean
             else:
-                return True
-        else:
-            return False
+                return f(ge(el, args[0]), args[0], args[1:])
+
+        return f(ge(a, b), b, args)
 
 
 def complement(
