@@ -27,20 +27,14 @@ def test_iter_():
     assert isinstance(iter_(d), Iterator) == True
     assert tuple(iter_({1: "a", 2: "b", 3: "c"})) == ((1, "a"), (2, "b"), (3, "c"))
 
-    # test that iter_ return Iterator as it is
-    it = iter_([1, 2, 3])
-    assert it is iter_(it)
-
 
 def test_reversed_():
     d = {1: "a", 2: "b"}
     assert isinstance(reversed_(d), Iterator) == True
     assert tuple(reversed_({1: "a", 2: "b", 3: "c"})) == ((3, "c"), (2, "b"), (1, "a"))
 
-    # test that reversed_ return Iterator as it is
-    it = reversed_([1, 2, 3])
-    assert it is reversed_(it)
-
+    # test that iterators return a reversed iterators
+    assert tuple(reversed_(iter([1,2,3]))) == (3,2,1)
 
 def test_first():
     assert 1 == first([1, 2, 3])

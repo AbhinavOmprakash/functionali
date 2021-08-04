@@ -11,12 +11,12 @@ from typing import (
     Callable,
     Iterator,
 )
+
 import sys
 
 
 def iter_(iterable: Iterable) -> Iterator:
     """Returns appropriate iterator for the given iterable.
-    If iterable is already an iterator, it is returned as is.
     This is mainly created because python's ``iter``
     returns an iterable of keys instead of keys and values for ``dict``.
 
@@ -31,11 +31,8 @@ def iter_(iterable: Iterable) -> Iterator:
         # I want a tuple of key-value pairs
         return iter(iterable.items())
 
-    elif not isinstance(iterable, Iterator):
-        return iter(iterable)
+    return iter(iterable)
 
-    else:  # if iterable is already an iterator
-        return iterable
 
 
 def reversed_(iterable: Iterable) -> Iterator:
@@ -62,8 +59,12 @@ def reversed_(iterable: Iterable) -> Iterator:
     elif not isinstance(iterable, Iterator):
         return reversed(iterable)
 
-    else:  # if iterable is already an iterator
-        return iterable
+
+    else:  # if iterable is already a reversed iterator
+        try:
+            return reversed(iterable)
+        except TypeError:
+            return reversed(tuple(iterable))
 
 
 def first(iterable: Iterable[Any]) -> Union[Any, None]:
