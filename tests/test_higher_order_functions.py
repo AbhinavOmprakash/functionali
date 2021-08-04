@@ -4,11 +4,14 @@ from functionali import (
     flip,
 )
 
+from operator import add, sub, mult
 
 def test_foldr():
-    minus = lambda e, acc: acc - e  # foldr function
-    assert foldr(minus, [1, 2, 3, 10]) == 4  # (((10-3)-2)-1) = 4
-    assert foldr(minus, iter([1, 2, 3, 10])) == 4  # (((10-3)-2)-1) = 4
+    assert foldr(sub, [1, 2, 3, 10]) == 4  # (((10-3)-2)-1) = 4
+    assert foldr(sub, iter([1, 2, 3, 10])) == 4  # (((10-3)-2)-1) = 4
+
+def test_compose():
+    
 
 
 def test_curry():
