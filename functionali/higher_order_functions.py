@@ -46,6 +46,19 @@ def foldr(fn: Callable, iterable: Iterable, initial: Any = None) -> Any:
     return reduce(flip(fn), reversed_it, initial)
 
 
+def comp(*fn: Callable):
+    """
+    returns a function composition of functions passed to comp.
+
+    Added in version: 0.1.1
+    """
+
+    def inner(f, result):  # flipped order of args since you're passing to foldr
+        return f(result)
+
+    return lambda args: foldr(inner, fn, args)
+
+
 def curry(fn: Callable) -> Callable:
     """Returns a curried version of the function.
 
