@@ -34,10 +34,8 @@ def iter_(iterable: Iterable) -> Iterator:
     return iter(iterable)
 
 
-
 def reversed_(iterable: Iterable) -> Iterator:
     """Returns appropriate reversed iterator for the given iterable.
-    If iterable is already an iterator, it is returned as is.
     This is mainly created because python's ``reversed``
     returns an iterable of keys instead of keys and values for ``dict``.
 
@@ -58,7 +56,6 @@ def reversed_(iterable: Iterable) -> Iterator:
 
     elif not isinstance(iterable, Iterator):
         return reversed(iterable)
-
 
     else:  # if iterable is already a reversed iterator
         try:
