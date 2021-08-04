@@ -34,7 +34,8 @@ def test_reversed_():
     assert tuple(reversed_({1: "a", 2: "b", 3: "c"})) == ((3, "c"), (2, "b"), (1, "a"))
 
     # test that iterators return a reversed iterators
-    assert tuple(reversed_(iter([1,2,3]))) == (3,2,1)
+    assert tuple(reversed_(iter([1, 2, 3]))) == (3, 2, 1)
+
 
 def test_first():
     assert 1 == first([1, 2, 3])
