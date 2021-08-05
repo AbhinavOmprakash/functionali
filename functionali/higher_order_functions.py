@@ -50,7 +50,7 @@ def comp(*fn: Callable):
     """
     returns a function composition of functions passed to comp.
 
-    Added in version: 0.1.1
+    Added in version: 0.1.2
     """
 
     def inner(f, result):  # flipped order of args since you're passing to foldr
