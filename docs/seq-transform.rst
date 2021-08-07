@@ -23,6 +23,8 @@ Sequence transforming functions
 
 .. autofunction:: concat
 
+.. autofunction:: argmap
+
 .. autofunction:: argzip
 
 .. autofunction:: unzip
@@ -30,4 +32,5 @@ Sequence transforming functions
 .. autofunction:: interleave
 
 .. autofunction:: flatten
+
 .. autofunction:: insert
