@@ -15,6 +15,7 @@ from functionali import (
     take_while,
     drop_while,
     split_with,
+    count,
 )
 
 from typing import Iterator
@@ -53,9 +54,9 @@ def test_ffirst():
 
 
 def test_last():
+    assert 1 == last([1])
     assert 3 == last([1, 2, 3])
-    assert 3 == last((1, 2, 3))
-    assert 3 == last({1, 2, 3})
+    assert 3 == last(iter({1, 2, 3}))
     assert (3, "c") == last({1: "a", 2: "b", 3: "c"})
     assert None == last([])
 
@@ -161,3 +162,10 @@ def test_split_with():
     assert ((), (1, 2, 4, 6, 7, 8, 9, 10)) == split_with(
         is_even, [1, 2, 4, 6, 7, 8, 9, 10]
     )
+
+
+def test_count():
+    assert count([]) == 0
+    assert count(iter([])) == 0
+    assert count([1, 2, 3]) == 3
+    assert count(range(3)) == 3

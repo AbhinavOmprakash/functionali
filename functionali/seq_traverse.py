@@ -44,6 +44,7 @@ def reversed_(iterable: Iterable) -> Iterator:
 
     Added in version: 0.1.0
     """
+    # TODO drop support for python < 3.8 when support ends
     if isinstance(iterable, dict):
         # since iter(dict) returns a tuple of keys.
         # I want a tuple of key-value pairs
@@ -108,14 +109,11 @@ def last(iterable: Iterable[Any]) -> Union[Any, None]:
 
     Added in version: 0.1.0
     """
-    try:
-        # using a deque is an efficient way to get the last element
-        dq = deque(iter_(iterable), maxlen=1)
-
-        return dq.pop()
-
-    except IndexError:  # If iterable is empty, dq is empty
+    if not iterable:
         return None
+    else:
+        it = iter_(iterable)
+        return list(it)[-1]
 
 
 def rest(iterable: Iterable) -> Iterator:
@@ -343,3 +341,15 @@ def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple, Tuple]:
     # consider implementing with reduce
     # since we are iterating through iterable twice.
     return (take_while(predicate, iterable), drop_while(predicate, iterable))
+
+
+def count(iterable: Iterable) -> int:
+    """
+    counts the number of elements in the iterable, works with map objects, filter objets, and iterators.
+    ``count`` will consume iterators.
+    Added in version: 0.1.2
+    """
+    if hasattr(iterable, "__len__"):
+        return len(iterable)
+    else:
+        return len(list(iterable))
