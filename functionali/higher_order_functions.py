@@ -46,17 +46,18 @@ def foldr(fn: Callable, iterable: Iterable, initial: Any = None) -> Any:
     return reduce(flip(fn), reversed_it, initial)
 
 
-def comp(*fn: Callable):
+def comp(*fns: Callable):
     """
-    returns a function composition of functions passed to comp.
-
+    returns a composed function that takes a variable number of args,
+    and applies it to ``fns`` passed from right to left.
+    
     Added in version: 0.1.2
     """
+    def composed(*args, **kwargs):
+        first_func = fns[-1]  # since we are applying functions from right to left
+        return foldr(lambda f,arg: f(arg), fns[:-1], first_func(*args, **kwargs))
 
-    def inner(f, result):  # flipped order of args since you're passing to foldr
-        return f(result)
-
-    return lambda args: foldr(inner, fn, args)
+    return composed
 
 
 def curry(fn: Callable) -> Callable:
@@ -82,3 +83,25 @@ def curry(fn: Callable) -> Callable:
             return lambda arg: curried(arg, f, num_args - 1)
 
     return lambda arg: curried(arg, fn, num_args)
+
+
+def trampoline(fn:Callable, *args:Any):
+    """takes a function ``fn`` and calls if with ``*args``. if ``fn`` returns a function,
+    calls the function until a function is not returned i.e. the base case is reached.
+    function ``fn`` must return a function in its recursive case. 
+    Useful for optimizing tail recursive functions or mutual recursions.    
+
+
+    >>> def fact(x, curr=1, acc=1):
+    >>>    if curr == x:
+    >>>        return curr*acc
+    >>>    else:
+    >>>        return lambda: fact(x, curr+1, acc*curr)
+
+    >>> trampoline(fact, 3) == 6
+    >>> trampoline(fact, 100000000000) # does not raise RecursionError
+    """
+    recursive_fn = fn(*args)
+    while isinstance(recursive_fn, Callable):
+        recursive_fn = recursive_fn() 
+    return recursive_fn 

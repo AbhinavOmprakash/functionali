@@ -3,7 +3,11 @@ from functionali import (
     foldr,
     comp,
     flip,
+    trampoline,
+    count,
+    is_even,
 )
+
 
 
 def test_foldr():
@@ -21,6 +25,8 @@ def test_compose():
         double_it(5)
     )  # inc(double_it(5)) => inc(10) => 11
     assert comp(double_it, inc)(5) == 12  # double_it(inc(5)) => double_it(6) => 12
+
+    assert comp(count, filter)(is_even, [1, 2, 3, 4]) == 2
 
 
 def test_curry():
@@ -40,3 +46,12 @@ def test_flip():
     assert [1, 2, 3] == fn(1, 2, 3)
     assert [1, 2, 3] != flipped_fn(1, 2, 3)
     assert [1, 2, 3] == flipped_fn(3, 2, 1)  # flipping args
+
+def test_trampoline():
+    def fact(x, curr=1, acc=1):
+        if curr == x:
+            return curr*acc
+        else:
+            return lambda: fact(x, curr+1, acc*curr )
+
+    assert trampoline(fact, 3) == 6
