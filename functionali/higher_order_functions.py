@@ -50,12 +50,13 @@ def comp(*fns: Callable):
     """
     returns a composed function that takes a variable number of args,
     and applies it to ``fns`` passed from right to left.
-    
+
     Added in version: 0.1.2
     """
+
     def composed(*args, **kwargs):
         first_func = fns[-1]  # since we are applying functions from right to left
-        return foldr(lambda f,arg: f(arg), fns[:-1], first_func(*args, **kwargs))
+        return foldr(lambda f, arg: f(arg), fns[:-1], first_func(*args, **kwargs))
 
     return composed
 
@@ -85,11 +86,11 @@ def curry(fn: Callable) -> Callable:
     return lambda arg: curried(arg, fn, num_args)
 
 
-def trampoline(fn:Callable, *args:Any):
+def trampoline(fn: Callable, *args: Any):
     """takes a function ``fn`` and calls if with ``*args``. if ``fn`` returns a function,
     calls the function until a function is not returned i.e. the base case is reached.
-    function ``fn`` must return a function in its recursive case. 
-    Useful for optimizing tail recursive functions or mutual recursions.    
+    function ``fn`` must return a function in its recursive case.
+    Useful for optimizing tail recursive functions or mutual recursions.
 
 
     >>> def fact(x, curr=1, acc=1):
@@ -103,5 +104,5 @@ def trampoline(fn:Callable, *args:Any):
     """
     recursive_fn = fn(*args)
     while isinstance(recursive_fn, Callable):
-        recursive_fn = recursive_fn() 
-    return recursive_fn 
+        recursive_fn = recursive_fn()
+    return recursive_fn
