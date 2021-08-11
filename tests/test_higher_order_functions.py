@@ -9,7 +9,6 @@ from functionali import (
 )
 
 
-
 def test_foldr():
     sub = lambda e, acc: acc - e  # foldr function
     assert foldr(sub, [1, 2, 3, 10]) == 4  # (((10-3)-2)-1) = 4
@@ -47,11 +46,12 @@ def test_flip():
     assert [1, 2, 3] != flipped_fn(1, 2, 3)
     assert [1, 2, 3] == flipped_fn(3, 2, 1)  # flipping args
 
+
 def test_trampoline():
     def fact(x, curr=1, acc=1):
         if curr == x:
-            return curr*acc
+            return curr * acc
         else:
-            return lambda: fact(x, curr+1, acc*curr )
+            return lambda: fact(x, curr + 1, acc * curr)
 
     assert trampoline(fact, 3) == 6

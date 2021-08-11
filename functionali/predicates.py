@@ -1,6 +1,7 @@
 """A file containing useful predicates."""
 
-from typing import List, Iterable, Callable, Any, Sequence, Union, Tuple
+from typing import List, Iterable, Callable, Any, Sequence, Union, Tuple, Iterator
+
 from .higher_order_functions import partial, flip
 from functools import reduce
 from operator import lt, le, ge, gt
