@@ -346,7 +346,7 @@ def split_with(predicate: Callable, iterable: Iterable) -> Tuple[Tuple, Tuple]:
 def count(iterable: Iterable) -> int:
     """
     counts the number of elements in the iterable, works with map objects, filter objets, and iterators.
-    ``count`` will consume iterators.
+    ``count`` will consume iterators, use ``count_`` if you want access to the iterators.
     Added in version: 0.1.2
     """
     if hasattr(iterable, "__len__"):
