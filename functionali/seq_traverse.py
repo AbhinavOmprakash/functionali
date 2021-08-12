@@ -353,3 +353,17 @@ def count(iterable: Iterable) -> int:
         return len(iterable)
     else:
         return len(list(iterable))
+
+
+def count_(iterable: Iterable) -> Tuple[int, Iterable]:
+    """
+    returns a tuple of the number of elements in the iterable and the iterable itself.
+    This can be used if you wish to find the length of iterators and want to consume the iterators
+    later on.
+    Added in version: 0.1.2
+    """
+    if hasattr(iterable, "__len__"):
+        return (len(iterable), iterable)
+    else:
+        l = list(iterable)
+        return (len(l), l)

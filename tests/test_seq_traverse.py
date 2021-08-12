@@ -16,6 +16,7 @@ from functionali import (
     drop_while,
     split_with,
     count,
+    count_,
 )
 
 from typing import Iterator
@@ -169,3 +170,14 @@ def test_count():
     assert count(iter([])) == 0
     assert count([1, 2, 3]) == 3
     assert count(range(3)) == 3
+
+
+def test_count_():
+    assert count_([]) == (0, [])
+    assert count_(iter([])) == (0, [])
+    assert count_([1, 2, 3]) == (3, [1, 2, 3])
+    assert count_(range(3)) == (
+        3,
+        range(0, 3),
+    )  # since range has a __len__ attribute it will be returned as is
+    assert count_(map(lambda x: x + 1, [1, 2, 3, 4])) == (4, [2, 3, 4, 5])
