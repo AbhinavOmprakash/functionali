@@ -1,7 +1,7 @@
 from typing import Callable, Any, Iterable, Union
 from inspect import signature
 from functools import partial, reduce
-from .seq_traverse import reversed_, iter_
+from .seq_traverse import reversed_
 
 
 def flip(fn: Callable) -> Callable:
@@ -108,7 +108,7 @@ def trampoline(fn: Callable, *args: Any):
     return recursive_fn
 
 
-def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable[Callable, Any]]]) -> Any :
+def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
     #TODO improve docstrings.
     """thread first, passes ``arg`` as the first argument to the first function in ``forms``
     and passes the result as the first argument to the second form and so on."""
