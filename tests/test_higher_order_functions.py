@@ -6,8 +6,10 @@ from functionali import (
     trampoline,
     count,
     is_even,
+    threadf,
 )
 
+import pytest
 
 def test_foldr():
     sub = lambda e, acc: acc - e  # foldr function
@@ -55,3 +57,13 @@ def test_trampoline():
             return lambda: fact(x, curr + 1, acc * curr)
 
     assert trampoline(fact, 3) == 6
+
+
+@pytest.mark.parameterize("input, expected" ,
+[
+    ([1, [lambda x:x]], 1),
+    (1, [[lambda a,b:a-b, 3]], -2),
+    (1, [[lambda a,b: a+b, 2], [lambda a,b:a-b, 2], 1])
+    ])
+def test_threadf(input, expected):
+    assert threadf(*input) == expected
