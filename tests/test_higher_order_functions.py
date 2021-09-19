@@ -59,7 +59,7 @@ def test_trampoline():
     assert trampoline(fact, 3) == 6
 
 
-@pytest.mark.parameterize("input, expected" ,
+@pytest.mark.parametrize("input, expected" ,
 [
     ([1, [lambda x:x]], 1),
     (1, [[lambda a,b:a-b, 3]], -2),
