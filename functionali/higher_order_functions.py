@@ -112,12 +112,14 @@ def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
     #TODO improve docstrings.
     """thread first, passes ``arg`` as the first argument to the first function in ``forms``
     and passes the result as the first argument to the second form and so on."""
-    res = arg
-    for form in forms:
+
+    def fn(result, form):
         if isinstance(form, Iterable):
             fn = form[0]
             args = form[1:]
-            res = fn(res, *args)
+            return fn(result, *args)
         else:
-            res = form(res)
-    return res
+            return form(result)
+
+    return reduce(fn, forms, arg)
+
