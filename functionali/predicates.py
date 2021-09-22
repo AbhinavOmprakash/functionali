@@ -6,9 +6,11 @@ from .higher_order_functions import partial, flip
 from functools import reduce
 from operator import lt, le, ge, gt
 
+
 def identity(x):
     """Returns its argument as it is."""
     return x
+
 
 def equals(a, b=None, *args):
     """

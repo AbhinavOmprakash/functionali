@@ -82,7 +82,7 @@ def curry(fn: Callable) -> Callable:
             # call partial fn if not final arg
             f = partial(fn, arg)
             return lambda arg: curried(arg, f, num_args - 1)
-    
+
     if num_args == 0:
         return fn
 
@@ -111,7 +111,7 @@ def trampoline(fn: Callable, *args: Any):
     return recursive_fn
 
 
-def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
+def threadf(arg: Any, forms: Iterable[Union[Callable, Iterable]]) -> Any:
     """Thread first, passes ``arg`` as the first argument to the first function in ``forms``
     and passes the result as the first argument to the second form and so on.
 
@@ -127,10 +127,10 @@ def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
 
     >>> threadf(5, [[sub, 2]])
     >>> 3 # threadf(5, [[sub, 2]]) -> sub(5, 2) -> 5-2 -> 3
-    
+
 
     >>> # combining multiple functions
-    >>> threadf(5, [identity, (add, 1), (sub, 1), (mul, 3)]) 
+    >>> threadf(5, [identity, (add, 1), (sub, 1), (mul, 3)])
     15
     """
 
@@ -144,7 +144,8 @@ def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
 
     return reduce(fn, forms, arg)
 
-def threadl(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any:
+
+def threadl(arg: Any, forms: Iterable[Union[Callable, Iterable]]) -> Any:
     """Thread last, passes ``arg`` as the last argument to the first function in ``forms``
     and passes the result as the last argument to the second form and so on.
 
@@ -160,9 +161,9 @@ def threadl(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any:
 
     >>> threadl(5, [[sub, 2]])
     >>> -3 # threadl(5, [[sub, 2]]) -> sub(2, 5) -> 2-5 -> -3
-    
+
     >>> # combining multiple functions
-    >>> threadl(5, [identity, (add, 1), (sub, 1), (mul, 3)]) 
+    >>> threadl(5, [identity, (add, 1), (sub, 1), (mul, 3)])
     -15
     """
 
@@ -170,7 +171,10 @@ def threadl(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any:
         if isinstance(form, Iterable):
             fn = form[0]
             args = form[1:]
-            return fn(*args, result,)
+            return fn(
+                *args,
+                result,
+            )
         else:
             return form(result)
 

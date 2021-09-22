@@ -12,6 +12,7 @@ from functionali import (
 
 import pytest
 
+
 def test_foldr():
     sub = lambda e, acc: acc - e  # foldr function
     assert foldr(sub, [1, 2, 3, 10]) == 4  # (((10-3)-2)-1) = 4
@@ -38,7 +39,8 @@ def test_curry():
     curried_fn = curry(fn)
     assert [1, 2, 3] == curried_fn(1)(2)(3)
 
-    def fn_with_no_args(): return 1 
+    def fn_with_no_args():
+        return 1
 
     curried_fn_with_no_args = curry(fn_with_no_args)
     assert 1 == curried_fn_with_no_args()
@@ -65,20 +67,25 @@ def test_trampoline():
     assert trampoline(fact, 3) == 6
 
 
-@pytest.mark.parametrize("input, expected" ,
-[
-    ([1, [lambda x:x]], 1),
-    ([1, [[lambda a,b:a-b, 3]]], -2),
-    ([1, [[lambda a,b: a+b, 2], [lambda a,b:a-b, 2]]], 1)
-    ])
+@pytest.mark.parametrize(
+    "input, expected",
+    [
+        ([1, [lambda x: x]], 1),
+        ([1, [[lambda a, b: a - b, 3]]], -2),
+        ([1, [[lambda a, b: a + b, 2], [lambda a, b: a - b, 2]]], 1),
+    ],
+)
 def test_threadf(input, expected):
     assert threadf(*input) == expected
 
-@pytest.mark.parametrize("input, expected" ,
-[
-    ([1, [lambda x:x]], 1),
-    ([1, [[lambda a,b:a-b, 3]]], 2),
-    ([1, [[lambda a,b: a+b, 2], [lambda a,b:a-b, 2]]], -1)
-    ])
+
+@pytest.mark.parametrize(
+    "input, expected",
+    [
+        ([1, [lambda x: x]], 1),
+        ([1, [[lambda a, b: a - b, 3]]], 2),
+        ([1, [[lambda a, b: a + b, 2], [lambda a, b: a - b, 2]]], -1),
+    ],
+)
 def test_threadf(input, expected):
     assert threadl(*input) == expected

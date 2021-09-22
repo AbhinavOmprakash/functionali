@@ -25,13 +25,18 @@ from functionali import (
 import pytest
 
 
-@pytest.mark.parametrize("input", "expected", 
-[("a","a"),
-(["a"],["a"]),
-([1,2,3,4],[1,2,3,4]),
-])
+@pytest.mark.parametrize(
+    "input",
+    "expected",
+    [
+        ("a", "a"),
+        (["a"], ["a"]),
+        ([1, 2, 3, 4], [1, 2, 3, 4]),
+    ],
+)
 def identity(input, expected):
     assert identity(input) == expected
+
 
 def test_equals():
     assert equals(1)(1) == True
