@@ -38,6 +38,11 @@ def test_curry():
     curried_fn = curry(fn)
     assert [1, 2, 3] == curried_fn(1)(2)(3)
 
+    def fn_with_no_args(): return 1 
+
+    curried_fn_with_no_args = curry(fn_with_no_args)
+    assert 1 == curried_fn_with_no_args()
+
 
 def test_flip():
     def fn(arg1, arg2, arg3):  # test function

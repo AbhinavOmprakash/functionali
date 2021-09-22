@@ -75,13 +75,16 @@ def curry(fn: Callable) -> Callable:
     num_args = len(signature(fn).parameters)
 
     def curried(arg, fn, num_args):
-        if num_args <= 1:
+        if num_args == 1:
             # call fn if the final arg is passed
             return fn(arg)
         else:
             # call partial fn if not final arg
             f = partial(fn, arg)
             return lambda arg: curried(arg, f, num_args - 1)
+    
+    if num_args == 0:
+        return fn
 
     return lambda arg: curried(arg, fn, num_args)
 
