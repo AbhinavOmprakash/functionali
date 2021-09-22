@@ -112,9 +112,27 @@ def trampoline(fn: Callable, *args: Any):
 
 
 def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
-    #TODO improve docstrings.
-    """thread first, passes ``arg`` as the first argument to the first function in ``forms``
-    and passes the result as the first argument to the second form and so on."""
+    """Thread first, passes ``arg`` as the first argument to the first function in ``forms``
+    and passes the result as the first argument to the second form and so on.
+
+    see also ``threadl``.
+
+    >>> from functionali import identity
+    >>> from operator import add, sub, mul
+    >>> threadf(5, [identity])
+    >>> 5
+
+    >>> threadf(5, [identity, [add, 2]])
+    >>> 7
+
+    >>> threadf(5, [[sub, 2]])
+    >>> 3 # threadf(5, [[sub, 2]]) -> sub(5, 2) -> 5-2 -> 3
+    
+
+    >>> # combining multiple functions
+    >>> threadf(5, [identity, (add, 1), (sub, 1), (mul, 3)]) 
+    15
+    """
 
     def fn(result, form):
         if isinstance(form, Iterable):
@@ -128,7 +146,25 @@ def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
 
 def threadl(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any:
     """Thread last, passes ``arg`` as the last argument to the first function in ``forms``
-    and passes the result as the last argument to the second form and so on."""
+    and passes the result as the last argument to the second form and so on.
+
+    see also ``threadf``.
+
+    >>> from functionali import identity
+    >>> from operator import add, sub, mul
+    >>> threadl(5, [identity])
+    >>> 5
+
+    >>> threadl(5, [identity, [add, 2]])
+    >>> 7
+
+    >>> threadl(5, [[sub, 2]])
+    >>> -3 # threadl(5, [[sub, 2]]) -> sub(2, 5) -> 2-5 -> -3
+    
+    >>> # combining multiple functions
+    >>> threadl(5, [identity, (add, 1), (sub, 1), (mul, 3)]) 
+    -15
+    """
 
     def fn(result, form):
         if isinstance(form, Iterable):
