@@ -123,3 +123,16 @@ def threadf(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any :
 
     return reduce(fn, forms, arg)
 
+def threadl(arg:Any, forms:Iterable[Union[Callable, Iterable]]) -> Any:
+    """Thread last, passes ``arg`` as the last argument to the first function in ``forms``
+    and passes the result as the last argument to the second form and so on."""
+
+    def fn(result, form):
+        if isinstance(form, Iterable):
+            fn = form[0]
+            args = form[1:]
+            return fn(*args, result,)
+        else:
+            return form(result)
+
+    return reduce(fn, forms, arg)
