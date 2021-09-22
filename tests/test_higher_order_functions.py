@@ -62,8 +62,8 @@ def test_trampoline():
 @pytest.mark.parametrize("input, expected" ,
 [
     ([1, [lambda x:x]], 1),
-    (1, [[lambda a,b:a-b, 3]], -2),
-    (1, [[lambda a,b: a+b, 2], [lambda a,b:a-b, 2], 1])
+    ([1, [[lambda a,b:a-b, 3]]], -2),
+    ([1, [[lambda a,b: a+b, 2], [lambda a,b:a-b, 2]]], 1)
     ])
 def test_threadf(input, expected):
     assert threadf(*input) == expected
