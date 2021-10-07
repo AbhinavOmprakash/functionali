@@ -349,6 +349,9 @@ def count(iterable: Iterable) -> int:
     counts the number of elements in the iterable, works with map objects, filter objets, and iterators.
     ``count`` will consume iterators, use ``count_`` if you want access to the iterators.
     Added in version: 0.1.2
+    
+    >>> count(iter([1,2,3]))
+    3
     """
     if hasattr(iterable, "__len__"):
         return len(iterable)
@@ -362,6 +365,8 @@ def count_(iterable: Iterable) -> Tuple[int, Iterable]:
     This can be used if you wish to find the length of iterators and want to consume the iterators
     later on.
     Added in version: 0.1.2
+    >>> count(iter([1,2,3]))
+    (3,[1,2,3])
     """
     if hasattr(iterable, "__len__"):
         return (len(iterable), iterable)
