@@ -171,10 +171,7 @@ def threadl(arg: Any, forms: Iterable[Union[Callable, Iterable]]) -> Any:
         if isinstance(form, Iterable):
             fn = form[0]
             args = form[1:]
-            return fn(
-                *args,
-                result,
-            )
+            return fn(*args, result)
         else:
             return form(result)
 

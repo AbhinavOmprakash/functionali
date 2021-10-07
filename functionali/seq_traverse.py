@@ -48,12 +48,12 @@ def reversed_(iterable: Iterable) -> Iterator:
     if isinstance(iterable, dict):
         # since iter(dict) returns a tuple of keys.
         # I want a tuple of key-value pairs
-        
+
         if (
             sys.version_info[1] < 8
         ):  # since reversed for dicts was available only in 3.8
             return reversed([(k, v) for k, v in iterable.items()])
-        else: #pragma:no cover
+        else:  # pragma:no cover
             return reversed(iterable.items())
 
     elif not isinstance(iterable, Iterator):
@@ -349,7 +349,7 @@ def count(iterable: Iterable) -> int:
     counts the number of elements in the iterable, works with map objects, filter objets, and iterators.
     ``count`` will consume iterators, use ``count_`` if you want access to the iterators.
     Added in version: 0.1.2
-    
+
     >>> count(iter([1,2,3]))
     3
     """

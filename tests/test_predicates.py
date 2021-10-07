@@ -26,7 +26,7 @@ import pytest
 
 
 def test_identity():
-    assert identity(1)==1
+    assert identity(1) == 1
 
 
 def test_equals():
