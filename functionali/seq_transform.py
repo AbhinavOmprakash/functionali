@@ -219,17 +219,16 @@ def flatten(sequence: Iterable) -> Tuple:
     Added in version: 0.1.0
     """
 
-    # TODO find better name
-    def inner_fn(initial_val, elem):
+    def fn(initial_val, elem):
         if is_atom(elem):
             return conj(initial_val, elem)
         elif is_nested(elem):
-            # recursively call flatten if elem is a nested list
+            # recursively call flatten if elem is a nested sequence
             return conj(initial_val, *flatten(elem))
         else:
             return conj(initial_val, *elem)
 
-    return reduce(inner_fn, sequence, ())
+    return reduce(fn, sequence, ())
 
 
 def insert(element: Any, iterable: Iterable, *, key: Callable = lambda x: x) -> Tuple:

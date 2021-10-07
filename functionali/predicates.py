@@ -388,7 +388,7 @@ def is_numeric(entity: Any) -> bool:
 
 
 def is_atom(entity: Any) -> bool:
-    """Everything that is NOT an iterable( except strings ) Are considered atoms.
+    """Everything that is NOT an iterable(except strings) are considered atoms.
 
     >>> is_atom("plain string")
         True
@@ -423,11 +423,13 @@ def is_empty(collection: Iterable) -> bool:
 
 
 def is_nested(collection: Iterable) -> bool:
-    """returns true if a collection is nested
-
+    """returns true if a collection is nested.
     Added in version: 0.1.0
     """
-    return any(map(complement(is_atom), collection))
+    if isinstance(collection, dict):
+        return any(map(lambda x: isinstance(x, dict), collection.values()))
+    else:
+        return any(map(complement(is_atom), collection))
 
 
 def all_predicates(*predicates: Callable[[Any], bool]) -> Callable[[Any], bool]:

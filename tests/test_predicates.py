@@ -187,6 +187,12 @@ def test_is_nested():
     assert is_nested([]) == False
     assert is_nested([[]]) == True
     assert is_nested([(), ()]) == True
+    assert is_nested([(), {}]) == True
+
+    assert is_nested({}) == False
+    assert is_nested({1: {}}) == True
+    assert is_nested({1: "a", 2: "b"}) == False
+    assert is_nested({1: "a", 2: {1: "a", 2: "b"}}) == True
 
 
 def test_all_predicates():
