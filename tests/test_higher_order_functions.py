@@ -87,5 +87,5 @@ def test_threadf(input, expected):
         ([1, [[lambda a, b: a + b, 2], [lambda a, b: a - b, 2]]], -1),
     ],
 )
-def test_threadf(input, expected):
+def test_threadl(input, expected):
     assert threadl(*input) == expected

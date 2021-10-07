@@ -25,17 +25,8 @@ from functionali import (
 import pytest
 
 
-@pytest.mark.parametrize(
-    "input",
-    "expected",
-    [
-        ("a", "a"),
-        (["a"], ["a"]),
-        ([1, 2, 3, 4], [1, 2, 3, 4]),
-    ],
-)
-def identity(input, expected):
-    assert identity(input) == expected
+def test_identity():
+    assert identity(1)==1
 
 
 def test_equals():
