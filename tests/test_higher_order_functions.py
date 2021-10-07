@@ -6,7 +6,11 @@ from functionali import (
     trampoline,
     count,
     is_even,
+    threadf,
+    threadl,
 )
+
+import pytest
 
 
 def test_foldr():
@@ -35,6 +39,12 @@ def test_curry():
     curried_fn = curry(fn)
     assert [1, 2, 3] == curried_fn(1)(2)(3)
 
+    def fn_with_no_args():
+        return 1
+
+    curried_fn_with_no_args = curry(fn_with_no_args)
+    assert 1 == curried_fn_with_no_args()
+
 
 def test_flip():
     def fn(arg1, arg2, arg3):  # test function
@@ -55,3 +65,27 @@ def test_trampoline():
             return lambda: fact(x, curr + 1, acc * curr)
 
     assert trampoline(fact, 3) == 6
+
+
+@pytest.mark.parametrize(
+    "input, expected",
+    [
+        ([1, [lambda x: x]], 1),
+        ([1, [[lambda a, b: a - b, 3]]], -2),
+        ([1, [[lambda a, b: a + b, 2], [lambda a, b: a - b, 2]]], 1),
+    ],
+)
+def test_threadf(input, expected):
+    assert threadf(*input) == expected
+
+
+@pytest.mark.parametrize(
+    "input, expected",
+    [
+        ([1, [lambda x: x]], 1),
+        ([1, [[lambda a, b: a - b, 3]]], 2),
+        ([1, [[lambda a, b: a + b, 2], [lambda a, b: a - b, 2]]], -1),
+    ],
+)
+def test_threadf(input, expected):
+    assert threadl(*input) == expected

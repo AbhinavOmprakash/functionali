@@ -1,4 +1,4 @@
-from typing import Callable, Any, Iterable
+from typing import Callable, Any, Iterable, Union
 from inspect import signature
 from functools import partial, reduce
 from .seq_traverse import reversed_
@@ -75,13 +75,16 @@ def curry(fn: Callable) -> Callable:
     num_args = len(signature(fn).parameters)
 
     def curried(arg, fn, num_args):
-        if num_args <= 1:
+        if num_args == 1:
             # call fn if the final arg is passed
             return fn(arg)
         else:
             # call partial fn if not final arg
             f = partial(fn, arg)
             return lambda arg: curried(arg, f, num_args - 1)
+
+    if num_args == 0:
+        return fn
 
     return lambda arg: curried(arg, fn, num_args)
 
@@ -106,3 +109,73 @@ def trampoline(fn: Callable, *args: Any):
     while isinstance(recursive_fn, Callable):
         recursive_fn = recursive_fn()
     return recursive_fn
+
+
+def threadf(arg: Any, forms: Iterable[Union[Callable, Iterable]]) -> Any:
+    """Thread first, passes ``arg`` as the first argument to the first function in ``forms``
+    and passes the result as the first argument to the second form and so on.
+
+    see also ``threadl``.
+
+    >>> from functionali import identity
+    >>> from operator import add, sub, mul
+    >>> threadf(5, [identity])
+    >>> 5
+
+    >>> threadf(5, [identity, [add, 2]])
+    >>> 7
+
+    >>> threadf(5, [[sub, 2]])
+    >>> 3 # threadf(5, [[sub, 2]]) -> sub(5, 2) -> 5-2 -> 3
+
+
+    >>> # combining multiple functions
+    >>> threadf(5, [identity, (add, 1), (sub, 1), (mul, 3)])
+    15
+    """
+
+    def fn(result, form):
+        if isinstance(form, Iterable):
+            fn = form[0]
+            args = form[1:]
+            return fn(result, *args)
+        else:
+            return form(result)
+
+    return reduce(fn, forms, arg)
+
+
+def threadl(arg: Any, forms: Iterable[Union[Callable, Iterable]]) -> Any:
+    """Thread last, passes ``arg`` as the last argument to the first function in ``forms``
+    and passes the result as the last argument to the second form and so on.
+
+    see also ``threadf``.
+
+    >>> from functionali import identity
+    >>> from operator import add, sub, mul
+    >>> threadl(5, [identity])
+    >>> 5
+
+    >>> threadl(5, [identity, [add, 2]])
+    >>> 7
+
+    >>> threadl(5, [[sub, 2]])
+    >>> -3 # threadl(5, [[sub, 2]]) -> sub(2, 5) -> 2-5 -> -3
+
+    >>> # combining multiple functions
+    >>> threadl(5, [identity, (add, 1), (sub, 1), (mul, 3)])
+    -15
+    """
+
+    def fn(result, form):
+        if isinstance(form, Iterable):
+            fn = form[0]
+            args = form[1:]
+            return fn(
+                *args,
+                result,
+            )
+        else:
+            return form(result)
+
+    return reduce(fn, forms, arg)

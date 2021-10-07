@@ -7,6 +7,11 @@ from functools import reduce
 from operator import lt, le, ge, gt
 
 
+def identity(x):
+    """Returns its argument as it is."""
+    return x
+
+
 def equals(a, b=None, *args):
     """
     if only ``a`` is passed, a function is returned that returns True when the ``arg`` passed to it is equal
