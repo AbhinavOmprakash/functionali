@@ -20,6 +20,8 @@ Sequence traversing functions
     split_with
     iter_
     reversed_
+    count
+    count_
     
 
 .. autofunction:: first
@@ -53,4 +55,8 @@ Sequence traversing functions
 .. autofunction:: iter_
 
 .. autofunction:: reversed_
+
+.. autofunction:: count
+
+.. autofunction:: count_
 

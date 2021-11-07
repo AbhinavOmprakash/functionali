@@ -5,6 +5,7 @@ Predicates
 
 .. autosummary:: 
 
+    identity
     equals
     is_
     less_than
@@ -24,11 +25,18 @@ Predicates
     all_predicates
     some_predicates    
 
+.. autofunction:: identity
+
 .. autofunction:: equals
+
 .. autofunction:: is_
+
 .. autofunction:: less_than
+
 .. autofunction:: greater_than
+
 .. autofunction:: less_than_eq
+
 .. autofunction:: greater_than_eq
 
 .. autofunction:: complement
