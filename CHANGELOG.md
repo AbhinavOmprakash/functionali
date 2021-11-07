@@ -6,6 +6,8 @@
 - `count`
 - `count_`
 - `identity`
+- `reduce`
+- `reduced`
 - `threadf`
 - `threadl`
 - `trampoline`
