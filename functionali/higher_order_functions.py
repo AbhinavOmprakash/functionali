@@ -1,7 +1,8 @@
 from typing import Callable, Any, Iterable, Union
 from inspect import signature
-from functools import partial, reduce
-from .seq_traverse import reversed_
+from functools import partial
+from .seq_traverse import iter_, reversed_
+
 
 
 def flip(fn: Callable) -> Callable:
@@ -27,6 +28,64 @@ def flip(fn: Callable) -> Callable:
 
     return flipped
 
+def reduce(fn, iterable, initial=None):
+    """Similar to python's reduce, but can be prematurely terminated with ``reduced``.
+    Works with dictionaries too.
+
+    Usage:
+
+    >>> # Reducing over dictionaries.
+    >>> def inc_value(result, kv_pair):      
+            k = kv_pair[0] 
+            v = kv_pair[1]
+            return result[k]= v+1
+    >>> reduce(inc_value, {"a":1,"b":2}, {})
+    {'a': 2, 'b': 3}
+
+    >>> #premature termination with reduced
+    >>> def inc_while_odd(result, element):
+            if element%2==0:
+                return reduced(result)
+            else:
+                result.append(element+1)
+                return result
+    >>> reduce(inc_while_odd, [1,3,5,6,7,8],[])       
+    [2, 4, 6]
+    # increments uptil 5 (third element) and prematurely terminates.
+
+    """
+    it = iter_(iterable)
+
+    if initial is None:
+        result = next(it)
+    else:
+        result = initial
+
+    for element in it:
+        result = fn(result, element)
+
+        # check if reduce needs to be prematurely terminated.
+        if isinstance(result, Reduced):
+            return result() # call result to get reduced value.
+    
+    return result
+
+def reduced(x):
+    """Use with ``functionali.reduce`` to prematurely terminate ``reduce`` with the value of ``x``.
+
+    Usage:
+    >>> reduce(lambda acc, el: reduced("!"), [1,3,4])
+    "!"
+    # reduce is prematurely terminated and returns a value of "!"
+    """
+    return Reduced(x)
+class Reduced:
+    def __init__(self, x):
+        self.x = x
+
+    def __call__(self):
+        return self.x
+
 
 def foldr(fn: Callable, iterable: Iterable, initial: Any = None) -> Any:
     """Fold right. Stack safe implementation
@@ -37,7 +96,7 @@ def foldr(fn: Callable, iterable: Iterable, initial: Any = None) -> Any:
     # and then we flip fn since the Function signature for fn is fn(element, accumulator)
     # This is the standard function signature of any function passed to Foldright
     # the flipping is necessary because reduce expects the reducing function to have a function signature of
-    # fn(accumulator, element) Which is the opposite of fn(element, accumulator)
+    # fn(accumulator, element) Which is the flipped signature of fn(element, accumulator)
     reversed_it = reversed_(iterable)
 
     if initial is None:

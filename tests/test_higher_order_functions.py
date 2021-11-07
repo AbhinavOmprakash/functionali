@@ -1,5 +1,8 @@
 from functionali import (
     curry,
+    reduce,
+    reduced,
+    Reduced,
     foldr,
     comp,
     flip,
@@ -9,9 +12,30 @@ from functionali import (
     threadf,
     threadl,
 )
-
+from operator import mul
 import pytest
 
+def test_reduce():
+    assert 6 == reduce(mul, [1,2,3])
+
+    # test dicts
+    assert 6 == reduce(lambda a,kv: mul(a, kv[1]) , {"_":1, "__": 2, "___":3}, 1)
+
+    # test premature termination
+    def inc_while_odd(result, element):
+        if element%2==0:
+            return reduced(result)
+        else:
+            result.append(element+1)
+            return result
+    assert [2, 4, 6] == reduce(inc_while_odd, [1,3,5,6,7,8],[])       
+    
+def test_reduced_returns_a_reduced_object():
+    assert isinstance(reduced(1), Reduced)
+
+def test_calling_Reduced_returns_a_value():
+    red_obj = reduced(1)
+    assert 1 == red_obj()
 
 def test_foldr():
     sub = lambda e, acc: acc - e  # foldr function

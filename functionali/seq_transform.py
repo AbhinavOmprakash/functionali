@@ -1,7 +1,7 @@
 """Functions that transform sequences"""
-from functools import reduce
 from collections import deque
 from .predicates import is_atom, is_nested, complement
+from .higher_order_functions import reduce
 
 from .seq_traverse import iter_
 
