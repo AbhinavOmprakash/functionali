@@ -164,7 +164,6 @@ def trampoline(fn: Callable, *args: Any):
     >>>        return curr*acc
     >>>    else:
     >>>        return lambda: fact(x, curr+1, acc*curr)
-
     >>> trampoline(fact, 3) == 6
     >>> trampoline(fact, 100000000000) # does not raise RecursionError
     """
