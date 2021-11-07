@@ -4,7 +4,6 @@ from functools import partial
 from .seq_traverse import iter_, reversed_
 
 
-
 def flip(fn: Callable) -> Callable:
     """returns a function that takes in a flipped order of args.
     Usage:
@@ -28,6 +27,7 @@ def flip(fn: Callable) -> Callable:
 
     return flipped
 
+
 def reduce(fn, iterable, initial=None):
     """Similar to python's reduce, but can be prematurely terminated with ``reduced``.
     Works with dictionaries too.
@@ -35,8 +35,8 @@ def reduce(fn, iterable, initial=None):
     Usage:
 
     >>> # Reducing over dictionaries.
-    >>> def inc_value(result, kv_pair):      
-            k = kv_pair[0] 
+    >>> def inc_value(result, kv_pair):
+            k = kv_pair[0]
             v = kv_pair[1]
             return result[k]= v+1
     >>> reduce(inc_value, {"a":1,"b":2}, {})
@@ -49,7 +49,7 @@ def reduce(fn, iterable, initial=None):
             else:
                 result.append(element+1)
                 return result
-    >>> reduce(inc_while_odd, [1,3,5,6,7,8],[])       
+    >>> reduce(inc_while_odd, [1,3,5,6,7,8],[])
     [2, 4, 6]
     # increments uptil 5 (third element) and prematurely terminates.
 
@@ -66,9 +66,10 @@ def reduce(fn, iterable, initial=None):
 
         # check if reduce needs to be prematurely terminated.
         if isinstance(result, Reduced):
-            return result() # call result to get reduced value.
-    
+            return result()  # call result to get reduced value.
+
     return result
+
 
 def reduced(x):
     """Use with ``functionali.reduce`` to prematurely terminate ``reduce`` with the value of ``x``.
@@ -79,6 +80,8 @@ def reduced(x):
     # reduce is prematurely terminated and returns a value of "!"
     """
     return Reduced(x)
+
+
 class Reduced:
     def __init__(self, x):
         self.x = x
