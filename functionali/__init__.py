@@ -9,9 +9,12 @@ __all__ = [
     "foldr",
     "comp",
     "curry",
+    "reduce"
+    "reduced"
     "trampoline",
     "threadf",
     "threadl",
+
     # sequence traversing functions
     "iter_",
     "reversed_",
