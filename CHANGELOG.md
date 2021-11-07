@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 
+## 0.2.0 
 ### Added
 - `comp`
 - `count`
@@ -21,11 +21,11 @@
 - `foldr` now works with iterators. [issues #17](https://github.com/AbhinavOmprakash/functionali/issues/17) 
 - `curry` now works with 0-arg functions
 
-## 0.0.2 Jul 27, 2021
+## 0.1.1 Jul 27, 2021
 ### Fixed
 - `first`, `second`, now work with iterables. 
 
-## 0.0.1 Jul 26, 2021
+## 0.1.0 Jul 26, 2021
 ### Added
 - `all_predicates`
 - `argmap`
