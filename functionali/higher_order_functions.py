@@ -75,6 +75,7 @@ def reduced(x):
     """Use with ``functionali.reduce`` to prematurely terminate ``reduce`` with the value of ``x``.
 
     Usage:
+
     >>> reduce(lambda acc, el: reduced("!"), [1,3,4])
     "!"
     # reduce is prematurely terminated and returns a value of "!"
