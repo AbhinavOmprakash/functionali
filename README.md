@@ -17,7 +17,7 @@ If you find your favorite function missing, or find ways to improve this project
 
 ## Installation
 ```bash 
-pip install functionli 
+pip install functionali 
 ```
 
 ## Features
