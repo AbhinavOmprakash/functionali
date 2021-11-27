@@ -9,6 +9,7 @@ from functionali import (
     flatten,
     insert,
     remove,
+    tuplize,
 )
 
 from collections import deque, namedtuple
@@ -132,3 +133,9 @@ def test_insert():
 def test_remove():
     is_pos = lambda x: x >= 0
     assert remove(is_pos, range(-5, 5)) == (-5, -4, -3, -2, -1)
+
+def test_tuplize():
+    assert tuplize([1,2,3]) == (1,2,3)
+    assert tuplize([1,2,[3,4],5]) == (1, 2, (3, 4), 5)
+    assert tuplize([]) == ()
+    assert tuplize([1,2,3,[4,[5]]]) == (1,2,3,(4,(5,)))
