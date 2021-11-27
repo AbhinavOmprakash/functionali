@@ -2,6 +2,7 @@ from functionali import (
     lazymap,
     lazyfilter,
     map,
+    filter,
     curry,
     reduce,
     reduced,
@@ -50,6 +51,11 @@ def test_lazyfilter():
     assert list(res) == [2]
     # assert that res returns a new generator everytime it is called
     assert list(res) == [2]
+
+
+def test_filter():
+    assert list(filter(is_even, [1, 2, 3])) == [2]
+    assert list(filter(is_even, [])) == []
 
 
 def test_reduce():
