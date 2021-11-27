@@ -1,4 +1,5 @@
 from functionali import (
+    lazymap,
     curry,
     reduce,
     reduced,
@@ -15,6 +16,16 @@ from functionali import (
 from operator import mul
 import pytest
 
+
+def inc(x):
+    return x + 1
+
+
+def test_lazymap():
+    res = lazymap(inc, range(10))
+    assert list(res) == [i for i in range(1, 11)]
+    # assert that res returns a new generator everytime it is called
+    assert list(res) == [i for i in range(1, 11)]
 
 def test_reduce():
     assert 6 == reduce(mul, [1, 2, 3])
