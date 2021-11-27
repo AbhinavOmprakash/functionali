@@ -1,5 +1,6 @@
 from functionali import (
     lazymap,
+    map,
     curry,
     reduce,
     reduced,
@@ -26,6 +27,16 @@ def test_lazymap():
     assert list(res) == [i for i in range(1, 11)]
     # assert that res returns a new generator everytime it is called
     assert list(res) == [i for i in range(1, 11)]
+
+
+def test_map():
+    assert map(inc, [1, 2, 3]) == (2, 3, 4)
+    assert map(inc, []) == ()
+
+    def inc_two(x, y):
+        return [x + 1, y + 1]
+
+    assert list(map(inc_two, [0, 1, 2], [10, 11, 12])) == [[1, 11], [2, 12], [3, 13]]
 
 def test_reduce():
     assert 6 == reduce(mul, [1, 2, 3])
