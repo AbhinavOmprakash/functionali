@@ -13,7 +13,9 @@ __all__ = [
     "foldr",
     "comp",
     "curry",
-    "reduce" "reduced" "trampoline",
+    "reduce",
+    "reduced",
+    "trampoline",
     "threadf",
     "threadl",
     # sequence traversing functions
@@ -35,7 +37,7 @@ __all__ = [
     "split_with",
     "count",
     "count_",
-    
+
     # sequence transforming functions
     "cons",
     "conj",
