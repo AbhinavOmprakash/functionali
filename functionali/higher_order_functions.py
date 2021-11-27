@@ -4,6 +4,47 @@ from functools import partial
 from .seq_traverse import iter_, reversed_
 
 
+class lazymap:
+    """Similar to python's map but returns a new generator
+    everytime ``__iter__`` is called on it.
+    Prefer using `functionali.map` unless you know what you're doing.
+
+
+    >>> res = lazymap(lambda x:x+1, range(100))
+    >>> take(5, res)
+    (1, 2, 3, 4, 5)
+    >>> take(5, res)
+    (1, 2, 3, 4, 5) # same result
+
+    Compare this to python's implementation
+
+    >>> res = map(lambda x:x+1, range(100))
+    >>> take(5, res)
+    (1, 2, 3, 4, 5)
+    >>> take(5, res)
+    (6, 7, 8, 9, 10)
+
+
+    Also ``__repr__`` is implemented to make repl-driven development easy :)
+
+    >>> lazymap(lambda x:x+1,range(10))
+    (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    """
+
+    def __init__(self, fn: Callable, *iterables: Iterable) -> None:
+        self.fn = fn
+        self.iterables = iterables
+
+    def __iter__(self) -> Generator:
+        return (self.fn(*i) for i in zip(*self.iterables))
+
+    def __next__(res):
+        return next(res)
+
+    def __repr__(self):
+        return str(tuple(self))
+
+
 def flip(fn: Callable) -> Callable:
     """returns a function that takes in a flipped order of args.
     Usage:
