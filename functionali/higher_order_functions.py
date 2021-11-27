@@ -41,7 +41,7 @@ class lazymap:
     def __next__(res):
         return next(res)
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         return str(tuple(self))
 
 
@@ -95,7 +95,7 @@ class lazyfilter:
     def __next__(res):
         return next(res)
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         return str(tuple(self))
 
 
