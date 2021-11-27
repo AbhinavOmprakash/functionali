@@ -99,6 +99,16 @@ class lazyfilter:
         return str(tuple(self))
 
 
+def filter(fn: Callable, iterable: Iterable) -> Tuple:
+    """filter with eager evaluation.
+    Prefer this over ``lazyfilter``.
+
+    >>> filter(is_even, range(10))
+    (0, 2, 4, 6, 8)
+    """
+    return tuple([i for i in iterable if fn(i)])
+
+
 def flip(fn: Callable) -> Callable:
     """returns a function that takes in a flipped order of args.
     Usage:
