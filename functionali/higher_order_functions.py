@@ -1,4 +1,4 @@
-from typing import Callable, Any, Iterable, Union
+from typing import Callable, Any, Iterable, Union, Tuple, Generator
 from inspect import signature
 from functools import partial
 from .seq_traverse import iter_, reversed_
