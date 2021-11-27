@@ -285,3 +285,24 @@ def remove(predicate: Callable, iterable: Iterable) -> Tuple:
     Added in version: 0.1.0
     """
     return tuple(filter(complement(predicate), iterable))
+
+
+def tuplize(iterable: Iterable) -> Tuple:
+    """
+    Recursively converts ``iterable`` to tuple.
+
+    >>> tuplize([1,2,[3,4],5])
+    (1, 2, (3, 4), 5)
+    """
+
+    def fn(el):
+        if is_atom(el):
+            return el
+
+        elif is_nested(el):
+            return tuplize(el)
+
+        else:  # el is not a nested iterable
+            return tuple(el)
+
+    return tuple([fn(el) for el in iterable])
