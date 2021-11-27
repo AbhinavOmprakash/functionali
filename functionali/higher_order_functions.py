@@ -55,6 +55,50 @@ def map(fn: Callable, *iterables: Iterable) -> Tuple:
     """
     return tuple([fn(*i) for i in zip(*iterables)])
 
+
+class lazyfilter:
+    """Similar to python's filter but returns a new generator
+    everytime ``__iter__`` is called on it.
+    Prefer using `functionali.filter` unless you know what you're doing.
+
+    >>> res = lazyfilter(is_even, range(10))
+    >>> take(2, res)
+    (0, 2)
+    >>> take(2, res)
+    (0, 2) # same result
+
+    Compare this to python's implementation
+
+    # you get a different result everytime
+    >>> res = filter(is_even, range(10))
+    >>> take(2, res)
+    (0, 2)
+    >>> take(2, res)
+    (4, 6)
+    >>> take(2, res)
+    (8,)
+
+    Also ``__repr__`` is implemented to make repl-driven development easy :)
+
+    >>> lazyfilter(is_even, range(10))
+    (0, 2, 4, 6, 8)
+
+    """
+
+    def __init__(self, fn: Callable, iterable: Iterable) -> None:
+        self.fn = fn
+        self.iterable = iterable
+
+    def __iter__(self) -> Generator:
+        return (i for i in self.iterable if self.fn(i))
+
+    def __next__(res):
+        return next(res)
+
+    def __repr__(self):
+        return str(tuple(self))
+
+
 def flip(fn: Callable) -> Callable:
     """returns a function that takes in a flipped order of args.
     Usage:
