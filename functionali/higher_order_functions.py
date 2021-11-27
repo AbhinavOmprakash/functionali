@@ -45,6 +45,16 @@ class lazymap:
         return str(tuple(self))
 
 
+def map(fn: Callable, *iterables: Iterable) -> Tuple:
+    """Map with eager evaluation.
+    Prefer this over ``lazymap``.
+
+
+    >>> map(lambda x:x+1, range(10))
+    (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    """
+    return tuple([fn(*i) for i in zip(*iterables)])
+
 def flip(fn: Callable) -> Callable:
     """returns a function that takes in a flipped order of args.
     Usage:
