@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0
+
+### Added
+- `tuplize`
+- `map`
+- `lazymap`
+- `filter`
+- `lazyfilter`
+
 ## 0.2.0 
 ### Added
 - `comp`
