@@ -5,16 +5,17 @@ from .seq_traverse import *
 
 __all__ = [
     # higher order functions
+    "lazymap",
+    "lazyfilter",
+    "map",
+    "filter",
     "flip",
     "foldr",
     "comp",
     "curry",
-    "reduce"
-    "reduced"
-    "trampoline",
+    "reduce" "reduced" "trampoline",
     "threadf",
     "threadl",
-
     # sequence traversing functions
     "iter_",
     "reversed_",
@@ -34,6 +35,7 @@ __all__ = [
     "split_with",
     "count",
     "count_",
+    
     # sequence transforming functions
     "cons",
     "conj",
@@ -45,6 +47,8 @@ __all__ = [
     "flatten",
     "insert",
     "remove",
+    "tuplize",
+
     # predicates
     "identity",
     "equals",
