@@ -38,9 +38,6 @@ class lazymap:
     def __iter__(self) -> Generator:
         return (self.fn(*i) for i in zip(*self.iterables))
 
-    def __next__(res):
-        return next(res)
-
     def __repr__(self): # pragma: no cover
         return str(tuple(self))
 
@@ -91,9 +88,6 @@ class lazyfilter:
 
     def __iter__(self) -> Generator:
         return (i for i in self.iterable if self.fn(i))
-
-    def __next__(res):
-        return next(res)
 
     def __repr__(self): # pragma: no cover
         return str(tuple(self))
